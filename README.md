@@ -1,6 +1,6 @@
-## The museum app
+# The museum app
 
-# Domain
+## Domain
 The domain that our project models is a museum. We are going to model the inventory of
 exhibits and artcles of the museum in additon to how visitors, museum employees, and artcle owners
 interact with them. There are fve diferent types of artcles (identfed by unique IDs) within the museum
@@ -11,12 +11,12 @@ There will be diferent types of employees with roles in examining artcles, selli
 and managing collectons and arranging exhibits. We will also be able to keep track of visitors atending
 the museum and which actvites they partcipate in, pertaining to specifc exhibits.
 
-# Benefits
+## Benefits
 The applicaton will provide the beneft of logical data independence, improve employee
 collaboraton through having up to date informaton in the database, and allow outside users restricted
 access to informaton. 
 
-# Views
+## Views
 Users of the system will have two diferent access levels: employees (which itself
 has diferent views depending on employee positon), and customers. The front desk staf have access to
 tcket and visitor informaton and can sell tckets and update visitor informaton, archivists modify the
@@ -24,11 +24,11 @@ artcle informaton, and curators can manage the collectons and exhibits. For the 
 museum, visitors can view tcket informaton and exhibit and actvity schedules, and owners can view
 their contract and informaton about their artcle on loan to the museum.
 
-# Tools
+## Tools
 This project will be done using PHP/Oracle, specifcally the CPSC department’s installaton of
 Oracle. For front-end we are using JavaScript, ReactJS, and HTML.
 
-# Details
+## Details
 If an artcle is on loan to another museum, the locaton will be to set to onLoan. Ticket price is
 based on the ageCategory of the tcket, for example youth, adult, and senior. We will analyze for
 database redundancies in Milestone 2 which will likely occur as a result of this functonal dependency.
