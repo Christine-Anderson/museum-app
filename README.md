@@ -1,35 +1,37 @@
-# The museum app
+## The museum app
 
-## Domain
-The domain that our project models is a museum. We are going to model the inventory of
-exhibits and artcles of the museum in additon to how visitors, museum employees, and artcle owners
-interact with them. There are fve diferent types of artcles (identfed by unique IDs) within the museum
-and informaton is stored on their date of creaton, exhibits they are displayed in, storage locaton, and
-conditon. The project will also detail the owners of the artcles and any contracts that they have with
-the museum. 
-There will be diferent types of employees with roles in examining artcles, selling tckets,
-and managing collectons and arranging exhibits. We will also be able to keep track of visitors atending
-the museum and which actvites they partcipate in, pertaining to specifc exhibits.
+### Domain
+<p> The domain that our project models is a museum. We are going to model the inventory of
+exhibits and articles of the museum in addition to how visitors, museum employees, and article owners
+interact with them. There are fve different types of articles (identified by unique IDs) within the museum
+and information is stored on their date of creation, exhibits they are displayed in, storage location, and
+condition. The project will also detail the owners of the articles and any contracts that they have with
+the museum. </p>
+<p> There will be different types of employees with roles in examining articles, selling tickets,
+and managing collections and arranging exhibits. We will also be able to keep track of visitors attending
+the museum and which activities they participate in, pertaining to specific exhibits. </p>
 
-## Benefits
-The applicaton will provide the beneft of logical data independence, improve employee
-collaboraton through having up to date informaton in the database, and allow outside users restricted
-access to informaton. 
+### Database Specifications
+<p> The application will provide the benefit of logical data independence, improve employee
+collaboration through having up to date information in the database, and allow outside users restricted
+access to information. </p>
 
-## Views
-Users of the system will have two diferent access levels: employees (which itself
-has diferent views depending on employee positon), and customers. The front desk staf have access to
-tcket and visitor informaton and can sell tckets and update visitor informaton, archivists modify the
-artcle informaton, and curators can manage the collectons and exhibits. For the customers of the
-museum, visitors can view tcket informaton and exhibit and actvity schedules, and owners can view
-their contract and informaton about their artcle on loan to the museum.
+<p> Users of the system will have two different access levels: employees (which itself
+has different views depending on employee position), and customers. The front desk staff have access to
+ticket and visitor information and can sell tickets and update visitor information, archivists modify the
+article information, and curators can manage the collections and exhibits. For the customers of the
+museum, visitors can view ticket information and exhibit and activity schedules, and owners can view
+their contract and information about their article on loan to the museum. </p>
 
-## Tools
-This project will be done using PHP/Oracle, specifcally the CPSC department’s installaton of
-Oracle. For front-end we are using JavaScript, ReactJS, and HTML.
+### Application platform
+<p> This project will be done using PHP/Oracle, specifically the CPSC department’s installation of
+Oracle. For front-end we are using JavaScript, ReactJS, and HTML. </p>
 
-## Details
-If an artcle is on loan to another museum, the locaton will be to set to onLoan. Ticket price is
-based on the ageCategory of the tcket, for example youth, adult, and senior. We will analyze for
-database redundancies in Milestone 2 which will likely occur as a result of this functonal dependency.
-Only contracts that are complete and accepted by the museum will be stored in the database.
+### Other Comments
+<p> If an article is on loan to another museum, the location will be to set to onLoan. Ticket price is
+based on the ageCategory of the ticket, for example youth, adult, and senior. We will analyze for
+database redundancies in Milestone 2 which will likely occur as a result of this functional dependency.
+Only contracts that are complete and accepted by the museum will be stored in the database. </p>
+
+### ER Diagram
+![ER_diagram](./images/version3.pdf)
