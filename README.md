@@ -19,17 +19,17 @@ access to informaton.
 ## Views
 Users of the system will have two diferent access levels: employees (which itself
 has diferent views depending on employee positon), and customers. The front desk staf have access to
-tcket and visitor informaton and can sell tckets and update visitor informaton, archivists modify the
-artcle informaton, and curators can manage the collectons and exhibits. For the customers of the
-museum, visitors can view tcket informaton and exhibit and actvity schedules, and owners can view
+ticket and visitor informaton and can sell tckets and update visitor informaton, archivists modify the
+article informaton, and curators can manage the collectons and exhibits. For the customers of the
+museum, visitors can view ticket informaton and exhibit and actvity schedules, and owners can view
 their contract and informaton about their artcle on loan to the museum.
 
 ## Tools
-This project will be done using PHP/Oracle, specifcally the CPSC department’s installaton of
+This project will be done using PHP/Oracle, specifically the CPSC department’s installaton of
 Oracle. For front-end we are using JavaScript, ReactJS, and HTML.
 
 ## Details
-If an artcle is on loan to another museum, the locaton will be to set to onLoan. Ticket price is
-based on the ageCategory of the tcket, for example youth, adult, and senior. We will analyze for
+If an article is on loan to another museum, the location will be to set to onLoan. Ticket price is
+based on the ageCategory of the ticket, for example youth, adult, and senior. We will analyze for
 database redundancies in Milestone 2 which will likely occur as a result of this functonal dependency.
 Only contracts that are complete and accepted by the museum will be stored in the database.
