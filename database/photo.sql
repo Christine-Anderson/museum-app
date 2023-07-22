@@ -1,6 +1,6 @@
-CREATE TABLE photo (
-    article_id INT(11) PRIMARY KEY,
-    year_taken INT(10),
-    location_taken VARCHAR(50),
-    FOREIGN KEY article_id REFERENCES article,
+CREATE TABLE Photo (
+    articleID INT(11) PRIMARY KEY,
+    yearTaken INT(10),
+    locationTaken VARCHAR(50),
+    FOREIGN KEY articleID REFERENCES Article,
 );

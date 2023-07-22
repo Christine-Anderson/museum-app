@@ -1,6 +1,6 @@
-CREATE TABLE text (
-    article_id INT(11) PRIMARY KEY,
-    date_published DATE,
+CREATE TABLE Text (
+    articleID INT(11) PRIMARY KEY,
+    datePublished DATE,
     author VARCHAR(50),
-    FOREIGN KEY article_id REFERENCES article,
+    FOREIGN KEY articleID REFERENCES Article,
 );
