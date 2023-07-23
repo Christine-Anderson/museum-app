@@ -4,5 +4,5 @@ CREATE TABLE Artifact (
     madeBy VARCHAR(50),
     regionOfOrigin VARCHAR(50),
     material VARCHAR(50),
-    FOREIGN KEY articleID REFERENCES Article,
+    FOREIGN KEY(articleID) REFERENCES(Article)
 );

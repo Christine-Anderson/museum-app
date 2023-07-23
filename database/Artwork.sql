@@ -3,5 +3,5 @@ CREATE TABLE Artwork (
     artist VARCHAR(50),
     yearMade INT(10),
     medium VARCHAR(50),
-    FOREIGN KEY articleID REFERENCES Article,
+    FOREIGN KEY(articleID) REFERENCES(Article)
 );
