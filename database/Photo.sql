@@ -3,4 +3,6 @@ CREATE TABLE Photo (
     yearTaken INT(10),
     locationTaken VARCHAR(50),
     FOREIGN KEY(articleID) REFERENCES(Article)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE
 );

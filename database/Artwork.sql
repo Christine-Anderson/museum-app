@@ -4,4 +4,6 @@ CREATE TABLE Artwork (
     yearMade INT(10),
     medium VARCHAR(50),
     FOREIGN KEY(articleID) REFERENCES(Article)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE
 );

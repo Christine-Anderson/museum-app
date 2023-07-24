@@ -5,4 +5,6 @@ CREATE TABLE Artifact (
     regionOfOrigin VARCHAR(50),
     material VARCHAR(50),
     FOREIGN KEY(articleID) REFERENCES(Article)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE
 );

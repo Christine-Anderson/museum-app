@@ -3,4 +3,6 @@ CREATE TABLE Text (
     author VARCHAR(50),
     datePublished DATE,
     FOREIGN KEY(articleID) REFERENCES(Article)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE
 );

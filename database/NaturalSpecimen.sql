@@ -4,4 +4,6 @@ CREATE TABLE NaturalSpecimen (
     nativeTo VARCHAR(50),
     timePeriod VARCHAR(50),
     FOREIGN KEY(articleID) REFERENCES(Article)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE
 );
