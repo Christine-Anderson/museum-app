@@ -4,7 +4,7 @@ CREATE TABLE Article (
     dateAquired TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     condition VARCHAR(50) NOT NULL,
     storageLocation VARCHAR(50) NOT NULL,
-    UVProtection VARCHAR(50) NOT NULL,
-    tempControl VARCHAR(50) NOT NULL,
-    humidityControl VARCHAR(50) NOT NULL
+    UVProtection CHAR(1) NOT NULL,
+    tempControl CHAR(1) NOT NULL,
+    humidityControl CHAR(1) NOT NULL
 );
