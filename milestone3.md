@@ -13,5 +13,5 @@
 
 ### Potential Challenges
 
-1. Due to the short timeline it may be better to do a simple HTML front end since that's all that is required. We had originally thought we would do React for the front end.
+1. Due to the short timeline it may be better to do a simple HTML and CSS front end since that's all that is required. We had originally thought we would do React for the front end.
 2. It will more complicated to do many views as we planned for our application since we will need to do multiple PHP pages.
