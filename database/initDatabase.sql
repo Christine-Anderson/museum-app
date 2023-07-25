@@ -124,7 +124,6 @@ INTO Article(articleID, name, dateAquired, condition, storageLocation, UVProtect
 VALUES
     (11111, "The Forest (or The Trees)", 2021-11-05 21:45:59, "Storage room 1", "Y", "Y", "Y"),  --borrow from Van art gallery
     (11112, "William Shakespeare's Comedies, Histories, & Tragedies", 2022-01-12 13:45:31, "Storage room 5", "Y", "Y", "Y"), --borrow from UBC
-    (11113, --TODO, 2018-03-03 13:45:46, "Storage room 5", "Y", "Y", "Y"),
     (11114, "The Mask of Tutankhamun", 2022-07-16 03:15:50, "Storage room 3", "Y", "Y", "Y"), --borrow from Egyptian Museum, Cairo, Egypt
     (11115, "blue whale skeleton", 2022-10-25 09:20:18, "Storage room 3", "N", "Y", "Y"),
     (11116, "replica Woolly mammoth", 2021-10-20 06:35:19, "Storage room 1", "N", "Y", "Y"), -- borrow from royal bc museum
@@ -139,7 +138,12 @@ VALUES
     (11125, "Mona Lisa", 2021-09-13 03:25:59, "Storage room 1", "Y", "Y", "Y"), -- borrow from  Louvre Museum, Paris, France
     (11126, "Starry Night", 2020-07-02 12:30:15, "Storage room 1", "Y", "Y", "Y"), -- Museum of Modern Art (MoMA), New York City, USA
     (11127, "The Scream", 2023-03-12 14:40:49, "Storage room 2", "Y", "Y", "Y"), --borrow from  National Gallery, Oslo, Norway
-    (11128, "The Thinker replica", 2015-03-15 18:30:37, "Storage room 5", "N", "N", "N");
+    (11128, "The Thinker replica", 2015-03-15 18:30:37, "Storage room 5", "N", "N", "N"), 
+    (11129, "The Vancouver Court House under construction", 2018-08-17 14:12:32, "Storage room 1", "Y", "Y", "Y"),
+    (11130, "The terminus of the Canadian Pacific Railway", 2018-08-17 14:12:32, "Storage room 1", "Y", "Y", "Y"),
+    (11131, "A picnic in newly opened Stanley Park", 2018-08-17 14:12:32, "Storage room 1", "Y", "Y", "Y"),
+    (11132, "Rebuilding Cordova Street after the Great VAncouver Fire", 2018-08-17 14:12:32, "Storage room 1", "Y", "Y", "Y"),
+    (11133, "UBC’s Main Library - now Irving K. Barber Learning Centre - under construction", 2018-08-17 14:12:32, "Storage room 1", "Y", "Y", "Y"),
 
 INSERT 
 INTO Artwork (articleID, artist, yearMade, medium)
@@ -158,7 +162,11 @@ VALUES
 INSERT 
 INTO Photo (articleID, yearTaken, locationTaken)
 VALUES
-    
+    (11129, 1907, "Vancouver, BC"),
+    (11130, 1889, "Vancouver, BC"),
+    (11131, 1888, "Vancouver, BC"),
+    (11132, 1886, "Vancouver, BC"),
+    (11133, 1925, "Vancouver, BC"),
 
 INSERT 
 INTO Artifact (articleID, estimatedYear, regionOfOrigin, material)
