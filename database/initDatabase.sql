@@ -144,6 +144,32 @@ INSERT
 INTO Article(articleID, name, dateAquired, condition, storageLocation, UVProtection, tempControl, humidityControl)
 VALUES (11115, "blue whale skeleton", 2022-10-25 09:20:18, "storage room 3", "N", "Y", "Y")
 
+INSERT
+INTO Article(articleID, name, dateAquired, condition, storageLocation, UVProtection, tempControl, humidityControl)
+VALUES (11116, "replica Woolly mammoth", 2021-10-20 06:35:19, "storage room 1", "N", "Y", "Y")
+-- borrow from royal bc museum
+
+INSERT
+INTO Article(articleID, name, dateAquired, condition, storageLocation, UVProtection, tempControl, humidityControl)
+VALUES (11117, "IBM cheese slicer", 2023-02-09 12:00:12, "storage room 1", "N", "N", "N")
+-- borrow from burnaby museum
+
+INSERT
+INTO Article(articleID, name, dateAquired, condition, storageLocation, UVProtection, tempControl, humidityControl)
+VALUES (11118, "The Jade Mask of the Maya King Pakal", 2017-03-25 14:40:49, "storage room 3", "Y", "Y", "Y")
+
+INSERT
+INTO Article(articleID, name, dateAquired, condition, storageLocation, UVProtection, tempControl, humidityControl)
+VALUES (11119, "Ancient Egyptian flint arrowhead", 2023-11-08 18:45:05, "storage room 2", "Y", "Y", "Y")
+
+INSERT
+INTO Article(articleID, name, dateAquired, condition, storageLocation, UVProtection, tempControl, humidityControl)
+VALUES (11120, "Neolithic pottery vase", 2018-07-06 08:05:56, "storage room 3", "Y", "Y", "Y")
+
+INSERT
+INTO Article(articleID, name, dateAquired, condition, storageLocation, UVProtection, tempControl, humidityControl)
+VALUES (11121, "Ancient Sumerian chisel", 2021-09-13 03:25:59, "storage room 3", "Y", "Y", "Y")
+
 -- Artwork
 
 INSERT 
@@ -168,12 +194,38 @@ INSERT
 INTO Artifact (articleID, estimatedYear, regionOfOrigin, material)
 VALUES (11114, "1323 BCE (New Kingdom, 18th Dynasty)", "tomb of Tutankhamun in the Valley of the Kings, Luxor, Egypt", "Gold with inlays of lapis lazuli, carnelian, quartz, obsidian, and other stones")
 
+INSERT 
+INTO Artifact (articleID, estimatedYear, regionOfOrigin, material)
+VALUES (11118, "700 AD (Late Classic period)", "Palenque, Mexico", "carved jadeite")
+
+INSERT 
+INTO Artifact (articleID, estimatedYear, regionOfOrigin, material)
+VALUES (11119, "1200 BC", "Nile River, Egypt", "flint")
+
+INSERT 
+INTO Artifact (articleID, estimatedYear, regionOfOrigin, material)
+VALUES (11120, "3000 BC", "Yangshao culture, China", "earthenware")
+
+INSERT 
+INTO Artifact (articleID, estimatedYear, regionOfOrigin, material)
+VALUES (11121, "2500 BCE", "Mesopotamia (present-day Iraq)", "copper")
+
 -- NaturalSpecimen
 
 INSERT 
 INTO NaturalSpecimen (articleID, speciesName, timePeriod)
-VALUES (11115, "Balaenoptera musculus", "Present")
+VALUES (11115, "Balaenoptera musculus", "Holocene epoch (Present)")
+
+INSERT 
+INTO NaturalSpecimen (articleID, speciesName, timePeriod)
+VALUES (11116, "Mammuthus primigenius", "Pleistocene epoch")
+
+-- Species
 
 INSERT 
 INTO Species (speciesName, nativeTo)
-VALUES ("Balaenoptera musculus", "all major oceans")
+VALUES ("Mammuthus primigenius", "all major oceans")
+
+INSERT 
+INTO Species (speciesName, nativeTo)
+VALUES ("Balaenoptera musculus", "northern Eurasia and North America")
