@@ -1,6 +1,0 @@
-CREATE TABLE Contract (
-    contractID INT(11) PRIMARY KEY AUTO_INCREMENT,
-    startDate DATE NOT NULL,
-    endDate DATE NOT NULL,
-    text VARCHAR(200) NOT NULL
-);
