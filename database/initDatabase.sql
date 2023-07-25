@@ -119,149 +119,80 @@ CREATE TABLE Displays(
 
 -- if you want to put any items I've added on display in the exhibit, please change storageLocation to "on display"
 
---Article
-
 INSERT
 INTO Article(articleID, name, dateAquired, condition, storageLocation, UVProtection, tempControl, humidityControl)
-VALUES (11111, "The Forest (or The Trees)", 2021-11-05 21:45:59, "storage room 1", "Y", "Y", "Y")
---borrow from Van art gallery
-
-INSERT
-INTO Article(articleID, name, dateAquired, condition, storageLocation, UVProtection, tempControl, humidityControl)
-VALUES (11112, "William Shakespeare's Comedies, Histories, & Tragedies", 2022-01-12 13:45:31, "storage room 5", "Y", "Y", "Y")
---borrow from UBC
-
-INSERT
-INTO Article(articleID, name, dateAquired, condition, storageLocation, UVProtection, tempControl, humidityControl)
-VALUES (11113, "Moonrise, Hernandez", 2018-03-03 13:45:46, "storage room 5", "Y", "Y", "Y")
-
-INSERT
-INTO Article(articleID, name, dateAquired, condition, storageLocation, UVProtection, tempControl, humidityControl)
-VALUES (11114, "The Mask of Tutankhamun", 2012-07-16 03:15:50, "storage room 3", "Y", "Y", "Y")
---borrow from Egyptian Museum, Cairo, Egypt
-
-INSERT
-INTO Article(articleID, name, dateAquired, condition, storageLocation, UVProtection, tempControl, humidityControl)
-VALUES (11115, "blue whale skeleton", 2022-10-25 09:20:18, "storage room 3", "N", "Y", "Y")
-
-INSERT
-INTO Article(articleID, name, dateAquired, condition, storageLocation, UVProtection, tempControl, humidityControl)
-VALUES (11116, "replica Woolly mammoth", 2021-10-20 06:35:19, "storage room 1", "N", "Y", "Y")
--- borrow from royal bc museum
-
-INSERT
-INTO Article(articleID, name, dateAquired, condition, storageLocation, UVProtection, tempControl, humidityControl)
-VALUES (11117, "IBM cheese slicer", 2023-02-09 12:00:12, "storage room 1", "N", "N", "N")
--- borrow from burnaby museum
-
-INSERT
-INTO Article(articleID, name, dateAquired, condition, storageLocation, UVProtection, tempControl, humidityControl)
-VALUES (11118, "The Jade Mask of the Maya King Pakal", 2017-03-25 14:40:49, "storage room 3", "Y", "Y", "Y")
-
-INSERT
-INTO Article(articleID, name, dateAquired, condition, storageLocation, UVProtection, tempControl, humidityControl)
-VALUES (11119, "Ancient Egyptian flint arrowhead", 2023-11-08 18:45:05, "storage room 2", "Y", "Y", "Y")
-
-INSERT
-INTO Article(articleID, name, dateAquired, condition, storageLocation, UVProtection, tempControl, humidityControl)
-VALUES (11120, "Neolithic pottery vase", 2018-07-06 08:05:56, "storage room 3", "Y", "Y", "Y")
-
-INSERT
-INTO Article(articleID, name, dateAquired, condition, storageLocation, UVProtection, tempControl, humidityControl)
-VALUES (11121, "Ancient Sumerian chisel", 2021-09-13 03:25:59, "storage room 3", "Y", "Y", "Y")
-
-INSERT
-INTO Article(articleID, name, dateAquired, condition, storageLocation, UVProtection, tempControl, humidityControl)
-VALUES (11122, "Ammonite fossil", 2019-07-20 12:30:15, "storage room 1", "N", "Y", "Y")
-
-INSERT
-INTO Article(articleID, name, dateAquired, condition, storageLocation, UVProtection, tempControl, humidityControl)
-VALUES (11123, "T. rex skeleton", 2017-03-25 14:40:49, "storage room 5", "N", "Y", "Y")
-
-INSERT
-INTO Article(articleID, name, dateAquired, condition, storageLocation, UVProtection, tempControl, humidityControl)
-VALUES (11124, "Ancient Mosquito in Burmese amber", 2011-04-26 18:30:37, "storage room 5", "N", "Y", "Y")
-
--- Artwork
+VALUES
+    (11111, "The Forest (or The Trees)", 2021-11-05 21:45:59, "storage room 1", "Y", "Y", "Y"),  --borrow from Van art gallery
+    (11112, "William Shakespeare's Comedies, Histories, & Tragedies", 2022-01-12 13:45:31, "storage room 5", "Y", "Y", "Y"), --borrow from UBC
+    (11113, "Moonrise, Hernandez", 2018-03-03 13:45:46, "storage room 5", "Y", "Y", "Y"),
+    (11114, "The Mask of Tutankhamun", 2022-07-16 03:15:50, "storage room 3", "Y", "Y", "Y"), --borrow from Egyptian Museum, Cairo, Egypt
+    (11115, "blue whale skeleton", 2022-10-25 09:20:18, "storage room 3", "N", "Y", "Y"),
+    (11116, "replica Woolly mammoth", 2021-10-20 06:35:19, "storage room 1", "N", "Y", "Y"), -- borrow from royal bc museum
+    (11117, "IBM cheese slicer", 2023-02-09 12:00:12, "storage room 1", "N", "N", "N"), -- borrow from burnaby museum
+    (11118, "The Jade Mask of the Maya King Pakal", 2017-03-25 14:40:49, "storage room 3", "Y", "Y", "Y"), 
+    (11119, "Ancient Egyptian flint arrowhead", 2023-11-08 18:45:05, "storage room 2", "Y", "Y", "Y"),
+    (11120, "Neolithic pottery vase", 2018-07-06 08:05:56, "storage room 3", "Y", "Y", "Y"),
+    (11121, "Ancient Sumerian chisel", 2021-09-13 03:25:59, "storage room 3", "Y", "Y", "Y"),
+    (11122, "Ammonite fossil", 2019-07-20 12:30:15, "storage room 1", "N", "Y", "Y"),
+    (11123, "T. rex skeleton", 2017-03-25 14:40:49, "storage room 5", "N", "Y", "Y"),
+    (11124, "Ancient Mosquito in Burmese amber", 2011-04-26 18:30:37, "storage room 5", "N", "Y", "Y"),
+    (11125, "Mona Lisa", 2021-09-13 03:25:59, "storage room 1", "Y", "Y", "Y"), -- borrow from  Louvre Museum, Paris, France
+    --TODO
+    (11126, "Ammonite fossil", 2019-07-20 12:30:15, "storage room 1", "N", "Y", "Y"),
+    (11127, "T. rex skeleton", 2017-03-25 14:40:49, "storage room 5", "N", "Y", "Y"),
+    (11128, "Ancient Mosquito in Burmese amber", 2011-04-26 18:30:37, "storage room 5", "N", "Y", "Y");
 
 INSERT 
 INTO Artwork (articleID, artist, yearMade, medium)
-VALUES (11111, "Emily Carr", 1931, "oil on canvas")
-
--- Text
+VALUES 
+    (11111, "Emily Carr", 1931, "oil on canvas");
 
 INSERT 
 INTO Text (articleID, author, datePublished)
-VALUES (11112, "William Shakespeare", 1623)
-
--- Photo
+VALUES 
+    (11112, "William Shakespeare", 1623);
 
 INSERT 
 INTO Photo (articleID, yearTaken, locationTaken)
-VALUES (11113, 1941, "Hernandez, New Mexico, USA")
-
--- Artifact
-
-INSERT 
-INTO Artifact (articleID, estimatedYear, regionOfOrigin, material)
-VALUES (11114, "1323 BCE (New Kingdom, 18th Dynasty)", "tomb of Tutankhamun in the Valley of the Kings, Luxor, Egypt", "Gold with inlays of lapis lazuli, carnelian, quartz, obsidian, and other stones")
+VALUES
+    (11113, 1941, "Hernandez, New Mexico, USA");
 
 INSERT 
 INTO Artifact (articleID, estimatedYear, regionOfOrigin, material)
-VALUES (11118, "700 AD (Late Classic period)", "Palenque, Mexico", "carved jadeite")
-
-INSERT 
-INTO Artifact (articleID, estimatedYear, regionOfOrigin, material)
-VALUES (11119, "1200 BC", "Nile River, Egypt", "flint")
-
-INSERT 
-INTO Artifact (articleID, estimatedYear, regionOfOrigin, material)
-VALUES (11120, "3000 BC", "Yangshao culture, China", "earthenware")
-
-INSERT 
-INTO Artifact (articleID, estimatedYear, regionOfOrigin, material)
-VALUES (11121, "2500 BCE", "Mesopotamia (present-day Iraq)", "copper")
-
--- NaturalSpecimen
+VALUES 
+    (11114, "1323 BCE (New Kingdom, 18th Dynasty)", "tomb of Tutankhamun in the Valley of the Kings, Luxor, Egypt", 
+    "Gold with inlays of lapis lazuli, carnelian, quartz, obsidian, and other stones"),
+    (11118, "700 AD (Late Classic period)", "Palenque, Mexico", "carved jadeite"),
+    (11119, "1200 BC", "Nile River, Egypt", "flint"),
+    (11120, "3000 BC", "Yangshao culture, China", "earthenware"),
+    (11121, "2500 BCE", "Mesopotamia (present-day Iraq)", "copper");
 
 INSERT 
 INTO NaturalSpecimen (articleID, speciesName, timePeriod)
-VALUES (11115, "Balaenoptera musculus", "Holocene epoch (Present)")
-
-INSERT 
-INTO NaturalSpecimen (articleID, speciesName, timePeriod)
-VALUES (11116, "Mammuthus primigenius", "Pleistocene epoch")
-
-INSERT 
-INTO NaturalSpecimen (articleID, speciesName, timePeriod)
-VALUES (11122, "Pleuroceras solare", "lower Jurassic, upper Pliensbachian period")
-
-INSERT 
-INTO NaturalSpecimen (articleID, speciesName, timePeriod)
-VALUES (11123, "Tyrannosaurus rex", "Late Cretaceous Period")
-
-INSERT 
-INTO NaturalSpecimen (articleID, speciesName, timePeriod)
-VALUES (11124, "Burmaculex antiquus", "Cretaceous Period")
-
--- Species
+VALUES 
+    (11115, "Balaenoptera musculus", "Holocene epoch (Present)"),
+    (11116, "Mammuthus primigenius", "Pleistocene epoch"),
+    (11122, "Pleuroceras solare", "lower Jurassic, upper Pliensbachian period"),
+    (11123, "Tyrannosaurus rex", "Late Cretaceous Period"),
+    (11124, "Burmaculex antiquus", "Cretaceous Period");
 
 INSERT 
 INTO Species (speciesName, nativeTo)
-VALUES ("Mammuthus primigenius", "all major oceans")
+VALUES 
+    ("Mammuthus primigenius", "all major oceans"),
+    ("Balaenoptera musculus", "northern Eurasia and North America"),
+    ("Pleuroceras solare", "Canada and Europe"),
+    ("Tyrannosaurus rex", "North America"),
+    ("Burmaculex antiquus", "Canada");
 
-INSERT 
-INTO Species (speciesName, nativeTo)
-VALUES ("Balaenoptera musculus", "northern Eurasia and North America")
+-- Contract
 
-INSERT 
-INTO Species (speciesName, nativeTo)
-VALUES ("Pleuroceras solare", "Canada and Europe")
+-- Owner
 
-INSERT 
-INTO Species (speciesName, nativeTo)
-VALUES ("Tyrannosaurus rex", "North America")
+-- Writes
 
-INSERT 
-INTO Species (speciesName, nativeTo)
-VALUES ("Burmaculex antiquus", "Canada")
+-- Loans
+
+-- PertainsTo
+
+-- Displays (Marcus fill in? depends on Exhibits)
