@@ -1,5 +1,5 @@
 CREATE TABLE Article (
-    articleID INT(11) PRIMARY KEY AUTO_INCREMENT,
+    articleID INT PRIMARY KEY AUTO_INCREMENT,
     name VARCHAR(255) NOT NULL,
     dateAquired TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     condition VARCHAR(50) NOT NULL,
@@ -10,9 +10,9 @@ CREATE TABLE Article (
 );
 
 CREATE TABLE Artwork (
-    articleID INT(11) PRIMARY KEY,
+    articleID INT PRIMARY KEY,
     artist VARCHAR(50),
-    yearMade INT(10),
+    yearMade INT,
     medium VARCHAR(50),
     FOREIGN KEY(articleID) REFERENCES(Article)
         ON DELETE CASCADE
@@ -20,7 +20,7 @@ CREATE TABLE Artwork (
 );
 
 CREATE TABLE Text (
-    articleID INT(11) PRIMARY KEY,
+    articleID INT PRIMARY KEY,
     author VARCHAR(50),
     datePublished DATE,
     FOREIGN KEY(articleID) REFERENCES(Article)
@@ -29,8 +29,8 @@ CREATE TABLE Text (
 );
 
 CREATE TABLE Photo (
-    articleID INT(11) PRIMARY KEY,
-    yearTaken INT(10),
+    articleID INT PRIMARY KEY,
+    yearTaken INT,
     locationTaken VARCHAR(50),
     FOREIGN KEY(articleID) REFERENCES(Article)
         ON DELETE CASCADE
@@ -38,8 +38,8 @@ CREATE TABLE Photo (
 );
 
 CREATE TABLE Artifact (
-    articleID INT(11) PRIMARY KEY,
-    estimatedYear INT(10),
+    articleID INT PRIMARY KEY,
+    estimatedYear INT,
     madeBy VARCHAR(50),
     material VARCHAR(50),
     FOREIGN KEY(articleID) REFERENCES(Article)
@@ -56,7 +56,7 @@ CREATE TABLE Origin (
 );
 
 CREATE TABLE NaturalSpecimen (
-    articleID INT(11) PRIMARY KEY,
+    articleID INT PRIMARY KEY,
     speciesName VARCHAR(50),
     timePeriod VARCHAR(50),
     FOREIGN KEY(articleID) REFERENCES(Article)
@@ -67,49 +67,60 @@ CREATE TABLE NaturalSpecimen (
         ON UPDATE NO ACTION
 );
 
-CREATE TABLE NaturalSpecimen (
+CREATE TABLE Species (
     speciesName VARCHAR(50) PRIMARY KEY,
     nativeTo VARCHAR(50) NOT NULL
 );
 
 CREATE TABLE Contract (
-    contractID INT(11) PRIMARY KEY AUTO_INCREMENT,
+    contractID INT PRIMARY KEY AUTO_INCREMENT,
     startDate DATE NOT NULL,
     endDate DATE NOT NULL,
     text VARCHAR(200) NOT NULL
 );
 
 CREATE TABLE Owner (
-    ownerID INT(11) PRIMARY KEY AUTO_INCREMENT,
-    name VARCHAR(50),
-    address VARCHAR(100),
-    phoneNum VARCHAR(20)
+    ownerID INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(50) NOT NULL,
+    buildingNum INT NOT NULL,
+    street VARCHAR(50) NOT NULL,
+    postalOrZIPCode CHAR(7) NOT NULL,
+    country VARCHAR(50) NOT NULL,
+    phoneNum VARCHAR(20) NOT NULL
+    FOREIGN KEY(postalOrZIPCode) REFERENCES(PostalCode)
+        ON DELETE NO ACTION
+        ON UPDATE NO ACTION
+);
+
+CREATE TABLE PostalCode (
+    postalOrZIPCode CHAR(7) PRIMARY KEY,
+    city VARCHAR(50) NOT NULL
 );
 
 CREATE TABLE Writes(
-    ownerID INT(11),
-    contractID INT(11),
+    ownerID INT,
+    contractID INT,
     FOREIGN KEY(ownerID) REFERENCES(Owner),
     FOREIGN KEY(contractID) REFERENCES(Contract)
 );
 
 CREATE TABLE Loans(
-    ownerID INT(11),
-    contractID INT(11),
+    ownerID INT,
+    contractID INT,
     FOREIGN KEY(ownerID) REFERENCES(Owner),
     FOREIGN KEY(contractID) REFERENCES(Contract)
 );
 
 CREATE TABLE PertainsTo(
-    contractID INT(11),
-    articleID INT(11),
+    contractID INT,
+    articleID INT,
     FOREIGN KEY(contractID) REFERENCES(Contract),
     FOREIGN KEY(articleID) REFERENCES(Article)
 );
 
 CREATE TABLE Displays(
-    exhibitID INT(11),
-    articleID INT(11),
+    exhibitID INT,
+    articleID INT,
     FOREIGN KEY(exhibitID) REFERENCES(Exhibit),
     FOREIGN KEY(articleID) REFERENCES(Article)
 );
