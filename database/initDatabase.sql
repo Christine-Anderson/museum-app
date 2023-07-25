@@ -119,13 +119,17 @@ CREATE TABLE Displays(
 
 -- if you want to put any items I've added on display in the exhibit, please change storageLocation to "on display"
 
+--Article
+
 INSERT
 INTO Article(articleID, name, dateAquired, condition, storageLocation, UVProtection, tempControl, humidityControl)
 VALUES (11111, "The Forest (or The Trees)", 2021-11-05 21:45:59, "storage room 1", "Y", "Y", "Y")
+--borrow from Van art gallery
 
 INSERT
 INTO Article(articleID, name, dateAquired, condition, storageLocation, UVProtection, tempControl, humidityControl)
 VALUES (11112, "William Shakespeare's Comedies, Histories, & Tragedies", 2022-01-12 13:45:31, "storage room 5", "Y", "Y", "Y")
+--borrow from UBC
 
 INSERT
 INTO Article(articleID, name, dateAquired, condition, storageLocation, UVProtection, tempControl, humidityControl)
@@ -134,31 +138,42 @@ VALUES (11113, "Moonrise, Hernandez", 2018-03-03 13:45:46, "storage room 5", "Y"
 INSERT
 INTO Article(articleID, name, dateAquired, condition, storageLocation, UVProtection, tempControl, humidityControl)
 VALUES (11114, "The Mask of Tutankhamun", 2012-07-16 03:15:50, "storage room 3", "Y", "Y", "Y")
+--borrow from Egyptian Museum, Cairo, Egypt
 
 INSERT
 INTO Article(articleID, name, dateAquired, condition, storageLocation, UVProtection, tempControl, humidityControl)
 VALUES (11115, "blue whale skeleton", 2022-10-25 09:20:18, "storage room 3", "N", "Y", "Y")
 
+-- Artwork
+
 INSERT 
 INTO Artwork (articleID, artist, yearMade, medium)
 VALUES (11111, "Emily Carr", 1931, "oil on canvas")
 
+-- Text
+
 INSERT 
 INTO Text (articleID, author, datePublished)
 VALUES (11112, "William Shakespeare", 1623)
-    
+
+-- Photo
+
 INSERT 
-INTO Text (articleID, yearTaken, locationTaken)
+INTO Photo (articleID, yearTaken, locationTaken)
 VALUES (11113, 1941, "Hernandez, New Mexico, USA")
 
-INSERT 
-INTO Text (articleID, estimatedYear, regionOfOrigin, material)
-VALUES (11114, "1323 BCE (New Kingdom, 18th Dynasty)", "tomb of Tutankhamun in the Valley of the Kings, Luxor, Egypt", "Gold with inlays of lapis lazuli, carnelian, quartz, obsidian, and other stones")
+-- Artifact
 
 INSERT 
-INTO Text (articleID, speciesName, timePeriod)
+INTO Artifact (articleID, estimatedYear, regionOfOrigin, material)
+VALUES (11114, "1323 BCE (New Kingdom, 18th Dynasty)", "tomb of Tutankhamun in the Valley of the Kings, Luxor, Egypt", "Gold with inlays of lapis lazuli, carnelian, quartz, obsidian, and other stones")
+
+-- NaturalSpecimen
+
+INSERT 
+INTO NaturalSpecimen (articleID, speciesName, timePeriod)
 VALUES (11115, "Balaenoptera musculus", "Present")
 
 INSERT 
-INTO Text (speciesName, nativeTo)
+INTO Species (speciesName, nativeTo)
 VALUES ("Balaenoptera musculus", "all major oceans")
