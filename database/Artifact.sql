@@ -7,6 +7,6 @@ CREATE TABLE Artifact (
         ON DELETE CASCADE
         ON UPDATE CASCADE,
     FOREIGN KEY(creator) REFERENCES(Origin)
-        ON DELETE SET NULL
+        ON DELETE NO ACTION
         ON UPDATE NO ACTION
 );
