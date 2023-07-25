@@ -170,6 +170,18 @@ INSERT
 INTO Article(articleID, name, dateAquired, condition, storageLocation, UVProtection, tempControl, humidityControl)
 VALUES (11121, "Ancient Sumerian chisel", 2021-09-13 03:25:59, "storage room 3", "Y", "Y", "Y")
 
+INSERT
+INTO Article(articleID, name, dateAquired, condition, storageLocation, UVProtection, tempControl, humidityControl)
+VALUES (11122, "Ammonite fossil", 2019-07-20 12:30:15, "storage room 1", "N", "Y", "Y")
+
+INSERT
+INTO Article(articleID, name, dateAquired, condition, storageLocation, UVProtection, tempControl, humidityControl)
+VALUES (11123, "T. rex skeleton", 2017-03-25 14:40:49, "storage room 5", "N", "Y", "Y")
+
+INSERT
+INTO Article(articleID, name, dateAquired, condition, storageLocation, UVProtection, tempControl, humidityControl)
+VALUES (11124, "Ancient Mosquito in Burmese amber", 2011-04-26 18:30:37, "storage room 5", "N", "Y", "Y")
+
 -- Artwork
 
 INSERT 
@@ -220,6 +232,18 @@ INSERT
 INTO NaturalSpecimen (articleID, speciesName, timePeriod)
 VALUES (11116, "Mammuthus primigenius", "Pleistocene epoch")
 
+INSERT 
+INTO NaturalSpecimen (articleID, speciesName, timePeriod)
+VALUES (11122, "Pleuroceras solare", "lower Jurassic, upper Pliensbachian period")
+
+INSERT 
+INTO NaturalSpecimen (articleID, speciesName, timePeriod)
+VALUES (11123, "Tyrannosaurus rex", "Late Cretaceous Period")
+
+INSERT 
+INTO NaturalSpecimen (articleID, speciesName, timePeriod)
+VALUES (11124, "Burmaculex antiquus", "Cretaceous Period")
+
 -- Species
 
 INSERT 
@@ -229,3 +253,15 @@ VALUES ("Mammuthus primigenius", "all major oceans")
 INSERT 
 INTO Species (speciesName, nativeTo)
 VALUES ("Balaenoptera musculus", "northern Eurasia and North America")
+
+INSERT 
+INTO Species (speciesName, nativeTo)
+VALUES ("Pleuroceras solare", "Canada and Europe")
+
+INSERT 
+INTO Species (speciesName, nativeTo)
+VALUES ("Tyrannosaurus rex", "North America")
+
+INSERT 
+INTO Species (speciesName, nativeTo)
+VALUES ("Burmaculex antiquus", "Canada")
