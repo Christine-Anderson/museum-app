@@ -12,9 +12,9 @@
 | 4         | README.md                              | Shared                                       | Aug 7th            |
 | 5         | Demo(3)                                | We will each demo queries from our own view  | Aug 9th            |  
 
-(1) Marcus - Visitor, Christine - Owner, Arad - Employee
-(2) Together we will ensure we have at least one of the required queries across views. 
-(3) We will meet before the Demo to do a practice run.
+<p> (1) Marcus - Visitor, Christine - Owner, Arad - Employee </p>
+<p> (2) Together we will ensure we have at least one of the required queries across views. </p>
+<p> (3) We will meet before the Demo to do a practice run. </p>
 
 ### Potential Challenges
 

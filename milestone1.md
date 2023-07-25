@@ -1,4 +1,4 @@
-## The museum app
+## Milestone 1
 
 ### Domain
 <p> The domain that our project models is a museum. We are going to model the inventory of
