@@ -3,4 +3,7 @@ CREATE TABLE Archivist(
     name VARCHAR(255),
     FOREIGN KEY(sin) REFERENCES(Employee)
         ON DELETE CASCADE
+    FOREIGN KEY(name) REFERENCES(Employee)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE
 );
