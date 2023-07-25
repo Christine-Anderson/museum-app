@@ -122,30 +122,33 @@ CREATE TABLE Displays(
 INSERT
 INTO Article(articleID, name, dateAquired, condition, storageLocation, UVProtection, tempControl, humidityControl)
 VALUES
-    (11111, "The Forest (or The Trees)", 2021-11-05 21:45:59, "storage room 1", "Y", "Y", "Y"),  --borrow from Van art gallery
-    (11112, "William Shakespeare's Comedies, Histories, & Tragedies", 2022-01-12 13:45:31, "storage room 5", "Y", "Y", "Y"), --borrow from UBC
-    (11113, "Moonrise, Hernandez", 2018-03-03 13:45:46, "storage room 5", "Y", "Y", "Y"),
-    (11114, "The Mask of Tutankhamun", 2022-07-16 03:15:50, "storage room 3", "Y", "Y", "Y"), --borrow from Egyptian Museum, Cairo, Egypt
-    (11115, "blue whale skeleton", 2022-10-25 09:20:18, "storage room 3", "N", "Y", "Y"),
-    (11116, "replica Woolly mammoth", 2021-10-20 06:35:19, "storage room 1", "N", "Y", "Y"), -- borrow from royal bc museum
-    (11117, "IBM cheese slicer", 2023-02-09 12:00:12, "storage room 1", "N", "N", "N"), -- borrow from burnaby museum
-    (11118, "The Jade Mask of the Maya King Pakal", 2017-03-25 14:40:49, "storage room 3", "Y", "Y", "Y"), 
-    (11119, "Ancient Egyptian flint arrowhead", 2023-11-08 18:45:05, "storage room 2", "Y", "Y", "Y"),
-    (11120, "Neolithic pottery vase", 2018-07-06 08:05:56, "storage room 3", "Y", "Y", "Y"),
-    (11121, "Ancient Sumerian chisel", 2021-09-13 03:25:59, "storage room 3", "Y", "Y", "Y"),
-    (11122, "Ammonite fossil", 2019-07-20 12:30:15, "storage room 1", "N", "Y", "Y"),
-    (11123, "T. rex skeleton", 2017-03-25 14:40:49, "storage room 5", "N", "Y", "Y"),
-    (11124, "Ancient Mosquito in Burmese amber", 2011-04-26 18:30:37, "storage room 5", "N", "Y", "Y"),
-    (11125, "Mona Lisa", 2021-09-13 03:25:59, "storage room 1", "Y", "Y", "Y"), -- borrow from  Louvre Museum, Paris, France
-    --TODO
-    (11126, "Ammonite fossil", 2019-07-20 12:30:15, "storage room 1", "N", "Y", "Y"),
-    (11127, "T. rex skeleton", 2017-03-25 14:40:49, "storage room 5", "N", "Y", "Y"),
-    (11128, "Ancient Mosquito in Burmese amber", 2011-04-26 18:30:37, "storage room 5", "N", "Y", "Y");
+    (11111, "The Forest (or The Trees)", 2021-11-05 21:45:59, "Storage room 1", "Y", "Y", "Y"),  --borrow from Van art gallery
+    (11112, "William Shakespeare's Comedies, Histories, & Tragedies", 2022-01-12 13:45:31, "Storage room 5", "Y", "Y", "Y"), --borrow from UBC
+    (11113, --TODO, 2018-03-03 13:45:46, "Storage room 5", "Y", "Y", "Y"),
+    (11114, "The Mask of Tutankhamun", 2022-07-16 03:15:50, "Storage room 3", "Y", "Y", "Y"), --borrow from Egyptian Museum, Cairo, Egypt
+    (11115, "blue whale skeleton", 2022-10-25 09:20:18, "Storage room 3", "N", "Y", "Y"),
+    (11116, "replica Woolly mammoth", 2021-10-20 06:35:19, "Storage room 1", "N", "Y", "Y"), -- borrow from royal bc museum
+    (11117, "IBM cheese slicer", 2023-02-09 12:00:12, "Storage room 1", "N", "N", "N"), -- borrow from burnaby museum
+    (11118, "The Jade Mask of the Maya King Pakal", 2017-03-25 14:40:49, "Storage room 3", "Y", "Y", "Y"), 
+    (11119, "Ancient Egyptian flint arrowhead", 2023-11-08 18:45:05, "Storage room 2", "Y", "Y", "Y"),
+    (11120, "Neolithic pottery vase", 2018-07-06 08:05:56, "Storage room 3", "Y", "Y", "Y"),
+    (11121, "Ancient Sumerian chisel", 2021-09-13 03:25:59, "Storage room 3", "Y", "Y", "Y"),
+    (11122, "Ammonite fossil", 2019-07-20 12:30:15, "Storage room 1", "N", "Y", "Y"),
+    (11123, "T. rex skeleton", 2017-03-25 14:40:49, "Storage room 5", "N", "Y", "Y"),
+    (11124, "Ancient Mosquito in Burmese amber", 2011-04-26 18:30:37, "Storage room 5", "N", "Y", "Y"),
+    (11125, "Mona Lisa", 2021-09-13 03:25:59, "Storage room 1", "Y", "Y", "Y"), -- borrow from  Louvre Museum, Paris, France
+    (11126, "Starry Night", 2020-07-02 12:30:15, "Storage room 1", "Y", "Y", "Y"), -- Museum of Modern Art (MoMA), New York City, USA
+    (11127, "The Scream", 2023-03-12 14:40:49, "Storage room 2", "Y", "Y", "Y"), --borrow from  National Gallery, Oslo, Norway
+    (11128, "The Thinker replica", 2015-03-15 18:30:37, "Storage room 5", "N", "N", "N");
 
 INSERT 
 INTO Artwork (articleID, artist, yearMade, medium)
 VALUES 
-    (11111, "Emily Carr", 1931, "oil on canvas");
+    (11111, "Emily Carr", 1931, "Oil on canvas"),
+    (11125, "Leonardo da Vinci", 1503, "Oil on poplar panel"), 
+    (11111, "Vincent van Gogh", 1889, "Oil on canvas"), 
+    (11111, "Edvard Munch", 1893, "Tempera and pastels on cardboard"), 
+    (11111, "Auguste Rodin", 1904, "Bronze cast");
 
 INSERT 
 INTO Text (articleID, author, datePublished)
@@ -155,13 +158,13 @@ VALUES
 INSERT 
 INTO Photo (articleID, yearTaken, locationTaken)
 VALUES
-    (11113, 1941, "Hernandez, New Mexico, USA");
+    
 
 INSERT 
 INTO Artifact (articleID, estimatedYear, regionOfOrigin, material)
 VALUES 
-    (11114, "1323 BCE (New Kingdom, 18th Dynasty)", "tomb of Tutankhamun in the Valley of the Kings, Luxor, Egypt", 
-    "Gold with inlays of lapis lazuli, carnelian, quartz, obsidian, and other stones"),
+    (11114, "1323 BCE (New Kingdom, 18th Dynasty)", "Tomb of Tutankhamun in the Valley of the Kings, Luxor, Egypt", 
+    "Gold with inlays of lapis lazuli, carnelian, quartz, and obsidian"),
     (11118, "700 AD (Late Classic period)", "Palenque, Mexico", "carved jadeite"),
     (11119, "1200 BC", "Nile River, Egypt", "flint"),
     (11120, "3000 BC", "Yangshao culture, China", "earthenware"),
@@ -173,8 +176,8 @@ VALUES
     (11115, "Balaenoptera musculus", "Holocene epoch (Present)"),
     (11116, "Mammuthus primigenius", "Pleistocene epoch"),
     (11122, "Pleuroceras solare", "lower Jurassic, upper Pliensbachian period"),
-    (11123, "Tyrannosaurus rex", "Late Cretaceous Period"),
-    (11124, "Burmaculex antiquus", "Cretaceous Period");
+    (11123, "Tyrannosaurus rex", "Late Cretaceous period"),
+    (11124, "Burmaculex antiquus", "Cretaceous period");
 
 INSERT 
 INTO Species (speciesName, nativeTo)
