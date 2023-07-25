@@ -2,13 +2,14 @@
 
 ### Tasks and Timelines
 
-| Milestone | Task                 | Assigned To                                                                           | Tentative Deadline | 
-|-----------|----------------------|---------------------------------------------------------------------------------------|--------------------|
-| 4         | PDF file description | Shared                                                                                | Aug 7th            |  
-| 4         | README.md            | Shared                                                                                | Aug 7th            |  
-| 4         | Queries              | Split by view: Marcus will do Visitor,Christine will do Owner, Arad will do Employee  | Aug 4th            |
-| 5         | Demo                 | We will each demo our own view                                                        | Aug 9th            |  
+| Milestone | Task                                  | Assigned To                                                        | Tentative Deadline | 
+|-----------|---------------------------------------|--------------------------------------------------------------------|--------------------|
+| 4         | PDF file description                  | Shared                                                             | Aug 7th            |  
+| 4         | README.md                             | Shared                                                             | Aug 7th            |  
+| 4         | PHP file, HTML, and related queries*  | Split by view: Marcus - Visitor,Christine - Owner, Arad - Employee | Aug 4th            |
+| 5         | Demo                                  | We will each demo our own view                                     | Aug 9th            |  
 
+*Together we will make sure we have at least the required queries across views 
 
 ### Potential Challenges
 
