@@ -190,9 +190,7 @@ CREATE TABLE Employee(
 CREATE TABLE FrontDesk(
     sin INT PRIMARY KEY,
     name VARCHAR(255),
-    FOREIGN KEY (sin) REFERENCES Employee(sin)
-        ON DELETE CASCADE,
-    FOREIGN KEY (name) REFERENCES Employee(name)
+    FOREIGN KEY (sin, name) REFERENCES Employee(sin, name)
         ON DELETE CASCADE
         ON UPDATE CASCADE
 );
@@ -200,9 +198,7 @@ CREATE TABLE FrontDesk(
 CREATE TABLE Archivist(
     sin INT PRIMARY KEY,
     name VARCHAR(255),
-    FOREIGN KEY (sin) REFERENCES Employee(sin)
-        ON DELETE CASCADE,
-    FOREIGN KEY (name) REFERENCES Employee(name)
+    FOREIGN KEY (sin, name) REFERENCES Employee(sin, name)
         ON DELETE CASCADE
         ON UPDATE CASCADE
 );
@@ -210,9 +206,7 @@ CREATE TABLE Archivist(
 CREATE TABLE Curator(
     sin INT PRIMARY KEY,
     name VARCHAR(255),
-    FOREIGN KEY (sin) REFERENCES Employee(sin)
-        ON DELETE CASCADE,
-    FOREIGN KEY (name) REFERENCES Employee(name)
+    FOREIGN KEY (sin, name) REFERENCES Employee(sin, name)
         ON DELETE CASCADE
         ON UPDATE CASCADE
 );
