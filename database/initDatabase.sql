@@ -67,7 +67,7 @@ CREATE TABLE Attends (
     PRIMARY KEY(vID, name, eID),
 
     FOREIGN KEY(vID) REFERENCES Visitor(vID),
-    FOREIGN KEY(eID, name) REFERENCES Exhibit(eID, name)
+    FOREIGN KEY(eID, name) REFERENCES Activities(eID, name)
 );
 
 CREATE TABLE Article (
