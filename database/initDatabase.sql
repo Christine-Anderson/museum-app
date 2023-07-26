@@ -217,7 +217,7 @@ VALUES
     (1115, "Burnaby Village Museum", 6501, "Deer Lake Ave", "V5G 3T6", "Canada", "(604) 297-4565"),
     (1116, "Richie Rich", 3085, "Point Grey Road", "V6K 1A7", "Canada", "(604) 987-6543"),
     (1117, "Louvre Museum", NULL, "Rue de Rivoli", "75001", "France", "+33 1 40 20 53 17"),
-    (1118, "The Museum of Modern Art", 11, "W 53rd St", "10019", "United States", "+1 212-708-9400"),
+    (1118, "The Museum of Modern Art", 11, "W 53rd St", "10019", "United States", "(212) 708-9400"),
     (1119, "The National Museum of Art", 675, "Belleville St", "V8W 9W2", "Canada", "(250) 356-7226");
 
 INSERT
@@ -237,17 +237,15 @@ INSERT
 INTO Contract(contractID, startDate, endDate, text)
 VALUES
     (1000, 2021-10-25, 2024-10-25, "The Vancouver Art Gallery will loan Forest, British Columbia to the museum from 2021-10-25 to 2024-10-25."),
-    (1001, 2022-01-03, 2025-01-23, "The University of British Columbia will loan William Shakespeare's Comedies, Histories, & Tragedies to the 
-    museum from 2022-01-03 to 2025-01-23."),
-    (1002, 2022-07-02, 2025-07-02, "The Egyptian Museum will loan Tutankhamun's Mask and Papyrus of Ani - Book of the Dead to the museum from 
-    2022-07-02 to 2025-07-02."),
+    (1001, 2022-01-03, 2025-01-23, "The University of British Columbia will loan William Shakespeare's Comedies, Histories, & Tragedies to the museum from 2022-01-03 to 2025-01-23."),
+    (1002, 2022-07-02, 2025-07-02, "The Egyptian Museum will loan Tutankhamun's Mask and Papyrus of Ani - Book of the Dead to the museum from 2022-07-02 to 2025-07-02."),
     (1003, 2021-10-15, 2026-10-15, "The Royal BC Museum will loan Woolly mammoth replica to the museum from 2021-10-15 to 2026-10-15."),
-    (1004, 2023-02-04, 2026-02-04, "The Burnaby Village Museum will loan IBM cheese slicer to the museum from 2023-02-04 to 2026-02-04.")
+    (1004, 2023-02-04, 2026-02-04, "The Burnaby Village Museum will loan IBM cheese slicer to the museum from 2023-02-04 to 2026-02-04."),
     (1005, 2023-10-28, 2024-10-28, "Richie Rich will loan Ancient Egyptian flint arrowhead to the museum from 2023-10-28 to 2024-10-28."),
     (1006, 2021-09-07, 2025-09-07, "The Louvre Museum will loan Mona Lisa to the museum from 2021-09-07 to 2025-09-07."),
     (1007, 2020-06-20, 2024-06-20, "The Museum of Modern Art will loan Starry Night replica to the museum from 2020-06-20 to 2024-06-20."),
     (1008, 2023-03-05, 2027-03-15, "The National Museum of Art will loan The Scream replica to the museum from 2023-03-05 to 2027-03-15."),
-    (1009, 2022-10-17, 2025-10-17, "The University of British Columbia will loan Blue whale skeleton to the museum from 2022-10-17 to 2025-10-17");
+    (1009, 2022-10-17, 2025-10-17, "The University of British Columbia will loan Blue whale skeleton to the museum from 2022-10-17 to 2025-10-17.");
 
 INSERT
 INTO Writes(ownerID, contractID)
@@ -286,7 +284,7 @@ VALUES
     (1002, 11114),
     (1002, 11134),
     (1003, 11116),
-    (1004, 11117)
+    (1004, 11117),
     (1005, 11119),
     (1006, 11125),
     (1007, 11126),
