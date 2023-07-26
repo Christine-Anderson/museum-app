@@ -122,33 +122,33 @@ CREATE TABLE Displays(
 INSERT
 INTO Article(articleID, name, dateAquired, condition, storageLocation, UVProtection, tempControl, humidityControl)
 VALUES
-    (11111, "Forest, British Columbia", 2021-11-05 21:45:59, "Storage room 1", "Y", "Y", "Y"),
-    (11112, "William Shakespeare's Comedies, Histories, & Tragedies", 2022-01-12 13:45:31, "Storage room 5", "Y", "Y", "Y"),
-    (11114, "Tutankhamun's Mask", 2022-07-16 03:15:50, "Storage room 3", "Y", "Y", "Y"),
-    (11115, "Blue whale skeleton", 2022-10-25 09:20:18, "Storage room 3", "N", "Y", "Y"),
-    (11116, "Woolly mammoth replica", 2021-10-20 06:35:19, "Storage room 1", "N", "Y", "Y"),
-    (11117, "IBM cheese slicer", 2023-02-09 12:00:12, "Storage room 1", "N", "N", "N"),
-    (11118, "Jade Death Mask of Kinich Janaab Pakal", 2017-03-25 14:40:49, "Storage room 3", "Y", "Y", "Y"), 
-    (11119, "Ancient Egyptian flint arrowhead", 2023-11-08 18:45:05, "Storage room 2", "Y", "Y", "Y"),
-    (11120, "Neolithic Painted Pottery", 2018-07-06 08:05:56, "Storage room 3", "Y", "Y", "Y"),
-    (11121, "Ancient Sumerian chisel", 2021-09-13 03:25:59, "Storage room 3", "Y", "Y", "Y"),
-    (11122, "Ammonite fossil", 2019-07-20 12:30:15, "Storage room 1", "N", "Y", "Y"),
-    (11123, "T. rex skeleton", 2017-03-25 14:40:49, "Storage room 5", "N", "Y", "Y"),
-    (11124, "Ancient Mosquito in Burmese amber", 2011-04-26 18:30:37, "Storage room 5", "N", "Y", "Y"),
-    (11125, "Mona Lisa", 2021-09-13 03:25:59, "Storage room 1", "Y", "Y", "Y"),
-    (11126, "Starry Night", 2020-07-02 12:30:15, "Storage room 1", "Y", "Y", "Y"),
-    (11127, "The Scream", 2023-03-12 14:40:49, "Storage room 2", "Y", "Y", "Y"),
-    (11128, "The Thinker replica", 2015-03-15 18:30:37, "Storage room 5", "N", "N", "N"), 
-    (11129, "The Vancouver Court House under construction", 2018-08-17 14:12:32, "Storage room 1", "Y", "Y", "Y"),
-    (11130, "The terminus of the Canadian Pacific Railway", 2018-08-17 14:12:32, "Storage room 1", "Y", "Y", "Y"),
-    (11131, "A picnic in newly opened Stanley Park", 2018-08-17 14:12:32, "Storage room 1", "Y", "Y", "Y"),
-    (11132, "Rebuilding Cordova Street after the Great Vancouver Fire", 2018-08-17 14:12:32, "Storage room 1", "Y", "Y", "Y"),
-    (11133, "UBC's Main Library - now Irving K. Barber Learning Centre - under construction", 2018-08-17 14:12:32, "Storage room 1", "Y", "Y", "Y"),
-    (11134, "Papyrus of Ani - Book of the Dead", 2022-07-16 03:15:50, "Storage room 5", "Y", "Y", "Y"),
-    (11135, "Original Manuscript of Alice in Wonderland", 2013-08-07 18:55:41, "Storage room 2", "Y", "Y", "Y"),
-    (11136, "Gutenberg Bible - The Earliest Printed Book", 2014-09-28 01:25:26, "Storage room 2", "Y", "Y", "Y"),
-    (11137, "Magna Carta Libertatum - Latin for “Great Charter of Freedoms”", 2019-05-22 11:15:09, "Storage room 5", "Y", "Y", "Y"),
-    (11138, "Common Sense", 2016-03-09 10:05:08, "Storage room 2", "Y", "Y", "Y");
+    (11111, "Forest, British Columbia", 2021-11-05 21:45:59, "Excellent", "Storage room 1", "Y", "Y", "Y"),
+    (11112, "William Shakespeare's Comedies, Histories, & Tragedies", 2022-01-12 13:45:31, "Good", "Storage room 5", "Y", "Y", "Y"),
+    (11114, "Tutankhamun's Mask", 2022-07-16 03:15:50, "Good", "Storage room 3", "Y", "Y", "Y"),
+    (11115, "Blue whale skeleton", 2022-10-25 09:20:18, "Good", "Storage room 3", "N", "Y", "Y"),
+    (11116, "Woolly mammoth replica", 2021-10-20 06:35:19, "Good", "Storage room 1", "N", "Y", "Y"),
+    (11117, "IBM cheese slicer", 2023-02-09 12:00:12, "Excellent", "Storage room 1", "N", "N", "N"),
+    (11118, "Jade Death Mask of Kinich Janaab Pakal", 2017-03-25 14:40:49, "Excellent", "Storage room 3", "Y", "Y", "Y"), 
+    (11119, "Ancient Egyptian flint arrowhead", 2023-11-08 18:45:05, "Fair", "Storage room 2", "Y", "Y", "Y"),
+    (11120, "Neolithic Painted Pottery", 2018-07-06 08:05:56, "Good", "Storage room 3", "Y", "Y", "Y"),
+    (11121, "Ancient Sumerian chisel", 2021-09-13 03:25:59, "Good", "Storage room 3", "Y", "Y", "Y"),
+    (11122, "Ammonite fossil", 2019-07-20 12:30:15, "Excellent", "Storage room 1", "N", "Y", "Y"),
+    (11123, "T. rex skeleton", 2017-03-25 14:40:49, "Good", "Storage room 5", "N", "Y", "Y"),
+    (11124, "Ancient Mosquito in Burmese amber", 2011-04-26 18:30:37, "Excellent", "Storage room 5", "N", "Y", "Y"),
+    (11125, "Mona Lisa", 2021-09-13 03:25:59, "Good", "Storage room 1", "Y", "Y", "Y"),
+    (11126, "Starry Night", 2020-07-02 12:30:15, "Good", "Storage room 1", "Y", "Y", "Y"),
+    (11127, "The Scream", 2023-03-12 14:40:49, "Good", "Storage room 2", "Y", "Y", "Y"),
+    (11128, "The Thinker replica", 2015-03-15 18:30:37, "Excellent", "Storage room 5", "N", "N", "N"), 
+    (11129, "The Vancouver Court House under construction", 2018-08-17 14:12:32, "Good", "Storage room 1", "Y", "Y", "Y"),
+    (11130, "The terminus of the Canadian Pacific Railway", 2018-08-17 14:12:32, "Excellent", "Storage room 1", "Y", "Y", "Y"),
+    (11131, "A picnic in newly opened Stanley Park", 2018-08-17 14:12:32, "Fair", "Storage room 1", "Y", "Y", "Y"),
+    (11132, "Rebuilding Cordova Street after the Great Vancouver Fire", 2018-08-17 14:12:32, "Good", "Storage room 1", "Y", "Y", "Y"),
+    (11133, "UBC's Main Library - now Irving K. Barber Learning Centre - under construction", 2018-08-17 14:12:32, "Good", "Storage room 1", "Y", "Y", "Y"),
+    (11134, "Papyrus of Ani - Book of the Dead", 2022-07-16 03:15:50, "Fair", "Storage room 5", "Y", "Y", "Y"),
+    (11135, "Original Manuscript of Alice in Wonderland", 2013-08-07 18:55:41, "Good", "Storage room 2", "Y", "Y", "Y"),
+    (11136, "Gutenberg Bible - The Earliest Printed Book", 2014-09-28 01:25:26, "Good", "Storage room 2", "Y", "Y", "Y"),
+    (11137, "Magna Carta Libertatum - Latin for “Great Charter of Freedoms”", 2019-05-22 11:15:09, "Fair", "Storage room 5", "Y", "Y", "Y"),
+    (11138, "Common Sense", 2016-03-09 10:05:08, "Good", "Storage room 2", "Y", "Y", "Y");
 
 INSERT 
 INTO Artwork(articleID, artist, yearMade, medium)
@@ -163,7 +163,7 @@ INSERT
 INTO Text(articleID, author, yearPublished)
 VALUES 
     (11112, "William Shakespeare", 1623),
-    (11135, "Lewis Carroll (Charles Lutwidge Dodgson)", 1864),
+    (11135, "Lewis Carroll", 1864),
     (11136, NULL, 1450),
     (11137, "Archbishop of Canterbury", 1215),
     (11138, "Thomas Paine", 1766);
@@ -201,8 +201,8 @@ VALUES
 INSERT 
 INTO Species(speciesName, nativeTo)
 VALUES 
-    ("Mammuthus primigenius", "all major oceans"),
-    ("Balaenoptera musculus", "Northern Eurasia and North America"),
+    ("Balaenoptera musculus", "all major oceans"),
+    ("Mammuthus primigenius", "Northern Eurasia and North America"),
     ("Pleuroceras solare", "Canada and Europe"),
     ("Tyrannosaurus rex", "North America"),
     ("Burmaculex antiquus", "Canada");
