@@ -457,70 +457,66 @@ INSERT INTO Ticket(ticketID, date, type, vID) VALUES
     (2009, 2023-06-05, "Child", 1018),
     (2010, 2023-06-05, "Child", 1019);
 
--- Preliminary Exhibit tuples (needs Curator SINs)
--- INSERT INTO Exhibit(eID, name, startDate, endDate, sin) VALUES
---    (1500, "Ancient Egypt", 2021-02-27, 2024-06-28, ),
---    (1501, "The Invention of the Printing Press", 2022-11-27, 2023-06-20, ),
---    (1502, "Dinosaurs", 2022-12-26, 2023-08-14, ),
---    (1503, "History of Vancouver", 2023-02-03, 2023-10-05, ),
---    (1504, "The Ice Age", 2023-04-21, 2023-12-31, ),
---    (1505, "Famous Artwork", 2023-04-27, 2026-09-25, ),
---    (1506, "Ancient Maya", 2023-05-30, 2026-11-25, ),
---    (1507, "Sea Creatures", 2023-07-14, 2027-03-22, );
+INSERT INTO Exhibit(eID, name, startDate, endDate, sin) VALUES
+   (1500, "Ancient Egypt", 2021-02-27, 2024-06-28, 444444444),
+   (1501, "The Invention of the Printing Press", 2022-11-27, 2023-06-20, 222222222),
+   (1502, "Dinosaurs", 2022-12-26, 2023-08-14, 111111111),
+   (1503, "History of Vancouver", 2023-02-03, 2023-10-05, 333333333),
+   (1504, "The Ice Age", 2023-04-21, 2023-12-31, 111111111),
+   (1505, "Famous Artwork", 2023-04-27, 2026-09-25, 555555555),
+   (1506, "Ancient Maya", 2023-05-30, 2026-11-25, 555555555),
+   (1507, "Sea Creatures", 2023-07-14, 2027-03-22, 333333333);
 
--- Preliminary Activities tuples (needs Exhibit)
--- INSERT INTO Activities(eID, name, schedule) VALUES
---     (1500, "Tour", "Days: Monday, Wednesday, Friday; Times: 1030-1200, 1400-1530"),
---     (1502, "Animated Video", "Days: Monday, Tuesday, Wednesday, Thursday, Friday; Times: Hourly"),
---     (1503, "Storytime", "Days: Monday, Wednesday, Friday; Times: 0930-1030, 1230-1330, 1430-1530"),
---     (1505, "Tour", "Days: Tuesday, Thursday; Times: 0900-1030, 1230-1400, 1530-1700"),
---     (1506, "Tour", "Days: Monday, Wednesday, Friday; Times: 0900-1030, 1230-1400, 1530-1700"),
---     (1507, "Puppet Show", "Days: Tuesday, Thursday; Times: 0900-1030, 1230-1400, 1530-1700");
+INSERT INTO Activities(eID, name, schedule) VALUES
+    (1500, "Tour", "Days: Monday, Wednesday, Friday; Times: 1030-1200, 1400-1530"),
+    (1502, "Animated Video", "Days: Monday, Tuesday, Wednesday, Thursday, Friday; Times: Hourly"),
+    (1503, "Storytime", "Days: Monday, Wednesday, Friday; Times: 0930-1030, 1230-1330, 1430-1530"),
+    (1505, "Tour", "Days: Tuesday, Thursday; Times: 0900-1030, 1230-1400, 1530-1700"),
+    (1506, "Tour", "Days: Monday, Wednesday, Friday; Times: 0900-1030, 1230-1400, 1530-1700"),
+    (1507, "Puppet Show", "Days: Tuesday, Thursday; Times: 0900-1030, 1230-1400, 1530-1700");
 
--- Preliminary AdmitsTo tuples (needs Exhibit)
--- INSERT INTO AdmitsTo(ticketID, date, eID) VALUES
---     (2001, 2023-05-31, 1500),
---     (2001, 2023-05-31, 1501),
---     (2001, 2023-05-31, 1502),
---     (2001, 2023-05-31, 1503),
---     (2002, 2023-05-31, 1504),
---     (2002, 2023-05-31, 1505),
---     (2002, 2023-05-31, 1506),
---     (2002, 2023-05-31, 1507),
---     (2003, 2023-05-31, 1500),
---     (2003, 2023-05-31, 1504),
---     (2003, 2023-05-31, 1505),
---     (2003, 2023-05-31, 1507),
---     (2004, 2023-06-01, 1500),
---     (2004, 2023-06-01, 1501),
---     (2004, 2023-06-01, 1503),
---     (2004, 2023-06-01, 1506),
---     (2005, 2023-06-02, 1500),
---     (2005, 2023-06-02, 1504),
---     (2005, 2023-06-02, 1506),
---     (2005, 2023-06-02, 1507),
---     (2006, 2023-06-02, 1500),
---     (2006, 2023-06-02, 1501),
---     (2006, 2023-06-02, 1502),
---     (2006, 2023-06-02, 1505),
---     (2006, 2023-06-02, 1506),
---     (2007, 2023-06-03, 1500),
---     (2008, 2023-06-04, 1500),
---     (2009, 2023-06-05, 1500),
---     (2009, 2023-06-05, 1507),
---     (2010, 2023-06-05, 1500),
---     (2010, 2023-06-05, 1507);
+INSERT INTO AdmitsTo(ticketID, date, eID) VALUES
+    (2001, 2023-05-31, 1500),
+    (2001, 2023-05-31, 1501),
+    (2001, 2023-05-31, 1502),
+    (2001, 2023-05-31, 1503),
+    (2002, 2023-05-31, 1504),
+    (2002, 2023-05-31, 1505),
+    (2002, 2023-05-31, 1506),
+    (2002, 2023-05-31, 1507),
+    (2003, 2023-05-31, 1500),
+    (2003, 2023-05-31, 1504),
+    (2003, 2023-05-31, 1505),
+    (2003, 2023-05-31, 1507),
+    (2004, 2023-06-01, 1500),
+    (2004, 2023-06-01, 1501),
+    (2004, 2023-06-01, 1503),
+    (2004, 2023-06-01, 1506),
+    (2005, 2023-06-02, 1500),
+    (2005, 2023-06-02, 1504),
+    (2005, 2023-06-02, 1506),
+    (2005, 2023-06-02, 1507),
+    (2006, 2023-06-02, 1500),
+    (2006, 2023-06-02, 1501),
+    (2006, 2023-06-02, 1502),
+    (2006, 2023-06-02, 1505),
+    (2006, 2023-06-02, 1506),
+    (2007, 2023-06-03, 1500),
+    (2008, 2023-06-04, 1500),
+    (2009, 2023-06-05, 1500),
+    (2009, 2023-06-05, 1507),
+    (2010, 2023-06-05, 1500),
+    (2010, 2023-06-05, 1507);
 
---Preliminary Attends tuples (needs Exhibit)
--- INSERT INTO Attends(vID, eID, name) VALUES
---     (1010, 1500, "Tour"),
---     (1012, 1500, "Tour"),
---     (1013, 1500, "Tour"),
---     (1014, 1500, "Tour"),
---     (1010, 1502, "Animated Video"),
---     (1015, 1502, "Animated Video"),
---     (1018, 1507, "Puppet Show"),
---     (1019, 1507, "Puppet Show");
+INSERT INTO Attends(vID, eID, name) VALUES
+    (1010, 1500, "Tour"),
+    (1012, 1500, "Tour"),
+    (1013, 1500, "Tour"),
+    (1014, 1500, "Tour"),
+    (1010, 1502, "Animated Video"),
+    (1015, 1502, "Animated Video"),
+    (1018, 1507, "Puppet Show"),
+    (1019, 1507, "Puppet Show");
 
 INSERT INTO Employee (sin, name) VALUES
     (111111111, 'John Cena'),
