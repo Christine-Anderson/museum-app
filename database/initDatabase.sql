@@ -182,6 +182,72 @@ CREATE TABLE Displays(
     FOREIGN KEY(articleID) REFERENCES(Article)
 );
 
+CREATE TABLE Employee(
+    sin INT(11) PRIMARY KEY,
+    name VARCHAR(255),
+);
+
+CREATE TABLE FrontDesk(
+    sin INT(11) PRIMARY KEY,
+    name VARCHAR(255),
+    FOREIGN KEY (sin) REFERENCES Employee(sin)
+        ON DELETE CASCADE,
+    FOREIGN KEY (name) REFERENCES Employee(name)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE
+);
+
+CREATE TABLE Archivist(
+    sin INT(11) PRIMARY KEY,
+    name VARCHAR(255),
+    FOREIGN KEY (sin) REFERENCES Employee(sin)
+        ON DELETE CASCADE,
+    FOREIGN KEY (name) REFERENCES Employee(name)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE
+);
+
+CREATE TABLE Curator(
+    sin INT(11) PRIMARY KEY,
+    name VARCHAR(255),
+    FOREIGN KEY (sin) REFERENCES Employee(sin)
+        ON DELETE CASCADE,
+    FOREIGN KEY (name) REFERENCES Employee(name)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE
+);
+
+CREATE TABLE Collection(
+    cid INT(11) PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(255),
+    sin INT(11),
+    FOREIGN KEY (sin) REFERENCES Curator(sin)
+);
+
+CREATE TABLE Contain(
+    articleID INT(11),
+    cid INT(11),
+    PRIMARY KEY (articleID, cid),
+    FOREIGN KEY(articleID) REFERENCES Article(articleID),
+    FOREIGN KEY(cid) REFERENCES Collection(cid)
+);
+
+CREATE TABLE Examine(
+    articleID INT(11),
+    sin INT(11),
+    PRIMARY KEY (articleID, sin),
+    FOREIGN KEY(articleID) REFERENCES Article(articleID),
+    FOREIGN KEY(sin) REFERENCES Archivist(sin)
+);
+
+CREATE TABLE Sell(
+    ticketID INT(11),
+    sin INT(11),
+    PRIMARY KEY (ticketID, sin),
+    FOREIGN KEY(ticketID) REFERENCES Ticket(ticketID),
+    FOREIGN KEY(sin) REFERENCES FrontDesk(sin)
+);
+
 INSERT
 INTO Article(articleID, name, dateAquired, condition, storageLocation, UVProtection, tempControl, humidityControl)
 VALUES
@@ -456,3 +522,69 @@ INSERT INTO Ticket(ticketID, date, type, vID) VALUES
 --     (1018, 1507, "Puppet Show"),
 --     (1019, 1507, "Puppet Show");
 
+INSERT INTO Employee (sin, name) VALUES
+    (111111111, 'John Cena'),
+    (222222222, 'Roman Reigns'),
+    (333333333, 'Becky Lynch'),
+    (444444444, 'Seth Rollins'),
+    (555555555, 'Charlotte Flair'),
+    (666666666, 'Brock Lesnar'),
+    (777777777, 'Bayley'),
+    (888888888, 'AJ Styles'),
+    (999999999, 'Sasha Banks'),
+    (101010101, 'Drew McIntyre'),
+    (121212121, 'Asuka'),
+    (131313131, 'Randy Orton'),
+    (141414141, 'Alexa Bliss'),
+    (151515151, 'Braun Strowman'),
+    (161616161, 'Rhea Ripley');
+
+INSERT INTO Curator (sin, name) VALUES
+    (111111111, 'John Cena'),
+    (222222222, 'Roman Reigns'),
+    (333333333, 'Becky Lynch'),
+    (444444444, 'Seth Rollins'),
+    (555555555, 'Charlotte Flair');
+
+INSERT INTO Archivist (sin, name) VALUES
+    (121212121, 'Asuka'),
+    (131313131, 'Randy Orton'),
+    (141414141, 'Alexa Bliss'),
+    (151515151, 'Braun Strowman'),
+    (161616161, 'Rhea Ripley');
+
+INSERT INTO FrontDesk (sin, name) VALUES
+    (666666666, 'Brock Lesnar'),
+    (777777777, 'Bayley'),
+    (888888888, 'AJ Styles'),
+    (999999999, 'Sasha Banks'),
+    (101010101, 'Drew McIntyre');
+
+INSERT INTO Collection (cid, name, sin) VALUES
+    (1, 'Ancient Artifacts',111111111),
+    (2, 'Natural History',111111111),
+    (3, 'Modern Art Gallery',222222222),
+    (4, 'Historical Documents',222222222),
+    (5, 'Sculpture and Statue',333333333);
+
+
+INSERT INTO Contain (articleID, cid) VALUES
+    (11116,1),
+    (11115,2),
+    (11112,3),
+    (11111,3),
+    (11119,3);
+
+INSERT INTO Examine (articleID, sin) VALUES
+    (11121,121212121),
+    (11125,121212121),
+    (11122,151515151),
+    (11131,151515151),
+    (11129,161616161);
+
+INSERT INTO Sell (ticketID, sin) VALUES
+    (2003,666666666),
+    (2004,777777777),
+    (2005,888888888),
+    (2006,101010101),
+    (2007,101010101);
