@@ -1,3 +1,75 @@
+CREATE TABLE Visitor (
+    vID INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(50),
+    email VARCHAR(50)
+);
+
+CREATE TABLE TicketPrice (
+    type VARCHAR(50) PRIMARY KEY,
+    price int NOT NULL DEFAULT 0
+);
+
+CREATE TABLE Ticket (
+    ticketID INT AUTO_INCREMENT,
+    date DATE DEFAULT CURRENT_DATE,
+    type VARCHAR(50) NOT NULL DEFAULT 'General Admission',
+    vID INT NOT NULL DEFAULT 0,
+    
+    PRIMARY KEY(ticketID, date),
+    
+    FOREIGN KEY(type) REFERENCES TicketPrice(type)
+        ON UPDATE CASCADE
+        ON DELETE SET DEFAULT,
+    FOREIGN KEY(vID) REFERENCES Visitor(vID)
+        ON UPDATE CASCADE
+        ON DELETE SET DEFAULT
+);
+
+CREATE TABLE Exhibit (
+    eID INT PRIMARY KEY,
+    name VARCHAR(50) NOT NULL,
+    startDate DATE DEFAULT CURRENT_DATE,
+    endDate DATE DEFAULT CURRENT_DATE,
+    sin INT(11) NOT NULL,
+    
+    FOREIGN KEY(sin) REFERENCES Curator(sin)
+        ON UPDATE CASCADE
+);
+
+CREATE TABLE Activities (
+    eID INT PRIMARY KEY,
+    name VARCHAR(50),
+    schedule VARCHAR(255),
+    
+    PRIMARY KEY(eID, name),
+    
+    FOREIGN KEY(eID) REFERENCES Exhibit(eID)
+        ON UPDATE CASCADE
+        ON DELETE CASCADE
+);
+
+CREATE TABLE AdmitsTo (
+    ticketID INT,
+    date DATE,
+    eID INT,
+    
+    PRIMARY KEY(ticketID, date, eID),
+
+    FOREIGN KEY(ticketID, date) REFERENCES Ticket(ticketID, date),
+    FOREIGN KEY(eID) REFERENCES Exhibit(eID)
+);
+
+CREATE TABLE Attends (
+    vID INT,
+    name VARCHAR(50),
+    eID INT,
+    
+    PRIMARY KEY(vID, name, eID),
+
+    FOREIGN KEY(vID) REFERENCES Visitor(vID),
+    FOREIGN KEY(eID, name) REFERENCES Exhibit(eID, name)
+);
+
 CREATE TABLE Article (
     articleID INT PRIMARY KEY AUTO_INCREMENT,
     name VARCHAR(255) NOT NULL,
@@ -292,3 +364,100 @@ VALUES
     (1009, 11115);
 
 -- Displays (depends on Exhibits TODO)
+
+INSERT INTO Visitor(vID, name, email) VALUES 
+    (1010, "Bruce Wayne", "batman@gmail.com"),
+    (1011, "Clark Kent", "superman@gmail.com"),
+    (1012, "Lois Lane", "lois@outlook.com"),
+    (1013, "Diana Prince", "wonderwoman@gmail.com"),
+    (1014, "Barry Allen", "flash@gmail.com"),
+    (1015, "Arthur Curry", "aquaman@gmail.com"),
+    (1016, "Lex Luthor", "lex@outlook.com"),
+    (1017, "Alfred Pennyworth", "alfred@outlook.com"),
+    (1018, "Wally West", "kidflash@gmail.com"),
+    (1019, "Dick Grayson", "robin@gmail.com");
+
+INSERT INTO TicketPrice(type, price) VALUES 
+    ("General Admission", 25),
+    ("Family", 57),
+    ("Child", 15),
+    ("Staff", 12),
+    ("Senior", 17);
+
+INSERT INTO Ticket(ticketID, date, type, vID) VALUES
+    (2001, 2023-05-31, "General Admission", 1010),
+    (2002, 2023-05-31, "General Admission", 1011),
+    (2003, 2023-05-31, "General Admission", 1012),
+    (2004, 2023-06-01, "Staff", 1013),
+    (2005, 2023-06-02, "General Admission", 1014),
+    (2006, 2023-06-02, "General Admission", 1015),
+    (2007, 2023-06-03, "General Admission", 1016),
+    (2008, 2023-06-04, "Senior", 1017),
+    (2009, 2023-06-05, "Child", 1018),
+    (2010, 2023-06-05, "Child", 1019);
+
+-- Preliminary Exhibit tuples (needs Curator SINs)
+-- INSERT INTO Exhibit(eID, name, startDate, endDate, sin) VALUES
+--    (1500, "Ancient Egypt", 2021-02-27, 2024-06-28, ),
+--    (1501, "Cretaceous Period", 2022-11-27, 2023-06-20, ),
+--    (1502, "Jurassic Period", 2022-12-26, 2023-08-14, ),
+--    (1503, "Pleistocene Epoch", 2023-02-03, 2023-10-05, ),
+--    (1504, "Holocene Epoch", 2023-04-21, 2023-12-31, ),
+--    (1505, "19th Century Artwork", 2023-04-27, 2026-09-25, ),
+--    (1506, "20th Century Artwork", 2023-05-30, 2026-11-25, ),
+--    (1507, "Sea Creatures", 2023-07-14, 2027-03-22, );
+
+-- Preliminary Activities tuples (needs Exhibit)
+-- INSERT INTO Activities(eID, name, schedule) VALUES
+--     (1500, "Tour", "Days: Monday, Wednesday, Friday; Times: 1030-1200, 1400-1530"),
+--     (1502, "Animated Video", "Days: Monday, Tuesday, Wednesday, Thursday, Friday; Times: Hourly"),
+--     (1503, "Storytime", "Days: Monday, Wednesday, Friday; Times: 0930-1030, 1230-1330, 1430-1530"),
+--     (1505, "Tour", "Days: Tuesday, Thursday; Times: 0900-1030, 1230-1400, 1530-1700"),
+--     (1506, "Tour", "Days: Monday, Wednesday, Friday; Times: 0900-1030, 1230-1400, 1530-1700"),
+--     (1507, "Puppet Show", "Days: Tuesday, Thursday; Times: 0900-1030, 1230-1400, 1530-1700");
+
+-- Preliminary AdmitsTo tuples (needs Exhibit)
+-- INSERT INTO AdmitsTo(ticketID, date, eID) VALUES
+--     (2001, 2023-05-31, 1500),
+--     (2001, 2023-05-31, 1501),
+--     (2001, 2023-05-31, 1502),
+--     (2001, 2023-05-31, 1503),
+--     (2002, 2023-05-31, 1504),
+--     (2002, 2023-05-31, 1505),
+--     (2002, 2023-05-31, 1506),
+--     (2002, 2023-05-31, 1507),
+--     (2003, 2023-05-31, 1500),
+--     (2003, 2023-05-31, 1504),
+--     (2003, 2023-05-31, 1505),
+--     (2003, 2023-05-31, 1507),
+--     (2004, 2023-06-01, 1500),
+--     (2004, 2023-06-01, 1501),
+--     (2004, 2023-06-01, 1503),
+--     (2004, 2023-06-01, 1506),
+--     (2005, 2023-06-02, 1500),
+--     (2005, 2023-06-02, 1504),
+--     (2005, 2023-06-02, 1506),
+--     (2005, 2023-06-02, 1507),
+--     (2006, 2023-06-02, 1500),
+--     (2006, 2023-06-02, 1501),
+--     (2006, 2023-06-02, 1502),
+--     (2006, 2023-06-02, 1505),
+--     (2006, 2023-06-02, 1506),
+--     (2007, 2023-06-03, 1500),
+--     (2008, 2023-06-04, 1500),
+--     (2009, 2023-06-05, 1500),
+--     (2009, 2023-06-05, 1507),
+--     (2010, 2023-06-05, 1500),
+--     (2010, 2023-06-05, 1507);
+
+--Preliminary Attends tuples (needs Exhibit)
+-- INSERT INTO Attends(vID, eID, name) VALUES
+--     (1010, 1500, "Tour"),
+--     (1012, 1500, "Tour"),
+--     (1013, 1500, "Tour"),
+--     (1014, 1500, "Tour"),
+--     (1010, 1502, "Animated Video"),
+--     (1015, 1502, "Animated Video"),
+--     (1018, 1507, "Puppet Show"),
+--     (1019, 1507, "Puppet Show");
+
