@@ -6,7 +6,7 @@ CREATE TABLE Visitor (
 
 CREATE TABLE TicketPrice (
     type VARCHAR(50) PRIMARY KEY,
-    price int NOT NULL DEFAULT 0
+    price int NOT NULL DEFAULT 25
 );
 
 CREATE TABLE Ticket (
