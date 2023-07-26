@@ -30,7 +30,7 @@ CREATE TABLE Exhibit (
     name VARCHAR(50) NOT NULL,
     startDate DATE DEFAULT CURRENT_DATE,
     endDate DATE DEFAULT CURRENT_DATE,
-    sin INT(11) NOT NULL,
+    sin INT NOT NULL,
     
     FOREIGN KEY(sin) REFERENCES Curator(sin)
         ON UPDATE CASCADE
@@ -183,12 +183,12 @@ CREATE TABLE Displays(
 );
 
 CREATE TABLE Employee(
-    sin INT(11) PRIMARY KEY,
-    name VARCHAR(255),
+    sin INT PRIMARY KEY NOT NULL,
+    name VARCHAR(255) NOT NULL,
 );
 
 CREATE TABLE FrontDesk(
-    sin INT(11) PRIMARY KEY,
+    sin INT PRIMARY KEY,
     name VARCHAR(255),
     FOREIGN KEY (sin) REFERENCES Employee(sin)
         ON DELETE CASCADE,
@@ -198,7 +198,7 @@ CREATE TABLE FrontDesk(
 );
 
 CREATE TABLE Archivist(
-    sin INT(11) PRIMARY KEY,
+    sin INT PRIMARY KEY,
     name VARCHAR(255),
     FOREIGN KEY (sin) REFERENCES Employee(sin)
         ON DELETE CASCADE,
@@ -208,7 +208,7 @@ CREATE TABLE Archivist(
 );
 
 CREATE TABLE Curator(
-    sin INT(11) PRIMARY KEY,
+    sin INT PRIMARY KEY,
     name VARCHAR(255),
     FOREIGN KEY (sin) REFERENCES Employee(sin)
         ON DELETE CASCADE,
@@ -218,31 +218,31 @@ CREATE TABLE Curator(
 );
 
 CREATE TABLE Collection(
-    cid INT(11) PRIMARY KEY AUTO_INCREMENT,
-    name VARCHAR(255),
-    sin INT(11),
+    cid INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(255) NOT NULL,
+    sin INT,
     FOREIGN KEY (sin) REFERENCES Curator(sin)
 );
 
 CREATE TABLE Contain(
-    articleID INT(11),
-    cid INT(11),
+    articleID INT,
+    cid INT,
     PRIMARY KEY (articleID, cid),
     FOREIGN KEY(articleID) REFERENCES Article(articleID),
     FOREIGN KEY(cid) REFERENCES Collection(cid)
 );
 
 CREATE TABLE Examine(
-    articleID INT(11),
-    sin INT(11),
+    articleID INT,
+    sin INT,
     PRIMARY KEY (articleID, sin),
     FOREIGN KEY(articleID) REFERENCES Article(articleID),
     FOREIGN KEY(sin) REFERENCES Archivist(sin)
 );
 
 CREATE TABLE Sell(
-    ticketID INT(11),
-    sin INT(11),
+    ticketID INT,
+    sin INT,
     PRIMARY KEY (ticketID, sin),
     FOREIGN KEY(ticketID) REFERENCES Ticket(ticketID),
     FOREIGN KEY(sin) REFERENCES FrontDesk(sin)
