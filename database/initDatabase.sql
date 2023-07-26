@@ -1,6 +1,6 @@
 CREATE TABLE Visitor (
     vID INT PRIMARY KEY AUTO_INCREMENT,
-    name VARCHAR(50),
+    name VARCHAR(50), 
     email VARCHAR(50)
 );
 
@@ -15,7 +15,7 @@ CREATE TABLE Ticket (
     type VARCHAR(50) NOT NULL DEFAULT 'General Admission',
     vID INT NOT NULL DEFAULT 0,
     
-    PRIMARY KEY(ticketID, date),
+    PRIMARY KEY(ticketID),
     
     FOREIGN KEY(type) REFERENCES TicketPrice(type)
         ON UPDATE CASCADE
@@ -168,13 +168,6 @@ CREATE TABLE Writes(
     FOREIGN KEY(contractID) REFERENCES(Contract)
 );
 
-CREATE TABLE Loans(
-    ownerID INT,
-    articleID INT,
-    FOREIGN KEY(ownerID) REFERENCES(Owner),
-    FOREIGN KEY(articleID) REFERENCES(Article)
-);
-
 CREATE TABLE PertainsTo(
     contractID INT,
     articleID INT,
@@ -189,36 +182,34 @@ CREATE TABLE Displays(
     FOREIGN KEY(articleID) REFERENCES(Article)
 );
 
--- if you want to put any items I've added on display in the exhibit, please change storageLocation to "onDisplay"
-
 INSERT
 INTO Article(articleID, name, dateAquired, condition, storageLocation, UVProtection, tempControl, humidityControl)
 VALUES
     (11111, "Forest, British Columbia", 2021-11-05 21:45:59, "Excellent", "Storage room 1", "Y", "Y", "Y"),
     (11112, "William Shakespeare's Comedies, Histories, & Tragedies", 2022-01-12 13:45:31, "Good", "Storage room 5", "Y", "Y", "Y"),
-    (11114, "Tutankhamun's Mask", 2022-07-16 03:15:50, "Good", "Storage room 3", "Y", "Y", "Y"),
-    (11115, "Blue whale skeleton", 2022-10-25 09:20:18, "Good", "Storage room 3", "N", "Y", "Y"),
-    (11116, "Woolly mammoth replica", 2021-10-20 06:35:19, "Good", "Storage room 1", "N", "Y", "Y"),
+    (11114, "Tutankhamun's Mask", 2022-07-16 03:15:50, "Good", "on display", "Y", "Y", "Y"),
+    (11115, "Blue whale skeleton", 2022-10-25 09:20:18, "Good", "on display", "N", "Y", "Y"),
+    (11116, "Woolly mammoth replica", 2021-10-20 06:35:19, "Good", "on display", "N", "Y", "Y"),
     (11117, "IBM cheese slicer", 2023-02-09 12:00:12, "Excellent", "Storage room 1", "N", "N", "N"),
-    (11118, "Jade Death Mask of Kinich Janaab Pakal", 2017-03-25 14:40:49, "Excellent", "Storage room 3", "Y", "Y", "Y"), 
-    (11119, "Ancient Egyptian flint arrowhead", 2023-11-08 18:45:05, "Fair", "Storage room 2", "Y", "Y", "Y"),
+    (11118, "Jade Death Mask of Kinich Janaab Pakal", 2017-03-25 14:40:49, "Excellent", "on display", "Y", "Y", "Y"), 
+    (11119, "Ancient Egyptian flint arrowhead", 2023-11-08 18:45:05, "Fair", "on display", "Y", "Y", "Y"),
     (11120, "Neolithic Painted Pottery", 2018-07-06 08:05:56, "Good", "Storage room 3", "Y", "Y", "Y"),
     (11121, "Ancient Sumerian chisel", 2021-09-13 03:25:59, "Good", "Storage room 3", "Y", "Y", "Y"),
-    (11122, "Ammonite fossil", 2019-07-20 12:30:15, "Excellent", "Storage room 1", "N", "Y", "Y"),
-    (11123, "T. rex skeleton", 2017-03-25 14:40:49, "Good", "Storage room 5", "N", "Y", "Y"),
-    (11124, "Ancient Mosquito in Burmese amber", 2011-04-26 18:30:37, "Excellent", "Storage room 5", "N", "Y", "Y"),
-    (11125, "Mona Lisa", 2021-09-13 03:25:59, "Good", "Storage room 1", "Y", "Y", "Y"),
-    (11126, "Starry Night", 2020-07-02 12:30:15, "Good", "Storage room 1", "Y", "Y", "Y"),
-    (11127, "The Scream", 2023-03-12 14:40:49, "Good", "Storage room 2", "Y", "Y", "Y"),
+    (11122, "Ammonite fossil", 2019-07-20 12:30:15, "Excellent", "on display", "N", "Y", "Y"),
+    (11123, "T. rex skeleton", 2017-03-25 14:40:49, "Good", "on display", "N", "Y", "Y"),
+    (11124, "Ancient Mosquito in Burmese amber", 2011-04-26 18:30:37, "Excellent", "on display", "N", "Y", "Y"),
+    (11125, "Mona Lisa", 2021-09-13 03:25:59, "Good", "on display", "Y", "Y", "Y"),
+    (11126, "Starry Night", 2020-07-02 12:30:15, "Good", "on display", "Y", "Y", "Y"),
+    (11127, "The Scream", 2023-03-12 14:40:49, "Good", "on display", "Y", "Y", "Y"),
     (11128, "The Thinker replica", 2015-03-15 18:30:37, "Excellent", "Storage room 5", "N", "N", "N"), 
-    (11129, "The Vancouver Court House under construction", 2018-08-17 14:12:32, "Good", "Storage room 1", "Y", "Y", "Y"),
-    (11130, "The terminus of the Canadian Pacific Railway", 2018-08-17 14:12:32, "Excellent", "Storage room 1", "Y", "Y", "Y"),
-    (11131, "A picnic in newly opened Stanley Park", 2018-08-17 14:12:32, "Fair", "Storage room 1", "Y", "Y", "Y"),
-    (11132, "Rebuilding Cordova Street after the Great Vancouver Fire", 2018-08-17 14:12:32, "Good", "Storage room 1", "Y", "Y", "Y"),
+    (11129, "The Vancouver Court House under construction", 2018-08-17 14:12:32, "Good", "on display", "Y", "Y", "Y"),
+    (11130, "The terminus of the Canadian Pacific Railway", 2018-08-17 14:12:32, "on display", "Storage room 1", "Y", "Y", "Y"),
+    (11131, "A picnic in newly opened Stanley Park", 2018-08-17 14:12:32, "Fair", "Fair", "Y", "Y", "Y"),
+    (11132, "Rebuilding Cordova Street after the Great Vancouver Fire", 2018-08-17 14:12:32, "Good", "on display", "Y", "Y", "Y"),
     (11133, "UBC's Main Library - now Irving K. Barber Learning Centre - under construction", 2018-08-17 14:12:32, "Good", "Storage room 1", "Y", "Y", "Y"),
-    (11134, "Papyrus of Ani - Book of the Dead", 2022-07-16 03:15:50, "Fair", "Storage room 5", "Y", "Y", "Y"),
+    (11134, "Papyrus of Ani - Book of the Dead", 2022-07-16 03:15:50, "Fair", "on display", "Y", "Y", "Y"),
     (11135, "Original Manuscript of Alice in Wonderland", 2013-08-07 18:55:41, "Good", "Storage room 2", "Y", "Y", "Y"),
-    (11136, "Gutenberg Bible - The Earliest Printed Book", 2014-09-28 01:25:26, "Good", "Storage room 2", "Y", "Y", "Y"),
+    (11136, "Gutenberg Bible - The Earliest Printed Book", 2014-09-28 01:25:26, "Good", "on display", "Y", "Y", "Y"),
     (11137, "Magna Carta Libertatum - Latin for “Great Charter of Freedoms”", 2019-05-22 11:15:09, "Fair", "Storage room 5", "Y", "Y", "Y"),
     (11138, "Common Sense", 2016-03-09 10:05:08, "Good", "Storage room 2", "Y", "Y", "Y");
 
@@ -334,21 +325,6 @@ VALUES
     (1111, 1009);
 
 INSERT
-INTO Loans(ownerID, articleID)
-VALUES
-    (1111, 11111),
-    (1112, 11112),
-    (1112, 11115),
-    (1113, 11114),
-    (1113, 11134),
-    (1114, 11116),
-    (1115, 11117),
-    (1116, 11119),
-    (1117, 11125),
-    (1118, 11126),
-    (1119, 11127);
-
-INSERT
 INTO PertainsTo(contractID, articleID)
 VALUES
     (1000, 11111),
@@ -363,7 +339,26 @@ VALUES
     (1008, 11127),
     (1009, 11115);
 
--- Displays (depends on Exhibits TODO)
+INSERT
+INTO Displays(exhibitID, articleID)
+VALUES
+    (1500, 11119), 
+    (1500, 11134),
+    (1500, 11114),
+    (1500, 11134),
+    (1502, 11123),
+    (1502, 11124),
+    (1507, 11115),
+    (1507, 11122),
+    (1503, 11129),
+    (1503, 11130),
+    (1503, 11132),
+    (1505, 11125),
+    (1505, 11126),
+    (1505, 11127),
+    (1501, 11136),
+    (1504, 11116),
+    (1506, 11118); 
 
 INSERT INTO Visitor(vID, name, email) VALUES 
     (1010, "Bruce Wayne", "batman@gmail.com"),
@@ -399,12 +394,12 @@ INSERT INTO Ticket(ticketID, date, type, vID) VALUES
 -- Preliminary Exhibit tuples (needs Curator SINs)
 -- INSERT INTO Exhibit(eID, name, startDate, endDate, sin) VALUES
 --    (1500, "Ancient Egypt", 2021-02-27, 2024-06-28, ),
---    (1501, "Cretaceous Period", 2022-11-27, 2023-06-20, ),
---    (1502, "Jurassic Period", 2022-12-26, 2023-08-14, ),
---    (1503, "Pleistocene Epoch", 2023-02-03, 2023-10-05, ),
---    (1504, "Holocene Epoch", 2023-04-21, 2023-12-31, ),
---    (1505, "19th Century Artwork", 2023-04-27, 2026-09-25, ),
---    (1506, "20th Century Artwork", 2023-05-30, 2026-11-25, ),
+--    (1501, "The Invention of the Printing Press", 2022-11-27, 2023-06-20, ),
+--    (1502, "Dinosaurs", 2022-12-26, 2023-08-14, ),
+--    (1503, "History of Vancouver", 2023-02-03, 2023-10-05, ),
+--    (1504, "The Ice Age", 2023-04-21, 2023-12-31, ),
+--    (1505, "Famous Artwork", 2023-04-27, 2026-09-25, ),
+--    (1506, "Ancient Maya", 2023-05-30, 2026-11-25, ),
 --    (1507, "Sea Creatures", 2023-07-14, 2027-03-22, );
 
 -- Preliminary Activities tuples (needs Exhibit)
