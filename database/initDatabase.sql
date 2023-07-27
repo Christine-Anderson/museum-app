@@ -11,7 +11,7 @@ CREATE TABLE TicketPrice (
 
 CREATE TABLE Ticket (
     ticketID INT,
-    date DATE DEFAULT 1900-01-01,
+    date DATE,
     type VARCHAR(50) NOT NULL DEFAULT 'General Admission',
     vID INT NOT NULL DEFAULT 0,
     
@@ -28,8 +28,8 @@ CREATE TABLE Ticket (
 CREATE TABLE Exhibit (
     eID INT PRIMARY KEY,
     name VARCHAR(50) NOT NULL,
-    startDate DATE DEFAULT 1900-01-01,
-    endDate DATE DEFAULT 1900-01-01,
+    startDate DATE,
+    endDate DATE,
     sin INT NOT NULL,
     
     FOREIGN KEY(sin) REFERENCES Curator(sin)
