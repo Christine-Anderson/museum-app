@@ -183,50 +183,49 @@ CREATE TABLE Displays(
 );
 
 CREATE TABLE Employee(
-    sin INT PRIMARY KEY NOT NULL,
+    sin INT PRIMARY KEY,
     name VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE FrontDesk(
     sin INT PRIMARY KEY,
-    name VARCHAR(255),
-    FOREIGN KEY (sin, name) REFERENCES Employee(sin, name)
+    FOREIGN KEY (sin) REFERENCES Employee(sin)
         ON DELETE CASCADE
         ON UPDATE CASCADE
 );
 
 CREATE TABLE Archivist(
     sin INT PRIMARY KEY,
-    name VARCHAR(255),
-    FOREIGN KEY (sin, name) REFERENCES Employee(sin, name)
+    FOREIGN KEY (sin) REFERENCES Employee(sin)
         ON DELETE CASCADE
         ON UPDATE CASCADE
 );
 
 CREATE TABLE Curator(
     sin INT PRIMARY KEY,
-    name VARCHAR(255),
-    FOREIGN KEY (sin, name) REFERENCES Employee(sin, name)
+    FOREIGN KEY (sin) REFERENCES Employee(sin)
         ON DELETE CASCADE
         ON UPDATE CASCADE
 );
 
-CREATE TABLE Collection(
+CREATE TABLE ManagesCollection(
     cid INT PRIMARY KEY AUTO_INCREMENT,
     name VARCHAR(255) NOT NULL,
-    sin INT,
+    sin INT NOT NULL,
     FOREIGN KEY (sin) REFERENCES Curator(sin)
+        ON DELETE NO ACTION
+        ON UPDATE CASCADE
 );
 
-CREATE TABLE Contain(
+CREATE TABLE Contains(
     articleID INT,
     cid INT,
     PRIMARY KEY (articleID, cid),
     FOREIGN KEY(articleID) REFERENCES Article(articleID),
-    FOREIGN KEY(cid) REFERENCES Collection(cid)
+    FOREIGN KEY(cid) REFERENCES ManagesCollection(cid)
 );
 
-CREATE TABLE Examine(
+CREATE TABLE Examines(
     articleID INT,
     sin INT,
     PRIMARY KEY (articleID, sin),
@@ -234,7 +233,7 @@ CREATE TABLE Examine(
     FOREIGN KEY(sin) REFERENCES Archivist(sin)
 );
 
-CREATE TABLE Sell(
+CREATE TABLE Sells(
     ticketID INT,
     sin INT,
     PRIMARY KEY (ticketID, sin),
@@ -452,14 +451,14 @@ INSERT INTO Ticket(ticketID, date, type, vID) VALUES
     (2010, 2023-06-05, 'Child', 1019);
 
 INSERT INTO Exhibit(eID, name, startDate, endDate, sin) VALUES
-   (1500, 'Ancient Egypt', 2021-02-27, 2024-06-28, 444444444),
-   (1501, 'The Invention of the Printing Press', 2022-11-27, 2023-06-20, 222222222),
-   (1502, 'Dinosaurs', 2022-12-26, 2023-08-14, 111111111),
-   (1503, 'History of Vancouver', 2023-02-03, 2023-10-05, 333333333),
-   (1504, 'The Ice Age', 2023-04-21, 2023-12-31, 111111111),
-   (1505, 'Famous Artwork', 2023-04-27, 2026-09-25, 555555555),
-   (1506, 'Ancient Maya', 2023-05-30, 2026-11-25, 555555555),
-   (1507, 'Sea Creatures', 2023-07-14, 2027-03-22, 333333333);
+    (1500, 'Ancient Egypt', 2021-02-27, 2024-06-28, 444444444),
+    (1501, 'The Invention of the Printing Press', 2022-11-27, 2023-06-20, 222222222),
+    (1502, 'Dinosaurs', 2022-12-26, 2023-08-14, 111111111),
+    (1503, 'History of Vancouver', 2023-02-03, 2023-10-05, 333333333),
+    (1504, 'The Ice Age', 2023-04-21, 2023-12-31, 111111111),
+    (1505, 'Famous Artwork', 2023-04-27, 2026-09-25, 555555555),
+    (1506, 'Ancient Maya', 2023-05-30, 2026-11-25, 555555555),
+    (1507, 'Sea Creatures', 2023-07-14, 2027-03-22, 333333333);
 
 INSERT INTO Activities(eID, name, schedule) VALUES
     (1500, 'Tour', 'Days: Monday, Wednesday, Friday; Times: 1030-1200, 1400-1530'),
@@ -529,50 +528,50 @@ INSERT INTO Employee (sin, name) VALUES
     (151515151, 'Braun Strowman'),
     (161616161, 'Rhea Ripley');
 
-INSERT INTO Curator (sin, name) VALUES
-    (111111111, 'John Cena'),
-    (222222222, 'Roman Reigns'),
-    (333333333, 'Becky Lynch'),
-    (444444444, 'Seth Rollins'),
-    (555555555, 'Charlotte Flair');
+INSERT INTO Curator (sin) VALUES
+    (111111111),
+    (222222222),
+    (333333333),
+    (444444444),
+    (555555555);
 
-INSERT INTO Archivist (sin, name) VALUES
-    (121212121, 'Asuka'),
-    (131313131, 'Randy Orton'),
-    (141414141, 'Alexa Bliss'),
-    (151515151, 'Braun Strowman'),
-    (161616161, 'Rhea Ripley');
+INSERT INTO Archivist (sin) VALUES
+    (121212121),
+    (131313131),
+    (141414141),
+    (151515151),
+    (161616161);
 
-INSERT INTO FrontDesk (sin, name) VALUES
-    (666666666, 'Brock Lesnar'),
-    (777777777, 'Bayley'),
-    (888888888, 'AJ Styles'),
-    (999999999, 'Sasha Banks'),
-    (101010101, 'Drew McIntyre');
+INSERT INTO FrontDesk (sin) VALUES
+    (666666666),
+    (777777777),
+    (888888888),
+    (999999999),
+    (101010101);
 
-INSERT INTO Collection (cid, name, sin) VALUES
-    (1, 'Ancient Artifacts',111111111),
-    (2, 'Natural History',111111111),
-    (3, 'Modern Art Gallery',222222222),
-    (4, 'Historical Documents',222222222),
-    (5, 'Sculpture and Statue',333333333);
+INSERT INTO ManagesCollection (cid, name, sin) VALUES
+    (1, 'Ancient Artifacts', 111111111),
+    (2, 'Natural History', 111111111),
+    (3, 'Modern Art Gallery', 222222222),
+    (4, 'Historical Documents', 222222222),
+    (5, 'Sculpture and Statue', 333333333);
 
 
-INSERT INTO Contain (articleID, cid) VALUES
+INSERT INTO Contains (articleID, cid) VALUES
     (11116,1),
     (11115,2),
     (11112,3),
     (11111,3),
     (11119,3);
 
-INSERT INTO Examine (articleID, sin) VALUES
+INSERT INTO Examines (articleID, sin) VALUES
     (11121,121212121),
     (11125,121212121),
     (11122,151515151),
     (11131,151515151),
     (11129,161616161);
 
-INSERT INTO Sell (ticketID, sin) VALUES
+INSERT INTO Sells (ticketID, sin) VALUES
     (2003,666666666),
     (2004,777777777),
     (2005,888888888),
