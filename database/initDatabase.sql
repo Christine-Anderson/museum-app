@@ -1,5 +1,5 @@
 CREATE TABLE Visitor (
-    vID INT PRIMARY KEY AUTO_INCREMENT,
+    vID INT PRIMARY KEY,
     name VARCHAR(50), 
     email VARCHAR(50)
 );
@@ -10,8 +10,8 @@ CREATE TABLE TicketPrice (
 );
 
 CREATE TABLE Ticket (
-    ticketID INT AUTO_INCREMENT,
-    date DATE DEFAULT CURRENT_DATE,
+    ticketID INT,
+    date DATE DEFAULT 1900-01-01,
     type VARCHAR(50) NOT NULL DEFAULT 'General Admission',
     vID INT NOT NULL DEFAULT 0,
     
@@ -28,8 +28,8 @@ CREATE TABLE Ticket (
 CREATE TABLE Exhibit (
     eID INT PRIMARY KEY,
     name VARCHAR(50) NOT NULL,
-    startDate DATE DEFAULT CURRENT_DATE,
-    endDate DATE DEFAULT CURRENT_DATE,
+    startDate DATE DEFAULT 1900-01-01,
+    endDate DATE DEFAULT 1900-01-01,
     sin INT NOT NULL,
     
     FOREIGN KEY(sin) REFERENCES Curator(sin)
