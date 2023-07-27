@@ -4,7 +4,7 @@
 
 | Milestone | Task                                   | Assigned To                                  | Tentative Deadline | 
 |-----------|----------------------------------------|----------------------------------------------|--------------------|
-| 4         | Combine our SQL setup files and test   | Shared                                       | July 31st          |  
+| 4         | Update and test SQL setup file         | Shared                                       | July 31st          |  
 | 4         | PHP files similar to tutorial          | One for each view (1)                        | Aug 4th            |
 | 4         | HTML/CSS front end                     | Split by view (1)                            | Aug 4th            |
 | 4         | Queries relevant to each view (2)      | Split by view (1)                            | Aug 4th            |
