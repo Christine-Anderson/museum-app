@@ -41,11 +41,10 @@ CREATE TABLE ticketprice (
 );
 
 CREATE TABLE ticket (
-    ticket_id INT,
+    ticket_id INT PRIMARY KEY,
     issue_date DATE,
     ticket_type VARCHAR(50) DEFAULT 'General Admission' NOT NULL,
     visitor_id INT NOT NULL,
-    PRIMARY KEY(ticket_id),
     FOREIGN KEY(ticket_type) REFERENCES ticketprice,
     FOREIGN KEY(visitor_id) REFERENCES visitor
 );
