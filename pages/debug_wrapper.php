@@ -7,9 +7,6 @@
 <?php
 	error_reporting(-1);
 	ini_set('display_errors',1);
-	include("user_login.php");
-	include("visitor_main.php");
-	include("owner_main.php");
-	include("employee_main.php");
-	include("user_redirect.php"); 
+	include("employee_login.php");
+	// include("employee_redirect.php");
 ?>
