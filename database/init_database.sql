@@ -272,7 +272,6 @@ VALUES (1018, 'Wally West', 'kidflash@gmail.com');
 INSERT INTO visitor(visitor_id, name, email)
 VALUES (1019, 'Dick Grayson', 'robin@gmail.com');
 
-
 INSERT INTO ticketprice(ticket_type, price) VALUES ('General Admission', 25);
 INSERT INTO ticketprice(ticket_type, price) VALUES ('Family', 57);
 INSERT INTO ticketprice(ticket_type, price) VALUES ('Child', 15);
@@ -700,3 +699,5 @@ INSERT INTO displays(exhibit_id, article_id) VALUES (1505, 11127);
 INSERT INTO displays(exhibit_id, article_id) VALUES (1501, 11136);
 INSERT INTO displays(exhibit_id, article_id) VALUES (1504, 11116);
 INSERT INTO displays(exhibit_id, article_id) VALUES (1506, 11118);
+
+COMMIT;
