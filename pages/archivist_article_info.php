@@ -1,6 +1,7 @@
 <!--
-    Title
-    Description TODO
+    Archivist view article information page
+    Archivist can view location and storage condition of a given article
+    TODO add more functionality
 -->
 
 <!DOCTYPE html>
@@ -26,16 +27,16 @@
 
             <label for="find">Find:</label>
 				<select name="find-option" id="find">
-					<option value="location">Location</option>
+					<option value="location">Current Location</option>
 					<option value="storage-condition">Storage Conditions</option>
-					<option value="article-detail">Article Details</option>
+					<option value="article-examination-detail">Article Examination Details</option>
 				</select>
 			<br></br>
 
             <input type="submit" value="Search" name="search-article-info"></p>
         </form>
 
-        <p>TODO: sort articles by location</p>
+        <p>TODO: sort articles by article-examination-detail</p>
 
         <!-- <form method="POST" action="owner_profile.php">
             <input type="hidden" id="update-profile-request" name="update-profile-request">
@@ -50,20 +51,9 @@
         include '../shared_functions/database_functions.php';
         include '../shared_functions/print_functions.php';
 
-        // HANDLE ALL POST ROUTES
-        // function handlePOSTRequest() {
-        //     if (connectToDB()) {
-        //         if (array_key_exists('update-profile-submit', $_POST)) {
-        //             handleUpdateProfileRequest();
-        //         }
-        //         disconnectFromDB();
-        //     }
-        // }
-
-        // HANDLE ALL GET ROUTES
-        function handleGETRequest() {
+        function handleRequest($request_method) {
             if (connectToDB()) {
-                if (array_key_exists('search-article-info', $_GET)) {
+                if (array_key_exists('search-article-info', $request_method)) {
                     handleArticleInfoRequest();
                 }
                 disconnectFromDB();
@@ -91,11 +81,11 @@
             $article_id = $_GET['article-id'];
             $dropdown_value = $_GET['find-option'];
 
-            if ($dropdown_value == 'location') {
+            if ($dropdown_value == 'article-examination-detail') {
                 getArticleLocation($article_id);
             } else if ($dropdown_value == 'storage-condition') {
                 getArticleStorageConditions($article_id);
-            } else { // $dropdown_value == 'article-detail'
+            } else { // $dropdown_value == 'article-examination-detail'
                 getArticleDetails($article_id);
             }
         }
@@ -140,12 +130,10 @@
             printResults($result);
         }
 
-
-
         if (isset($_POST['update-profile-request'])) {
-            handlePOSTRequest();
+            handleRequest($_POST);
         } else if (isset($_GET['article-info-request'])) {
-            handleGETRequest();
+            handleRequest($_GET);
         }
         ?>  
     </div>

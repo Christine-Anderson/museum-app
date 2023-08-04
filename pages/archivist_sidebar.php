@@ -1,6 +1,5 @@
 <!--
-    Title
-    Description TODO
+    Archivist pages sidebar html for page navigation
 -->
 
 <!DOCTYPE html>
