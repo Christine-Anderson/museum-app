@@ -37,14 +37,6 @@
         </form>
 
         <p>TODO: sort articles by article-examination-detail</p>
-
-        <!-- <form method="POST" action="owner_profile.php">
-            <input type="hidden" id="update-profile-request" name="update-profile-request">
-            owner ID: <input type="number" name="article-id" min="1000" max="9999" required>
-            <br /><br />
-            Name: <input type="text" name="name"> <br /><br />
-            <input type="submit" value="Update" name="update-profile-submit"></p>
-        </form> -->
             
         <?php
 
@@ -59,22 +51,6 @@
                 disconnectFromDB();
             }
         }
-
-        // function handleUpdateProfileRequest() {
-        //     global $db_conn;
-
-        //     $article_id = $_POST['article-id'];
-        //     $name = $_POST['name'];
-
-        //     executePlainSQL(
-        //         "UPDATE owner 
-        //         SET name = '" . $name . "' 
-        //         WHERE owner_id = " . $article_id);
-
-        //     oci_commit($db_conn);
-
-        //     viewOwnerProfile($article_id);
-        // }
 
         function handleArticleInfoRequest() {
             global $db_conn;

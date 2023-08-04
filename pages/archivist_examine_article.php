@@ -2,6 +2,7 @@
     Title
     Description TODO
 -->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -30,7 +31,7 @@
 
             <input type="submit" value="Select" name="submit-examine-article-update"></p>
         </form>
-            
+    
         <?php
 
         include '../shared_functions/database_functions.php';
@@ -40,19 +41,23 @@
             if (connectToDB()) {
                 if (array_key_exists('submit-article-update-condition', $request_method)) {
                     handleUpdateArticleConditionRequest();
+                } else if (array_key_exists('submit-artwork-update', $request_method)) {
+                    handleUpdateArtworkRequest();
+                } else if (array_key_exists('submit-new-artwork', $request_method)) {
+                    handleNewArtworkRequest();
                 }
-                disconnectFromDB();
+                disconnectFromDB(); 
             }
         }
 
-        handleFormSubmissionRequest() {
+        function handleFormSubmissionRequest() {
             $article_update = $_GET['article-update-option'];
 
             switch ($article_update) {
                 case 'article-condition':
                     renderArticleConditionForm();
                     break;
-                case 'artwork': //TODO everything from here down
+                case 'artwork': 
                     renderArtworkForm();
                     break;
                 case 'text':
@@ -87,6 +92,19 @@
             echo '</form>';
         }
 
+        function renderArtworkForm() {
+            echo '<form method="POST" id="archivist-update-artwork">';
+            echo '<input type="hidden" id="update-artwork-request" name="update-artwork-request">';
+            echo 'article ID: <input type="number" name="article-id" min="10000" max="99999" required>';
+            echo '<br /><br />';
+            echo 'Artist: <input type="text" name="artist" > <br /><br />';
+            echo 'Year Made: <input type="number" name="year-made" min="1" max="9999"> <br /><br />';
+            echo 'Medium: <input type="text" name="medium"> <br /><br />';
+            echo '<input type="submit" value="Update Record" name="submit-artwork-update">';
+            echo '<input type="submit" value="New Record" name="submit-new-artwork"></p>';
+            echo '</form>';
+        }
+
         function handleUpdateArticleConditionRequest() {
             global $db_conn;
 
@@ -114,15 +132,59 @@
 
             oci_commit($db_conn);
 
-            viewArticleCondition($article_id);
+            viewChange($article_id, "article");
         }
 
-        function viewArticleCondition($article_id) {
+        function handleUpdateArtworkRequest() { //TODO and test debug all artwork stuff
+            global $db_conn; 
+
+            $tuple = array (
+                ":article_id" => $_POST['article-id'],
+                ":artist" => $_POST['artist'],
+                ":year_made" => $_POST['year-made'],
+                ":medium" => $_POST['medium']
+            );
+
+            $all_tuples = array (
+                $tuple
+            );
+
+            executeBoundSQL("INSERT INTO artwork
+                            VALUES (:article_id, :artist, :year_made, :medium)", $all_tuples);
+
+            oci_commit($db_conn);
+
+            viewChange($article_id, "artwork");
+        }
+
+        function handleNewArtworkRequest() {
+            global $db_conn; 
+
+            $tuple = array (
+                ":article_id" => $_POST['article-id'],
+                ":artist" => $_POST['artist'],
+                ":year_made" => $_POST['year-made'],
+                ":medium" => $_POST['medium']
+            );
+
+            $all_tuples = array (
+                $tuple
+            );
+
+            executeBoundSQL("INSERT INTO artwork
+                            VALUES (:article_id, :artist, :year_made, :medium)", $all_tuples);
+
+            oci_commit($db_conn);
+
+            viewChange($article_id, "artwork");
+        }
+
+        function viewChange($article_id, $table) {
             global $db_conn;
 
             $result = executePlainSQL(
-                "SELECT article_id, name, condition
-                FROM article
+                "SELECT *
+                FROM " . $table . "
                 WHERE article_id = " . $article_id . "");
 
             printResults($result);
@@ -130,11 +192,13 @@
 
         // process render form requests
         if(isset($_GET['submit-examine-article-update'])) {
-            handleFormSubmissionRequest()
+            if (array_key_exists('submit-examine-article-update', $_GET)) {
+                handleFormSubmissionRequest();
+            }
         }
 
         // process database requests
-        if (isset($_POST['submit-article-update-condition'])) {
+        if (isset($_POST['submit-article-update-condition']) || isset($_POST['submit-artwork-update']) || isset($_POST['submit-new-artwork'])) {
             handleDatabaseRequest($_POST);
         } else if (isset($_GET['to-do'])) {
             handleDatabaseRequest($_GET);
