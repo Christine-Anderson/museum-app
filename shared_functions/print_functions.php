@@ -6,13 +6,13 @@
 
 function printResults($result){ 
 	if (oci_num_fields($result) > 0) {
-        printTable($result);
+        autogenerateTable($result);
     } else {
         echo "No results found";
     }
 }
 
-function printTable($result){ 
+function autogenerateTable($result){ 
 	global $db_conn;
 	echo "<table>";
 	echo "<tr>";
@@ -29,7 +29,7 @@ function printTable($result){
         echo "<tr>";
         foreach ($row as $value) {
             echo "<td>" . $value . "</td>";
-            } 
+        } 
         echo "</tr>";
 	}
 

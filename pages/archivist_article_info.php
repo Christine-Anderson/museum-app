@@ -1,7 +1,6 @@
 <!--
     Archivist view article information page
-    Archivist can view location and storage condition of a given article
-    TODO add more functionality
+    Archivist can view location, storage condition, or examination details of a given article
 -->
 
 <!DOCTYPE html>
@@ -23,20 +22,16 @@
         <form method="GET" action="archivist_article_info.php">
             <input type="hidden" id="article-info-request" name="article-info-request">
             article ID: <input type="number" name="article-id" min="10000" max="99999" required>
-            <br /><br />
-
+            <br/><br/>
             <label for="find">Find:</label>
 				<select name="find-option" id="find">
-					<option value="location">Current Location</option>
+					<option value="article-location">Current Location</option>
 					<option value="storage-condition">Storage Conditions</option>
 					<option value="article-examination-detail">Article Examination Details</option>
 				</select>
-			<br></br>
-
+			<br/><br/>
             <input type="submit" value="Search" name="search-article-info"></p>
         </form>
-
-        <p>TODO: sort articles by article-examination-detail</p>
             
         <?php
 
@@ -57,12 +52,14 @@
             $article_id = $_GET['article-id'];
             $dropdown_value = $_GET['find-option'];
 
-            if ($dropdown_value == 'article-examination-detail') {
+            if ($dropdown_value == 'article-location') {
                 getArticleLocation($article_id);
             } else if ($dropdown_value == 'storage-condition') {
                 getArticleStorageConditions($article_id);
-            } else { // $dropdown_value == 'article-examination-detail'
+            } else if ($dropdown_value == 'article-examination-detail') { 
                 getArticleDetails($article_id);
+            } else {
+                echo "Please select a search option.";
             }
         }
 
@@ -70,7 +67,7 @@
             global $db_conn;
 
             $result = executePlainSQL(
-                "SELECT article_id, name, storage_location
+                "SELECT article_id, article_name, storage_location
                 FROM article
                 WHERE article_id = " . $article_id . "");
 
@@ -81,9 +78,9 @@
             global $db_conn;
 
             $result = executePlainSQL(
-                "SELECT article_id, name, uv_protection, temp_control, humidity_control
+                "SELECT article_id, article_name, uv_protection, temp_control, humidity_control
                 FROM article
-                WHERE article_id = " . $article_id . "");
+                WHERE article_id = " . $article_id);
 
             printResults($result);
         }
@@ -91,24 +88,47 @@
         function getArticleDetails($article_id) {
             global $db_conn;
 
-            $result = executePlainSQL( //fix me come back to this one
-                "SELECT *
-                FROM article");
-                // FROM article a, artwork art, text t, photo p, artifact old, naturalspecimen ns, species s
-                // WHERE   a.article_id = " . $article_id . ") AND
-                //         a.article_id = art.article_id OR
-                //         a.article_id = t.article_id OR
-                //         a.article_id = p.article_id OR
-                //         a.article_id = old.article_id OR
-                //         (a.article_id = ns.article_id AND
-                //         ns.species_name = s.species_name)");
+            $view_names = ["articleofinterest", "naturalspecimencomplete"];
 
-            printResults($result);
+            // TODO refactor into different functions
+            executePlainSQL("DROP VIEW " . $view_names[0]);
+
+            executePlainSQL(
+                "CREATE VIEW " . $view_names[0] . " AS
+                SELECT article_id, article_name, article_condition
+                FROM article
+                WHERE article_id = " . $article_id);
+
+            // if (!hasView($view_name)) { // TODO debug checking if a view exists
+            executePlainSQL(
+                "CREATE VIEW " . $view_names[1] . " AS
+                SELECT ns.*, s.native_to
+                FROM naturalspecimen ns, species s
+                WHERE ns.species_name = s.species_name");
+            // }
+            
+            $result = executePlainSQL(
+                "SELECT
+                    aoi.*,
+                    art.artist, art.year_made, art.medium,
+                    t.author, t.year_published,
+                    p.year_taken, p.location_taken,
+                    a.estimated_year, a.region_of_origin, a.material,
+                    nsc.species_name, nsc.native_to, nsc.time_period
+                FROM " . $view_names[0] . " aoi
+                LEFT JOIN artwork art ON aoi.article_id = art.article_id 
+                LEFT JOIN text t ON aoi.article_id = t.article_id
+                LEFT JOIN photo p ON aoi.article_id = p.article_id
+                LEFT JOIN artifact a ON aoi.article_id = a.article_id
+                LEFT JOIN " . $view_names[1] . " nsc ON aoi.article_id = nsc.article_id
+                WHERE aoi.article_id = " . $article_id);
+
+            printResults($result); // TODO fix table auto print
         }
 
-        if (isset($_POST['update-profile-request'])) {
-            handleRequest($_POST);
-        } else if (isset($_GET['article-info-request'])) {
+        
+
+        if (isset($_GET['article-info-request'])) {
             handleRequest($_GET);
         }
         ?>  
