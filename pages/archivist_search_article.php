@@ -145,41 +145,42 @@
         }
 
         function printArticleDetails($artwork_result, $text_result, $photo_result, $artifact_result, $naturalspecimen_result){
-            oci_fetch_all($artwork_result, $artwork_rows, null, null, OCI_FETCHSTATEMENT_BY_ROW);
-            oci_fetch_all($text_result, $text_rows, null, null, OCI_FETCHSTATEMENT_BY_ROW);
-            oci_fetch_all($photo_result, $photo_rows, null, null, OCI_FETCHSTATEMENT_BY_ROW);
-            oci_fetch_all($artifact_result, $artifact_rows, null, null, OCI_FETCHSTATEMENT_BY_ROW);
-            oci_fetch_all($naturalspecimen_result, $naturalspecimen_rows, null, null, OCI_FETCHSTATEMENT_BY_ROW);
+            global $db_conn;
+
+            oci_fetch_all($artwork_result, $artwork_rows, 0, -1, OCI_FETCHSTATEMENT_BY_ROW);
+            oci_fetch_all($text_result, $text_rows, 0, -1, OCI_FETCHSTATEMENT_BY_ROW);
+            oci_fetch_all($photo_result, $photo_rows, 0, -1, OCI_FETCHSTATEMENT_BY_ROW);
+            oci_fetch_all($artifact_result, $artifact_rows, 0, -1, OCI_FETCHSTATEMENT_BY_ROW);
+            oci_fetch_all($naturalspecimen_result, $naturalspecimen_rows, 0, -1, OCI_FETCHSTATEMENT_BY_ROW);
             
             if (!$artwork_rows && !$text_rows && !$photo_rows && !$artifact_rows && !$naturalspecimen_rows) {
                 echo '<br/><br/>';
                 echo "No results found";
             } else {
-                if ($artwork_result) {
+                if ($artwork_rows) {
                     echo '<br/><br/>';
                     autogenerateTable($artwork_rows);
                 }
 
-                if ($text_result) {
+                if ($text_rows) {
                     echo '<br/><br/>';
                     autogenerateTable($text_rows);
                 }
 
-                if ($photo_result) {
+                if ($photo_rows) {
                     echo '<br/><br/>';
                     autogenerateTable($photo_rows);
                 }
 
-                if ($artifact_result) {
+                if ($artifact_rows) {
                     echo '<br/><br/>';
                     autogenerateTable($artifact_rows);
                 }
 
-                if ($naturalspecimen_result) {
+                if ($naturalspecimen_rows) {
                     echo '<br/><br/>';
                     autogenerateTable($naturalspecimen_rows);
                 }
-
             }
         }
 
