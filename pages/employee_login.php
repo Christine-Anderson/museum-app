@@ -3,6 +3,7 @@
 	Access link: https://www.students.cs.ubc.ca/~tineand/museum_app/pages/employee_login.php
 	Employees can login by selecting their employee type
 -->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>

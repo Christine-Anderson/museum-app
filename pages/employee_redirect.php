@@ -17,7 +17,7 @@
             header("Location: curator_main.php");
             exit;
         } else if ($input_value == "archivist") {
-            header("Location: archivist_main.php");
+            header("Location: archivist_article_info.php");
             exit;
         } else if ($input_value == "frontdesk") {
             header("Location: frontdesk_main.php");

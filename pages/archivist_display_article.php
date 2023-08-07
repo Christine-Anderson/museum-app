@@ -1,83 +1,114 @@
 <!--
-    Title
-    Description TODO
+    Archivist display article page
+    Archivist can put articles on display in an exhibit
 -->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Archivist view main page</title>
-    <!-- <link rel="stylesheet" type="text/css" href="../css/style.css"> -->
-    <style>
-        /* The side navigation menu */
-        .sidebar {
-            margin: 0;
-            padding: 0;
-            width: 200px;
-            background-color: #f1f1f1;
-            position: fixed;
-            height: 100%;
-            overflow: auto;
-        }
-        
-        /* Sidebar links */
-        .sidebar a {
-            display: block;
-            color: black;
-            padding: 16px;
-            text-decoration: none;
-        }
-        
-        /* Active/current link */
-        .sidebar a.active {
-            background-color: #5f9ea0;
-            color: white;
-        }
-        
-        /* Links on mouse-over */
-        .sidebar a:hover:not(.active) {
-            background-color: #555;
-            color: white;
-        }
-        
-        /* Page content. The value of the margin-left property should match the value of the sidebar's width property */
-        div.content {
-            margin-left: 200px;
-            padding: 1px 16px;
-            height: 1000px;
-        }
-        
-        /* On screens that are less than 700px wide, make the sidebar into a topbar */
-        @media screen and (max-width: 700px) {
-            .sidebar {
-            width: 100%;
-            height: auto;
-            position: relative;
-            }
-            .sidebar a {float: left;}
-            div.content {margin-left: 0;}
-        }
-        
-        /* On screens that are less than 400px, display the bar vertically, instead of horizontally */
-        @media screen and (max-width: 400px) {
-            .sidebar a {
-            text-align: center;
-            float: none;
-            }
-        }
-    </style>
+    <title>AArchivist display article page</title>
+    <link rel="stylesheet" type="text/css" href="../css/style.css">
 </head>
 <body>
-    <div class="sidebar">
-        <a class="main" href="archivist_main.php">Main</a>
-        <a href="archivist_examine_article.php">Examine Article</a>
-        <a href="archivist_display_article.php">Display Article</a>
-    </div>
+    <?php
+    include 'archivist_sidebar.php'
+    ?>
 
     <div class="content">
+        <h2>Display Article in Exhibit</h2>
+        <form method="POST" id="display-article-request" action="archivist_display_article.php">
+            <input type="hidden" id="display-article-request" name="display-article-request">
+            exhibit ID: <input type="number" name="exhibit-id" min="1000" max="9999" required>
+            <br/><br/>
+            article ID: <input type="number" name="article-id" min="10000" max="99999" required>
+            <br/><br/>
+            <input type="submit" value="Display Article" name="submit-display-article"></p>
+        </form>
+
+        <form method="GET" id="archivist-view-exhibit-request" action="archivist_display_article.php">
+            <input type="hidden" id="archivist-view-exhibit-request" name="archivist-view-exhibit-request">
+            <input type="submit" value="View Exhibits" name="submit-view-exhibit"></p>
+        </form>
+    
         <?php
-            echo "TODO display"
+
+        include '../shared_functions/database_functions.php';
+        include '../shared_functions/print_functions.php';
+
+        function handleDatabaseRequest($request_method) {
+            if (connectToDB()) {
+                if (array_key_exists('submit-display-article', $request_method)) {
+                    handleDisplayArticleRequest();
+                } else if (array_key_exists('submit-view-exhibit', $request_method)) {
+                    handleViewExhibitsRequest();
+                }
+                disconnectFromDB(); 
+            }
+        }
+
+        function handleDisplayArticleRequest() {
+            global $db_conn; 
+
+            $exhibit_id = $_POST['exhibit-id'];
+            $article_id = $_POST['article-id'];
+
+            $tuple = array (
+                ":exhibit_id" => $exhibit_id,
+                ":article_id" => $article_id
+            );
+
+            $all_tuples = array (
+                $tuple
+            );
+
+            // put article on display in exhibit
+            executeBoundSQL(
+                "INSERT INTO displays(exhibit_id, article_id)
+                VALUES (:exhibit_id, :article_id)", $all_tuples);
+            
+            // update article location to on display
+            executePlainSQL(
+                "UPDATE article
+                SET storage_location = 'on display'
+                WHERE article_id = " . $article_id);
+
+            oci_commit($db_conn);
+
+            // generate output 
+            $result = executePlainSQL(
+                "SELECT a.article_id, a.article_name, a.storage_location,
+                        e.exhibit_id, e.exhibit_name
+                FROM article a, displays d, exhibit e
+                WHERE 
+                    a.article_id = " . $article_id . " AND
+                    a.article_id = d.article_id AND
+                    d.exhibit_id = e.exhibit_id AND
+                    e.exhibit_id = " . $exhibit_id);
+
+            echo '<br/><br/>';
+            echo 'The following has been put on display:';
+            printResults($result);
+        }
+
+        function handleViewExhibitsRequest() {
+            global $db_conn;
+
+            $result = executePlainSQL(
+                "SELECT exhibit_id, exhibit_name, start_date, end_date
+                FROM exhibit");
+
+            echo '<br/><br/>';
+            printResults($result);
+        }
+
+        // process database requests
+        if (isset($_POST['submit-display-article'])) {
+            handleDatabaseRequest($_POST);
+        } else if (isset($_GET['submit-view-exhibit'])) {
+            handleDatabaseRequest($_GET);
+        }
         ?>
     </div>
 </body>

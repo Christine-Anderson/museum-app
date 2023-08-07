@@ -1,3 +1,6 @@
+-- drop views
+DROP VIEW articleofinterest;
+
 -- drop tables
 DROP TABLE pertainsto;
 DROP TABLE writes;
@@ -74,7 +77,7 @@ CREATE TABLE curator (
 
 CREATE TABLE exhibit (
     exhibit_id INT PRIMARY KEY,
-    name VARCHAR(50) NOT NULL,
+    exhibit_name VARCHAR(50) NOT NULL,
     start_date DATE,
     end_date DATE,
     sin INT NOT NULL,
@@ -92,9 +95,9 @@ CREATE TABLE activities (
 
 CREATE TABLE article (
     article_id INT PRIMARY KEY,
-    name VARCHAR(255) NOT NULL,
+    article_name VARCHAR(255) NOT NULL,
     date_aquired TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
-    condition VARCHAR(50) NOT NULL,
+    article_condition VARCHAR(50) NOT NULL,
     storage_location VARCHAR(50) NOT NULL,
     uv_protection CHAR(1) NOT NULL,
     temp_control CHAR(1) NOT NULL,
@@ -339,21 +342,21 @@ INSERT ALL
 SELECT 1 FROM DUAL;
 
 INSERT ALL
-    INTO exhibit(exhibit_id, name, start_date, end_date, sin) 
+    INTO exhibit(exhibit_id, exhibit_name, start_date, end_date, sin) 
     VALUES (1500, 'Ancient Egypt', TO_DATE('2021-02-27', 'YYYY-MM-DD'), TO_DATE('2024-06-28', 'YYYY-MM-DD'), 444444444)
-    INTO exhibit(exhibit_id, name, start_date, end_date, sin) 
+    INTO exhibit(exhibit_id, exhibit_name, start_date, end_date, sin) 
     VALUES (1501, 'The Invention of the Printing Press', TO_DATE('2022-11-27', 'YYYY-MM-DD'), TO_DATE('2023-06-20', 'YYYY-MM-DD'), 222222222)
-    INTO exhibit(exhibit_id, name, start_date, end_date, sin) 
+    INTO exhibit(exhibit_id, exhibit_name, start_date, end_date, sin) 
     VALUES (1502, 'Dinosaurs', TO_DATE('2022-12-26', 'YYYY-MM-DD'), TO_DATE('2023-08-14', 'YYYY-MM-DD'), 111111111)
-    INTO exhibit(exhibit_id, name, start_date, end_date, sin) 
+    INTO exhibit(exhibit_id, exhibit_name, start_date, end_date, sin) 
     VALUES (1503, 'History of Vancouver', TO_DATE('2023-02-03', 'YYYY-MM-DD'), TO_DATE('2023-10-05', 'YYYY-MM-DD'), 333333333)
-    INTO exhibit(exhibit_id, name, start_date, end_date, sin) 
+    INTO exhibit(exhibit_id, exhibit_name, start_date, end_date, sin) 
     VALUES (1504, 'The Ice Age', TO_DATE('2023-04-21', 'YYYY-MM-DD'), TO_DATE('2023-12-31', 'YYYY-MM-DD'), 111111111)
-    INTO exhibit(exhibit_id, name, start_date, end_date, sin) 
+    INTO exhibit(exhibit_id, exhibit_name, start_date, end_date, sin) 
     VALUES (1505, 'Famous Artwork', TO_DATE('2023-04-27', 'YYYY-MM-DD'), TO_DATE('2026-09-25', 'YYYY-MM-DD'), 555555555)
-    INTO exhibit(exhibit_id, name, start_date, end_date, sin) 
+    INTO exhibit(exhibit_id, exhibit_name, start_date, end_date, sin) 
     VALUES (1506, 'Ancient Maya', TO_DATE('2023-05-30', 'YYYY-MM-DD'), TO_DATE('2026-11-25', 'YYYY-MM-DD'), 555555555)
-    INTO exhibit(exhibit_id, name, start_date, end_date, sin) 
+    INTO exhibit(exhibit_id, exhibit_name, start_date, end_date, sin) 
     VALUES (1507, 'Sea Creatures', TO_DATE('2023-07-14', 'YYYY-MM-DD'), TO_DATE('2027-03-22', 'YYYY-MM-DD'), 333333333)
 SELECT 1 FROM DUAL;
 
@@ -373,59 +376,59 @@ INSERT ALL
 SELECT 1 FROM DUAL;
 
 INSERT ALL
-    INTO article(article_id, name, date_aquired, condition, storage_location, uv_protection, temp_control, humidity_control)
+    INTO article(article_id, article_name, date_aquired, article_condition, storage_location, uv_protection, temp_control, humidity_control)
     VALUES (11111, 'Forest, British Columbia', TO_TIMESTAMP('2021-11-05 21:45:59', 'YYYY-MM-DD HH24:MI:SS'), 'Excellent', 'Storage room 1', 'Y', 'Y', 'Y')
-    INTO article(article_id, name, date_aquired, condition, storage_location, uv_protection, temp_control, humidity_control)
+    INTO article(article_id, article_name, date_aquired, article_condition, storage_location, uv_protection, temp_control, humidity_control)
     VALUES (11112, 'William Shakespeares Comedies, Histories, and Tragedies', TO_TIMESTAMP('2022-01-12 13:45:31', 'YYYY-MM-DD HH24:MI:SS'), 'Good', 'Storage room 5', 'Y', 'Y', 'Y')
-    INTO article(article_id, name, date_aquired, condition, storage_location, uv_protection, temp_control, humidity_control)
+    INTO article(article_id, article_name, date_aquired, article_condition, storage_location, uv_protection, temp_control, humidity_control)
     VALUES (11114, 'Tutankhamuns Mask', TO_TIMESTAMP('2022-07-16 03:15:50', 'YYYY-MM-DD HH24:MI:SS'), 'Good', 'on display', 'Y', 'Y', 'Y')
-    INTO article(article_id, name, date_aquired, condition, storage_location, uv_protection, temp_control, humidity_control)
+    INTO article(article_id, article_name, date_aquired, article_condition, storage_location, uv_protection, temp_control, humidity_control)
     VALUES (11115, 'Blue whale skeleton', TO_TIMESTAMP('2022-10-25 09:20:18', 'YYYY-MM-DD HH24:MI:SS'), 'Good', 'on display', 'N', 'Y', 'Y')
-    INTO article(article_id, name, date_aquired, condition, storage_location, uv_protection, temp_control, humidity_control)
+    INTO article(article_id, article_name, date_aquired, article_condition, storage_location, uv_protection, temp_control, humidity_control)
     VALUES (11116, 'Woolly mammoth replica', TO_TIMESTAMP('2021-10-20 06:35:19', 'YYYY-MM-DD HH24:MI:SS'), 'Good', 'on display', 'N', 'Y', 'Y')
-    INTO article(article_id, name, date_aquired, condition, storage_location, uv_protection, temp_control, humidity_control)
+    INTO article(article_id, article_name, date_aquired, article_condition, storage_location, uv_protection, temp_control, humidity_control)
     VALUES (11117, 'IBM cheese slicer', TO_TIMESTAMP('2023-02-09 12:00:12', 'YYYY-MM-DD HH24:MI:SS'), 'Excellent', 'Storage room 1', 'N', 'N', 'N')
-    INTO article(article_id, name, date_aquired, condition, storage_location, uv_protection, temp_control, humidity_control)
+    INTO article(article_id, article_name, date_aquired, article_condition, storage_location, uv_protection, temp_control, humidity_control)
     VALUES (11118, 'Jade Death Mask of Kinich Janaab Pakal', TO_TIMESTAMP('2017-03-25 14:40:49', 'YYYY-MM-DD HH24:MI:SS'), 'Excellent', 'on display', 'Y', 'Y', 'Y')
-    INTO article(article_id, name, date_aquired, condition, storage_location, uv_protection, temp_control, humidity_control)
+    INTO article(article_id, article_name, date_aquired, article_condition, storage_location, uv_protection, temp_control, humidity_control)
     VALUES (11119, 'Ancient Egyptian flint arrowhead', TO_TIMESTAMP('2023-11-08 18:45:05', 'YYYY-MM-DD HH24:MI:SS'), 'Fair', 'on display', 'Y', 'Y', 'Y')
-    INTO article(article_id, name, date_aquired, condition, storage_location, uv_protection, temp_control, humidity_control)
+    INTO article(article_id, article_name, date_aquired, article_condition, storage_location, uv_protection, temp_control, humidity_control)
     VALUES (11120, 'Neolithic Painted Pottery', TO_TIMESTAMP('2018-07-06 08:05:56', 'YYYY-MM-DD HH24:MI:SS'), 'Good', 'Storage room 3', 'Y', 'Y', 'Y')
-    INTO article(article_id, name, date_aquired, condition, storage_location, uv_protection, temp_control, humidity_control)
+    INTO article(article_id, article_name, date_aquired, article_condition, storage_location, uv_protection, temp_control, humidity_control)
     VALUES (11121, 'Ancient Sumerian chisel', TO_TIMESTAMP('2021-09-13 03:25:59', 'YYYY-MM-DD HH24:MI:SS'), 'Good', 'Storage room 3', 'Y', 'Y', 'Y')
-    INTO article(article_id, name, date_aquired, condition, storage_location, uv_protection, temp_control, humidity_control)
+    INTO article(article_id, article_name, date_aquired, article_condition, storage_location, uv_protection, temp_control, humidity_control)
     VALUES (11122, 'Ammonite fossil', TO_TIMESTAMP('2019-07-20 12:30:15', 'YYYY-MM-DD HH24:MI:SS'), 'Excellent', 'on display', 'N', 'Y', 'Y')
-    INTO article(article_id, name, date_aquired, condition, storage_location, uv_protection, temp_control, humidity_control)
+    INTO article(article_id, article_name, date_aquired, article_condition, storage_location, uv_protection, temp_control, humidity_control)
     VALUES (11123, 'T. rex skeleton', TO_TIMESTAMP('2017-03-25 14:40:49', 'YYYY-MM-DD HH24:MI:SS'), 'Good', 'on display', 'N', 'Y', 'Y')
-    INTO article(article_id, name, date_aquired, condition, storage_location, uv_protection, temp_control, humidity_control)
+    INTO article(article_id, article_name, date_aquired, article_condition, storage_location, uv_protection, temp_control, humidity_control)
     VALUES (11124, 'Ancient Mosquito in Burmese amber', TO_TIMESTAMP('2011-04-26 18:30:37', 'YYYY-MM-DD HH24:MI:SS'), 'Excellent', 'on display', 'N', 'Y', 'Y')
-    INTO article(article_id, name, date_aquired, condition, storage_location, uv_protection, temp_control, humidity_control)
+    INTO article(article_id, article_name, date_aquired, article_condition, storage_location, uv_protection, temp_control, humidity_control)
     VALUES (11125, 'Mona Lisa', TO_TIMESTAMP('2021-09-13 03:25:59', 'YYYY-MM-DD HH24:MI:SS'), 'Good', 'on display', 'Y', 'Y', 'Y')
-    INTO article(article_id, name, date_aquired, condition, storage_location, uv_protection, temp_control, humidity_control)
+    INTO article(article_id, article_name, date_aquired, article_condition, storage_location, uv_protection, temp_control, humidity_control)
     VALUES (11126, 'Starry Night', TO_TIMESTAMP('2020-07-02 12:30:15', 'YYYY-MM-DD HH24:MI:SS'), 'Good', 'on display', 'Y', 'Y', 'Y')
-    INTO article(article_id, name, date_aquired, condition, storage_location, uv_protection, temp_control, humidity_control)
+    INTO article(article_id, article_name, date_aquired, article_condition, storage_location, uv_protection, temp_control, humidity_control)
     VALUES (11127, 'The Scream', TO_TIMESTAMP('2023-03-12 14:40:49', 'YYYY-MM-DD HH24:MI:SS'), 'Good', 'on display', 'Y', 'Y', 'Y')
-    INTO article(article_id, name, date_aquired, condition, storage_location, uv_protection, temp_control, humidity_control)
+    INTO article(article_id, article_name, date_aquired, article_condition, storage_location, uv_protection, temp_control, humidity_control)
     VALUES (11128, 'The Thinker replica', TO_TIMESTAMP('2015-03-15 18:30:37', 'YYYY-MM-DD HH24:MI:SS'), 'Excellent', 'Storage room 5', 'N', 'N', 'N')
-    INTO article(article_id, name, date_aquired, condition, storage_location, uv_protection, temp_control, humidity_control)
+    INTO article(article_id, article_name, date_aquired, article_condition, storage_location, uv_protection, temp_control, humidity_control)
     VALUES (11129, 'The Vancouver Court House under construction', TO_TIMESTAMP('2018-08-17 14:12:32', 'YYYY-MM-DD HH24:MI:SS'), 'Good', 'on display', 'Y', 'Y', 'Y')
-    INTO article(article_id, name, date_aquired, condition, storage_location, uv_protection, temp_control, humidity_control)
+    INTO article(article_id, article_name, date_aquired, article_condition, storage_location, uv_protection, temp_control, humidity_control)
     VALUES (11130, 'The terminus of the Canadian Pacific Railway', TO_TIMESTAMP('2018-08-17 14:12:32', 'YYYY-MM-DD HH24:MI:SS'), 'on display', 'Storage room 1', 'Y', 'Y', 'Y')
-    INTO article(article_id, name, date_aquired, condition, storage_location, uv_protection, temp_control, humidity_control)
+    INTO article(article_id, article_name, date_aquired, article_condition, storage_location, uv_protection, temp_control, humidity_control)
     VALUES (11131, 'A picnic in newly opened Stanley Park', TO_TIMESTAMP('2018-08-17 14:12:32', 'YYYY-MM-DD HH24:MI:SS'), 'Fair', 'Fair', 'Y', 'Y', 'Y')
-    INTO article(article_id, name, date_aquired, condition, storage_location, uv_protection, temp_control, humidity_control)
+    INTO article(article_id, article_name, date_aquired, article_condition, storage_location, uv_protection, temp_control, humidity_control)
     VALUES (11132, 'Rebuilding Cordova Street after the Great Vancouver Fire', TO_TIMESTAMP('2018-08-17 14:12:32', 'YYYY-MM-DD HH24:MI:SS'), 'Good', 'on display', 'Y', 'Y', 'Y')
-    INTO article(article_id, name, date_aquired, condition, storage_location, uv_protection, temp_control, humidity_control)
+    INTO article(article_id, article_name, date_aquired, article_condition, storage_location, uv_protection, temp_control, humidity_control)
     VALUES (11133, 'UBCs Main Library - now Irving K. Barber Learning Centre - under construction', TO_TIMESTAMP('2018-08-17 14:12:32', 'YYYY-MM-DD HH24:MI:SS'), 'Good', 'Storage room 1', 'Y', 'Y', 'Y')
-    INTO article(article_id, name, date_aquired, condition, storage_location, uv_protection, temp_control, humidity_control)
+    INTO article(article_id, article_name, date_aquired, article_condition, storage_location, uv_protection, temp_control, humidity_control)
     VALUES (11134, 'Papyrus of Ani - Book of the Dead', TO_TIMESTAMP('2022-07-16 03:15:50', 'YYYY-MM-DD HH24:MI:SS'), 'Fair', 'on display', 'Y', 'Y', 'Y')
-    INTO article(article_id, name, date_aquired, condition, storage_location, uv_protection, temp_control, humidity_control)
+    INTO article(article_id, article_name, date_aquired, article_condition, storage_location, uv_protection, temp_control, humidity_control)
     VALUES (11135, 'Original Manuscript of Alice in Wonderland', TO_TIMESTAMP('2013-08-07 18:55:41', 'YYYY-MM-DD HH24:MI:SS'), 'Good', 'Storage room 2', 'Y', 'Y', 'Y')
-    INTO article(article_id, name, date_aquired, condition, storage_location, uv_protection, temp_control, humidity_control)
+    INTO article(article_id, article_name, date_aquired, article_condition, storage_location, uv_protection, temp_control, humidity_control)
     VALUES (11136, 'Gutenberg Bible - The Earliest Printed Book', TO_TIMESTAMP('2014-09-28 01:25:26', 'YYYY-MM-DD HH24:MI:SS'), 'Good', 'on display', 'Y', 'Y', 'Y')
-    INTO article(article_id, name, date_aquired, condition, storage_location, uv_protection, temp_control, humidity_control)
+    INTO article(article_id, article_name, date_aquired, article_condition, storage_location, uv_protection, temp_control, humidity_control)
     VALUES (11137, 'Magna Carta Libertatum - Latin for “Great Charter of Freedoms”', TO_TIMESTAMP('2019-05-22 11:15:09', 'YYYY-MM-DD HH24:MI:SS'), 'Fair', 'Storage room 5', 'Y', 'Y', 'Y')
-    INTO article(article_id, name, date_aquired, condition, storage_location, uv_protection, temp_control, humidity_control)
+    INTO article(article_id, article_name, date_aquired, article_condition, storage_location, uv_protection, temp_control, humidity_control)
     VALUES (11138, 'Common Sense', TO_TIMESTAMP('2016-03-09 10:05:08', 'YYYY-MM-DD HH24:MI:SS'), 'Good', 'Storage room 2', 'Y', 'Y', 'Y')
 SELECT 1 FROM DUAL;
 
