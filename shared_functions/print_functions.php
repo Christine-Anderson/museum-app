@@ -4,36 +4,37 @@
 
 <?php
 
-function printResults($result){ 
-	if (oci_num_fields($result) > 0) {
-        autogenerateTable($result);
+function printResults($result){
+    oci_fetch_all($result, $rows, null, null, OCI_FETCHSTATEMENT_BY_ROW);
+    
+    if ($rows) {
+        autogenerateTable($rows);
     } else {
         echo "No results found";
     }
 }
 
-function autogenerateTable($result){ 
-	global $db_conn;
-	echo "<table>";
-	echo "<tr>";
+function autogenerateTable($rows){ 
+    echo "<table>";
+    echo "<tr>";
 
-	$ncols = oci_num_fields($result);
-
-    for ($i = 1; $i <= $ncols; $i++) {
-        echo "<th>" . convertToTitleCase(oci_field_name($result, $i)) . "</th>";
+    $ncols = count($rows[0]);
+    
+    foreach ($rows[0] as $columnName => $value) {
+        echo "<th>" . convertToTitleCase($columnName) . "</th>";
     }
 
     echo "</tr>";
 
-    while ($row = oci_fetch_assoc($result)) {
+    foreach ($rows as $row) {
         echo "<tr>";
         foreach ($row as $value) {
             echo "<td>" . $value . "</td>";
         } 
         echo "</tr>";
-	}
+    }
 
-	echo "</table>";
+    echo "</table>";
 }
 
 function convertToTitleCase($string) {

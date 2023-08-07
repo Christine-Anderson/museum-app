@@ -1,5 +1,10 @@
 -- drop views
-DROP VIEW articleofinterest;
+DROP VIEW naturalspecimenspecies;
+DROP VIEW articleartwork;
+DROP VIEW articletext;
+DROP VIEW articlephoto;
+DROP VIEW articleartifact;
+DROP VIEW articlenaturalspecimen;
 
 -- drop tables
 DROP TABLE pertainsto;
@@ -226,6 +231,7 @@ CREATE TABLE sells (
 CREATE TABLE displays (
     exhibit_id INT,
     article_id INT,
+    PRIMARY KEY(exhibit_id, article_id),
     FOREIGN KEY(exhibit_id) REFERENCES exhibit(exhibit_id),
     FOREIGN KEY(article_id) REFERENCES article(article_id)
 );
@@ -233,6 +239,7 @@ CREATE TABLE displays (
 CREATE TABLE writes (
     owner_id INT,
     contract_id INT,
+    PRIMARY KEY(owner_id, contract_id),
     FOREIGN KEY(owner_id) REFERENCES owner(owner_id),
     FOREIGN KEY(contract_id) REFERENCES contract(contract_id)
 );
@@ -240,9 +247,52 @@ CREATE TABLE writes (
 CREATE TABLE pertainsto (
     contract_id INT,
     article_id INT,
+    PRIMARY KEY(contract_id, article_id),
     FOREIGN KEY(contract_id) REFERENCES contract(contract_id),
     FOREIGN KEY(article_id) REFERENCES article(article_id)
 );
+
+-- create views
+CREATE VIEW naturalspecimenspecies AS
+    SELECT ns.*, s.native_to
+    FROM naturalspecimen ns, species s
+    WHERE ns.species_name = s.species_name;
+
+CREATE VIEW articleartwork AS
+    SELECT
+        a.article_id, a.article_name, a.article_condition,
+        art.artist, art.year_made, art.medium
+    FROM article a, artwork art
+    WHERE a.article_id = art.article_id;
+
+CREATE VIEW articletext AS
+    SELECT
+        a.article_id, a.article_name, a.article_condition,
+        t.author, t.year_published
+    FROM article a, text t
+    WHERE a.article_id = t.article_id;
+
+CREATE VIEW articlephoto AS
+    SELECT
+        a.article_id, a.article_name, a.article_condition,
+        p.year_taken, p.location_taken
+    FROM article a, photo p
+    WHERE a.article_id = p.article_id;
+
+CREATE VIEW articleartifact AS
+    SELECT
+        a.article_id, a.article_name, a.article_condition,
+        f.estimated_year, f.region_of_origin, f.material
+    FROM article a, artifact f
+    WHERE a.article_id = f.article_id;
+
+CREATE VIEW articlenaturalspecimen AS
+    SELECT
+        a.article_id, a.article_name, a.article_condition,
+        ns.species_name, ns.native_to, ns.time_period
+    FROM article a, naturalspecimenspecies ns
+    WHERE a.article_id = ns.article_id;
+
 
 -- populate tables
 INSERT ALL
@@ -624,7 +674,6 @@ INSERT ALL
     INTO displays(exhibit_id, article_id) VALUES (1500, 11119)
     INTO displays(exhibit_id, article_id) VALUES (1500, 11134)
     INTO displays(exhibit_id, article_id) VALUES (1500, 11114)
-    INTO displays(exhibit_id, article_id) VALUES (1500, 11134)
     INTO displays(exhibit_id, article_id) VALUES (1502, 11123)
     INTO displays(exhibit_id, article_id) VALUES (1502, 11124)
     INTO displays(exhibit_id, article_id) VALUES (1507, 11115)

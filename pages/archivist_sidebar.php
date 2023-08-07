@@ -11,7 +11,7 @@
 </head>
 <body>
     <div class="sidebar">
-        <a class="main" href="archivist_article_info.php">Article Information</a>
+        <a class="main" href="archivist_search_article.php">Search Articles</a>
         <a href="archivist_examine_article.php">Examine Article</a>
         <a href="archivist_display_article.php">Display Article</a>
     </div>
