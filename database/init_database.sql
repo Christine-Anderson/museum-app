@@ -477,7 +477,7 @@ INSERT ALL
     INTO article(article_id, article_name, date_aquired, article_condition, storage_location, uv_protection, temp_control, humidity_control)
     VALUES (11136, 'Gutenberg Bible - The Earliest Printed Book', TO_TIMESTAMP('2014-09-28 01:25:26', 'YYYY-MM-DD HH24:MI:SS'), 'Good', 'on display', 'Y', 'Y', 'Y')
     INTO article(article_id, article_name, date_aquired, article_condition, storage_location, uv_protection, temp_control, humidity_control)
-    VALUES (11137, 'Magna Carta Libertatum - Latin for “Great Charter of Freedoms”', TO_TIMESTAMP('2019-05-22 11:15:09', 'YYYY-MM-DD HH24:MI:SS'), 'Fair', 'Storage room 5', 'Y', 'Y', 'Y')
+    VALUES (11137, 'Magna Carta Libertatum - Latin for "Great Charter of Freedoms"', TO_TIMESTAMP('2019-05-22 11:15:09', 'YYYY-MM-DD HH24:MI:SS'), 'Fair', 'Storage room 5', 'Y', 'Y', 'Y')
     INTO article(article_id, article_name, date_aquired, article_condition, storage_location, uv_protection, temp_control, humidity_control)
     VALUES (11138, 'Common Sense', TO_TIMESTAMP('2016-03-09 10:05:08', 'YYYY-MM-DD HH24:MI:SS'), 'Good', 'Storage room 2', 'Y', 'Y', 'Y')
 SELECT 1 FROM DUAL;
