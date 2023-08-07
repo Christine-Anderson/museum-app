@@ -5,7 +5,7 @@
 <?php
 
 function printResults($result){
-    oci_fetch_all($result, $rows, null, null, OCI_FETCHSTATEMENT_BY_ROW);
+    oci_fetch_all($result, $rows, 0, -1, OCI_FETCHSTATEMENT_BY_ROW);
     
     if ($rows) {
         autogenerateTable($rows);

@@ -59,26 +59,16 @@
                     handleUpdateArticleConditionRequest();
                 } else if (array_key_exists('submit-artwork-update', $request_method)) {
                     handleUpdateArtworkRequest();
-                } else if (array_key_exists('submit-new-artwork', $request_method)) {
-                    handleNewArtworkRequest();
                 } else if (array_key_exists('submit-text-update', $request_method)) {
                     handleUpdateTextRequest();
-                } else if (array_key_exists('submit-new-text', $request_method)) {
-                    handleNewTextRequest();
                 } else if (array_key_exists('submit-photo-update', $request_method)) {
                     handleUpdatePhotoRequest();
-                } else if (array_key_exists('submit-new-photo', $request_method)) {
-                    handleNewPhotoRequest();
                 } else if (array_key_exists('submit-artifact-update', $request_method)) {
                     handleUpdateArtifactRequest();
-                } else if (array_key_exists('submit-new-artifact', $request_method)) {
-                    handleNewArtifactRequest();
                 } else if (array_key_exists('submit-natural-specimen-update', $request_method)) {
                     handleUpdateNaturalSpecimenRequest();
-                } else if (array_key_exists('submit-new-natural-specimen', $request_method)) {
-                    handleNewNaturalSpecimenRequest();
                 } else if (array_key_exists('submit-examine-article-delete', $request_method)) {
-                    handleDeleteRequest("artwork");
+                    handleDeleteRequest();
                 } else if (array_key_exists('confirm-delete-request', $request_method)) {
                     confirmDeleteRequest();
                 } else if (array_key_exists('reject-delete-request', $request_method)) {
@@ -149,191 +139,110 @@
         function handleUpdateArtworkRequest() {
             global $db_conn; 
 
+            $table_name = "artwork";
             $article_id = $_POST['article-id'];
             $artist = $_POST['artist'];
             $year_made = $_POST['year-made'];
             $medium = $_POST['medium'];
 
-            executePlainSQL(
-                "UPDATE artwork
-                SET artist = '" . $artist . "',
-                    year_made = " . $year_made . ",
-                    medium = '" . $medium . "'
-                WHERE article_id = " . $article_id);
+            $update_stmt = 
+            "UPDATE SET
+                artist = '" . $artist . "',
+                year_made = " . $year_made . ",
+                medium = '" . $medium . "'";
+
+            $insert_stmt = 
+                "INSERT (article_id, artist, year_made, medium)
+                VALUES (source.aoi, '" . $artist . "', " . $year_made . ", '" . $medium . "')";
+
+            updateOrInsertIntoArticle($table_name, $article_id, $update_stmt, $insert_stmt);
 
             oci_commit($db_conn);
 
             echo '<br/><br/>';
             echo '<p>Record updated successfully.</p>';
-            printGivenArticle($article_id, "artwork");
-        }
-
-        function handleNewArtworkRequest() {
-            global $db_conn; 
-
-            $article_id = $_POST['article-id'];
-
-            $tuple = array (
-                ":article_id" => $article_id,
-                ":artist" => $_POST['artist'],
-                ":year_made" => $_POST['year-made'],
-                ":medium" => $_POST['medium']
-            );
-
-            $all_tuples = array (
-                $tuple
-            );
-
-            executeBoundSQL(
-                "INSERT INTO artwork
-                VALUES (:article_id, :artist, :year_made, :medium)", $all_tuples);
-
-            oci_commit($db_conn);
-
-            echo '<br/><br/>';
-            echo '<p>Record added successfully.</p>';
-            printGivenArticle($article_id, "artwork");
+            printGivenArticle($article_id, $table_name);
         }
 
         function handleUpdateTextRequest() {
             global $db_conn; 
 
+            $table_name = "text";
             $article_id = $_POST['article-id'];
             $author = $_POST['author'];
             $year_published = $_POST['year-published'];
 
-            executePlainSQL(
-                "UPDATE text
-                SET author = '" . $author . "',
-                    year_published = " . $year_published . ",
-                WHERE article_id = " . $article_id);
+            $update_stmt = 
+                "UPDATE SET
+                    author = '" . $author . "',
+                    year_published = " . $year_published;
+
+            $insert_stmt = 
+                "INSERT (article_id, author, year_published)
+                VALUES (source.aoi, '" . $author . "', " . $year_published . ")";
+
+            updateOrInsertIntoArticle($table_name, $article_id, $update_stmt, $insert_stmt);
 
             oci_commit($db_conn);
 
             echo '<br/><br/>';
             echo '<p>Record updated successfully.</p>';
-            printGivenArticle($article_id, "text");
-        }
-
-        function handleNewTextRequest() {
-            global $db_conn; 
-
-            $article_id = $_POST['article-id'];
-
-            $tuple = array (
-                ":article_id" => $article_id,
-                ":author" => $_POST['author'],
-                ":year_published" => $_POST['year-published']
-            );
-
-            $all_tuples = array (
-                $tuple
-            );
-
-            executeBoundSQL(
-                "INSERT INTO text
-                VALUES (:article_id, :author, :year_published)", $all_tuples);
-
-            oci_commit($db_conn);
-
-            echo '<br/><br/>';
-            echo '<p>Record added successfully.</p>';
-            printGivenArticle($article_id, "text");
+            printGivenArticle($article_id, $table_name);
         }
 
         function handleUpdatePhotoRequest() {
             global $db_conn; 
 
+            $table_name = "photo";
             $article_id = $_POST['article-id'];
             $year_taken = $_POST['year-taken'];
             $location_taken = $_POST['location-taken'];
 
-            executePlainSQL(
-                "UPDATE photo
-                SET year_taken = '" . $year_taken . "',
-                    location_taken = " . $location_taken . ",
-                WHERE article_id = " . $article_id);
+            $update_stmt = 
+                "UPDATE SET
+                    year_taken = " . $year_taken . ",
+                    location_taken = '" . $location_taken . "'";
+
+
+            $insert_stmt = 
+                "INSERT (article_id, year_taken, location_taken)
+                VALUES (source.aoi, " . $year_taken . ", '" . $location_taken . "')";
+
+            updateOrInsertIntoArticle($table_name, $article_id, $update_stmt, $insert_stmt);
 
             oci_commit($db_conn);
 
             echo '<br/><br/>';
             echo '<p>Record updated successfully.</p>';
-            printGivenArticle($article_id, "photo");
-        }
-
-        function handleNewPhotoRequest() {
-            global $db_conn; 
-
-            $article_id = $_POST['article-id'];
-
-            $tuple = array (
-                ":article_id" => $article_id,
-                ":year_taken" => $_POST['year-taken'],
-                ":location_taken" => $_POST['location-taken']
-            );
-
-            $all_tuples = array (
-                $tuple
-            );
-
-            executeBoundSQL(
-                "INSERT INTO photo
-                VALUES (:article_id, :year_taken, :location_taken)", $all_tuples);
-
-            oci_commit($db_conn);
-
-            echo '<br/><br/>';
-            echo '<p>Record added successfully.</p>';
-            printGivenArticle($article_id, "photo");
+            printGivenArticle($article_id, $table_name);
         }
 
         function handleUpdateArtifactRequest() {
             global $db_conn; 
 
+            $table_name = "artifact";
             $article_id = $_POST['article-id'];
             $estimated_year = $_POST['estimated-year'];
             $region_of_origin = $_POST['region-of-origin'];
             $material = $_POST['material'];
 
-            executePlainSQL(
-                "UPDATE artifact
-                SET estimated_year = '" . $estimated_year . "',
-                    region_origin = " . $region_of_origin . ",
-                    material = '" . $material . "'
-                WHERE article_id = " . $article_id);
+            $update_stmt = 
+                "UPDATE SET
+                    estimated_year = '" . $estimated_year . "',
+                    region_of_origin = '" . $region_of_origin . "',
+                    material = '" . $material . "'";
+
+            $insert_stmt = 
+                "INSERT (article_id, estimated_year, region_of_origin, material)
+                VALUES (source.aoi, '" . $estimated_year . "', '" . $region_of_origin . "', '" . $material . "')";
+
+            updateOrInsertIntoArticle($table_name, $article_id, $update_stmt, $insert_stmt);
 
             oci_commit($db_conn);
 
             echo '<br/><br/>';
             echo '<p>Record updated successfully.</p>';
-            printGivenArticle($article_id, "artifact");
-        }
-
-        function handleNewArtifactRequest() {
-            global $db_conn; 
-
-            $article_id = $_POST['article-id'];
-
-            $tuple = array (
-                ":article_id" => $article_id,
-                ":estimated_year" => $_POST['estimated-year'],
-                ":region_of_origin" => $_POST['region-of-origin'],
-                ":material" => $_POST['material']
-            );
-
-            $all_tuples = array (
-                $tuple
-            );
-
-            executeBoundSQL(
-                "INSERT INTO artifact
-                VALUES (:article_id, :estimated_year, :region_of_origin, :material)", $all_tuples);
-
-            oci_commit($db_conn);
-
-            echo '<br/><br/>';
-            echo '<p>Record added successfully.</p>';
-            printGivenArticle($article_id, "artifact");
+            printGivenArticle($article_id, $table_name);
         }
 
         function handleUpdateNaturalSpecimenRequest() {
@@ -357,18 +266,16 @@
                     VALUES (source.soi, '" . $native_to . "')");
 
             // update or insert into natural specimen
-            executePlainSQL(
-                "MERGE INTO naturalspecimen target
-                USING (SELECT '" . $article_id . "' AS aoi FROM dual) source
-                ON (target.article_id = source.aoi)
-                WHEN MATCHED THEN
-                    UPDATE SET 
-                        species_name = '" . $species_name . "',
-                        time_period = '" . $time_period . "'
-                    WHERE target.article_id = source.aoi
-                WHEN NOT MATCHED THEN
-                    INSERT (article_id, species_name, time_period)
-                    VALUES (source.aoi, '" . $species_name . "', '" . $time_period . "')");
+            $update_stmt = 
+                "UPDATE SET 
+                    species_name = '" . $species_name . "',
+                    time_period = '" . $time_period . "'";
+
+            $insert_stmt = 
+                "INSERT (article_id, species_name, time_period)
+                VALUES (source.aoi, '" . $species_name . "', '" . $time_period . "')";
+
+            updateOrInsertIntoArticle("naturalspecimen", $article_id, $update_stmt, $insert_stmt);
 
             oci_commit($db_conn);
 
@@ -378,13 +285,32 @@
             printGivenArticle($article_id, "naturalspecimenspecies");
         }
 
-        function handleDeleteRequest($table) {
-            global $db_conn; 
+        function updateOrInsertIntoArticle($table_name, $article_id, $update_stmt, $insert_stmt) {
+            executePlainSQL(
+                "MERGE INTO " . $table_name . " target
+                USING (SELECT '" . $article_id . "' AS aoi FROM dual) source
+                ON (target.article_id = source.aoi)
+                WHEN MATCHED THEN
+                    " . $update_stmt . "
+                    WHERE target.article_id = source.aoi
+                WHEN NOT MATCHED THEN
+                    " . $insert_stmt);
+        }
+
+        function handleDeleteRequest() {
+            global $db_conn;
+
+            $article_id = $_GET['article-id'];
+            $table = $_GET['article-delete-option'];
+
+            $table = str_replace('-', '', $table);
+            $table = str_replace('delete', '', $table);
 
             $article_id = $_GET['article-id'];
 
-            echo '<br/><br/> <p>Are you sure you want to delete the following record?</p>';
-            printGivenArticle($article_id, "artwork");
+            echo '<br/><br/>';
+            echo '<p>Are you sure you want to delete the following record?</p>';
+            printGivenArticle($article_id, $table);
 
             $delete_stmt =
                 "DELETE 
