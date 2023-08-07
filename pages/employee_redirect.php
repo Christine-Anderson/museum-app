@@ -14,7 +14,7 @@
     function userRedirect() {
         $input_value =  $_POST["employee-type"];
         if ($input_value == "curator") { 
-            header("Location: curator_main.php");
+            header("Location: curator_exhibit_collection_info.php");
             exit;
         } else if ($input_value == "archivist") {
             header("Location: archivist_article_info.php");
