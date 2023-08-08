@@ -125,33 +125,37 @@
             $exhibit_id = $_POST['exhibit-id-display-article'];
             $article_id = $_POST['article-id'];
 
-            $tuple = array (
-                ":exhibit_id" => $exhibit_id,
-                ":article_id" => $article_id
-            );
+            // if article does not already exist in exhibit, insert it
+            $insert_result = executePlainSQL(
+                "MERGE INTO displays target
+                USING (SELECT " . $exhibit_id . " AS eoi, " . $article_id . " AS aoi FROM dual) source
+                ON (target.exhibit_id = source.eoi AND target.article_id = source.aoi)
+                WHEN NOT MATCHED THEN
+                    INSERT (exhibit_id, article_id)
+                    VALUES (source.eoi, source.aoi)");
 
-            $all_tuples = array (
-                $tuple
-            );
+            $rows = oci_num_rows($insert_result);
+            // if a row was inserted, update article location to on display
+            if ($rows > 0) {
+                executePlainSQL(
+                    "UPDATE article
+                    SET storage_location = 'on display'
+                    WHERE article_id = " . $article_id);
+                
+                printArticleOnDisplay($article_id, $exhibit_id, '<p>The following article has been put on display:</p>');
+            } else {
+                echo '<br/><br/>';
+                echo '<p>Article ' . $article_id . ' is already on display in exhibit ' . $exhibit_id . '.</p>';
+            }
 
-            // put article on display in exhibit
-            executeBoundSQL(
-                "INSERT INTO displays(exhibit_id, article_id)
-                VALUES (:exhibit_id, :article_id)", $all_tuples);
-            
-            // update article location to on display
-            executePlainSQL(
-                "UPDATE article
-                SET storage_location = 'on display'
-                WHERE article_id = " . $article_id);
+            oci_commit($db_conn);            
+        }
 
-            oci_commit($db_conn);
-
-            // generate output 
+        function printArticleOnDisplay($article_id, $exhibit_id, $output_string) {
             $result = executePlainSQL(
                 "SELECT 
-                    a.article_id, a.article_name, a.storage_location,
-                    e.exhibit_id, e.exhibit_name
+                    e.exhibit_id, e.exhibit_name,
+                    a.article_id, a.article_name, a.storage_location
                 FROM article a, displays d, exhibit e
                 WHERE 
                     a.article_id = " . $article_id . " AND
@@ -160,7 +164,7 @@
                     e.exhibit_id = " . $exhibit_id);
 
             echo '<br/><br/>';
-            echo '<p>The following has been put on display:</p>';
+            echo $output_string;
             printResults($result);
         }
 
