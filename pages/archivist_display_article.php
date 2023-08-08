@@ -40,14 +40,14 @@
             <br/>
         </form>
 
-        <h3>Display Article in Exhibit</h3>
-        <form method="POST" id="display-article-request" action="archivist_display_article.php">
-            <input type="hidden" id="display-article-request" name="display-article-request">
+        <h3>Add Article to Exhibit</h3>
+        <form method="POST" id="add-article-to-exhibit-request" action="archivist_display_article.php">
+            <input type="hidden" id="add-article-to-exhibit-request" name="add-article-to-exhibit-request">
             exhibit ID: <input type="number" name="exhibit-id-display-article" min="1000" max="9999" required>
             <br/><br/>
             article ID: <input type="number" name="article-id" min="10000" max="99999" required>
             <br/><br/>
-            <input type="submit" value="Display Article" name="submit-display-article"></p>
+            <input type="submit" value="Add Article" name="submit-add-article-to-exhibit"></p>
         </form>
 
         <?php
@@ -63,8 +63,8 @@
                     handleFindArticlesOnDisplayRequest();
                 } else if (array_key_exists('submit-count-article-on-display', $request_method)) {
                     handleCountArticlesOnDisplayRequest();
-                } else if  (array_key_exists('submit-display-article', $request_method)) {
-                    handleDisplayArticleRequest();
+                } else if  (array_key_exists('submit-add-article-to-exhibit', $request_method)) {
+                    handleAddArticleToExhibitRequest();
                 }
                 disconnectFromDB(); 
             }
@@ -119,7 +119,7 @@
             printResults($result);
         }
 
-        function handleDisplayArticleRequest() {
+        function handleAddArticleToExhibitRequest() {
             global $db_conn; 
 
             $exhibit_id = $_POST['exhibit-id-display-article'];
@@ -165,7 +165,7 @@
         }
 
         // process database requests
-        if (isset($_POST['submit-display-article'])) {
+        if (isset($_POST['submit-add-article-to-exhibit'])) {
             handleDatabaseRequest($_POST);
         } else if (isset($_GET['submit-search-exhibit']) || isset($_GET['submit-find-article-on-display']) || isset($_GET['submit-count-article-on-display'])) {
             handleDatabaseRequest($_GET);

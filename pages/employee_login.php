@@ -9,7 +9,7 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Employee Login page</title>
+	<title>Employee Login</title>
 </head>
 <body>
 <h1> Museum App </h1>

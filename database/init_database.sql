@@ -1,10 +1,10 @@
 -- drop views
+DROP VIEW articlenaturalspecimen;
 DROP VIEW naturalspecimenspecies;
 DROP VIEW articleartwork;
 DROP VIEW articletext;
 DROP VIEW articlephoto;
 DROP VIEW articleartifact;
-DROP VIEW articlenaturalspecimen;
 
 -- drop tables
 DROP TABLE pertainsto;
@@ -254,7 +254,7 @@ CREATE TABLE pertainsto (
 
 -- create views
 CREATE VIEW naturalspecimenspecies AS
-    SELECT ns.*, s.native_to
+    SELECT ns.article_id, ns.species_name, s.native_to, ns.time_period
     FROM naturalspecimen ns, species s
     WHERE ns.species_name = s.species_name;
 
