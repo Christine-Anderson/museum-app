@@ -1,10 +1,10 @@
 -- drop views
-DROP VIEW articlenaturalspecimen;
+DROP VIEW naturalspecimenarticle;
 DROP VIEW naturalspecimenspecies;
-DROP VIEW articleartwork;
-DROP VIEW articletext;
-DROP VIEW articlephoto;
-DROP VIEW articleartifact;
+DROP VIEW artworkarticle;
+DROP VIEW textarticle;
+DROP VIEW photoarticle;
+DROP VIEW artifactarticle;
 
 -- drop tables
 DROP TABLE pertainsto;
@@ -258,35 +258,35 @@ CREATE VIEW naturalspecimenspecies AS
     FROM naturalspecimen ns, species s
     WHERE ns.species_name = s.species_name;
 
-CREATE VIEW articleartwork AS
+CREATE VIEW artworkarticle AS
     SELECT
         a.article_id, a.article_name, a.article_condition,
         art.artist, art.year_made, art.medium
     FROM article a, artwork art
     WHERE a.article_id = art.article_id;
 
-CREATE VIEW articletext AS
+CREATE VIEW textarticle AS
     SELECT
         a.article_id, a.article_name, a.article_condition,
         t.author, t.year_published
     FROM article a, text t
     WHERE a.article_id = t.article_id;
 
-CREATE VIEW articlephoto AS
+CREATE VIEW photoarticle AS
     SELECT
         a.article_id, a.article_name, a.article_condition,
         p.year_taken, p.location_taken
     FROM article a, photo p
     WHERE a.article_id = p.article_id;
 
-CREATE VIEW articleartifact AS
+CREATE VIEW artifactarticle AS
     SELECT
         a.article_id, a.article_name, a.article_condition,
         f.estimated_year, f.region_of_origin, f.material
     FROM article a, artifact f
     WHERE a.article_id = f.article_id;
 
-CREATE VIEW articlenaturalspecimen AS
+CREATE VIEW naturalspecimenarticle AS
     SELECT
         a.article_id, a.article_name, a.article_condition,
         ns.species_name, ns.native_to, ns.time_period
