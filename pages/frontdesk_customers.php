@@ -14,7 +14,161 @@
 </head>
 <body>
     <?php
-    echo "Successfully redirected to customers page.";
+    include 'frontdesk_sidebar.php'
+    ?>
+
+    <div class="content">
+        <h2>Customer Dashboard</h2>
+
+        <h3>Buy, refund or update ticket</h3>
+        <form method="GET" id="frontdesk_customers" action="frontdesk_customers.php">
+            <select name="ticket-buy-option" id="ticket-buy-option">  
+                <option value="ticket-add">Buy</option>
+                <option value="ticket-delete">Refund</option>
+                <option value="ticket-update">Update info</option>
+            </select>
+            <input type="submit" value="Select" name="frontdesk-choice"></p>
+            <br/>
+        </form>
+    <?php
+
+    include '../shared_functions/database_functions.php';
+    include '../shared_functions/print_functions.php';
+
+    function handleDatabaseRequest($request_method) {
+        if (connectToDB()) {
+            if (array_key_exists('submit-update-ticket', $request_method)) {
+                handleUpdateTicketRequest();
+            } else if (array_key_exists('submit-delete-ticket', $request_method)) {
+                handleDeleteTicketRequest();
+            } else if (array_key_exists('submit-add-ticket', $request_method)) {
+                handleAddTickettRequest();
+            } 
+            disconnectFromDB(); 
+        }
+    }
+
+    function handleUpdateTicketRequest() {
+        global $db_conn;
+
+        $name = $_POST['name'];
+        $email = $_POST['author'];
+        $ticketType = $_POST['ticketType'];
+        $ticketID = $_POST['ticket-id'];
+
+        executePlainSQL( "MERGE INTO ticket target
+            USING visitor
+            ON (target.visitor_id = visitor.visitor_id)
+            WHEN MATCHED THEN
+            UPDATE SET target.ticket_type = '" . $ticketType . "'
+            WHERE target.ticket_id = ". $ticketID);
+
+        oci_commit($db_conn);
+    }
+
+    function handleDeleteTicketRequest() {
+        global $db_conn;
+
+        $ticket_id = $_GET['ticket-id'];
+        $table = 'ticket';
+
+        $delete_stmt =
+            "DELETE 
+            FROM " . $table . "
+            WHERE ticket_id = " . $ticket_id;
+
+        executePlainSQL($delete_stmt);
+
+        oci_commit($db_conn);
+        echo '<br/><br/> <p>Record deleted successfully.</p>';
+    }
+    function handleAddTickettRequest() {
+        
+    }
+
+    
+    function handleFrontdeskRequest() {
+        $choice = $_GET['ticket-buy-option'];
+        if ($choice == "ticket-add") {
+            renderRegisterForm();
+        } else if ($choice == "ticket-delete") {
+            renderDeleteForm();
+        } else if ($choice == "ticket-update") {
+            renderUpdateForm();
+        }
+    }
+
+    function renderRegisterForm() {
+        echo '<br/><br/>';
+        echo '<p>Please enter visitor and ticket information:</p>';
+        echo '<form method="POST" id="frontdesk-add-ticket">';
+        echo '<input type="hidden" id="register-visitor-request" name="register-visitor-request">';
+        echo 'Name: <input type="text" name="name" required> <br/><br/>';
+        echo 'Email: <input type="text" name="author" required> <br/><br/>';
+    
+        // Dropdown selection for Ticket type
+        echo 'Ticket type: ';
+        echo '<select name="ticketType" required>';
+        echo '<option value="General Admission">General Admission</option>';
+        echo '<option value="Family">Family</option>';
+        echo '<option value="Child">Child</option>';
+        echo '<option value="Staff">Staff</option>';
+        echo '<option value="Senior">Senior</option>';
+        echo '</select>';
+        echo '<br/><br/>';
+    
+        echo '<input type="submit" value="Add ticket" name="submit-add-ticket">';
+        echo '</form>';
+    }
+    
+    function renderDeleteForm() {
+        echo '<br/><br/>';
+        echo '<p>Please enter ticket ID:</p>';
+        echo '<form method="POST" id="frontdesk-register-visitor">';
+        echo '<input type="hidden" id="delete-ticket-request" name="delete-ticket-request">';
+        echo 'ticket ID: <input type="number" name="ticket-id" required>';
+        echo '<br/><br/>';
+        echo '<input type="submit" value="Delete Ticket" name="submit-delete-ticket">';
+        echo '</form>';
+    }
+
+    function renderUpdateForm() {
+        echo '<br/><br/>';
+        echo '<p>Please enter visitor and ticket information:</p>';
+        echo '<form method="POST" id="frontdesk-update-ticket">';
+        echo '<input type="hidden" id="update-visitor-request" name="update-visitor-request">';
+        echo 'Ticket ID: <input type="number" name="ticket-id" required>';
+        echo 'Name: <input type="text" name="name" required> <br/><br/>';
+        echo 'Email: <input type="text" name="author" required> <br/><br/>';
+    
+        // Dropdown selection for Ticket type
+        echo 'Ticket type: ';
+        echo '<select name="ticketType" required>';
+        echo '<option value="General Admission">General Admission</option>';
+        echo '<option value="Family">Family</option>';
+        echo '<option value="Child">Child</option>';
+        echo '<option value="Staff">Staff</option>';
+        echo '<option value="Senior">Senior</option>';
+        echo '</select>';
+        echo '<br/><br/>';
+    
+        echo '<input type="submit" value="Update ticket" name="submit-update-ticket">';
+        echo '</form>';
+    }
+
+    // process render form requests
+    if(isset($_GET['frontdesk-choice'])) {
+        if (array_key_exists('frontdesk-choice', $_GET)) {
+            handleFrontdeskRequest();
+        }
+    }
+
+    // process database requests
+    if (isset($_POST['submit-update-ticket']) || isset($_POST['submit-delete-ticket']) || isset($_POST['submit-add-ticket'])) {
+            handleDatabaseRequest($_POST);
+    }
+
+
     ?>
 </body>
 </html>
