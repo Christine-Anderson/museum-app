@@ -36,7 +36,8 @@
 
         <form method="GET" id="count-article-on-display-request" action="archivist_display_article.php">
             <input type="hidden" id="count-article-on-display-request" name="count-article-on-display-request">
-            <input type="submit" value="Count Articles Per Exhibit" name="submit-count-article-on-display"></p>
+            Number of articles per exhibit
+            <input type="submit" value="Count" name="submit-count-article-on-display"></p>
             <br/>
         </form>
 
@@ -48,6 +49,15 @@
             article ID: <input type="number" name="article-id" min="10000" max="99999" required>
             <br/><br/>
             <input type="submit" value="Add Article" name="submit-add-article-to-exhibit"></p>
+            <br/><br/>
+        </form>
+    
+        <h3>Profit Per Exhibit</h3>
+        <p>Given the number of visitors</p>
+        <form method="GET" id="find-profit-per-exhibit-request" action="archivist_display_article.php">
+            <input type="hidden" id="find-profit-per-exhibit-request" name="find-profit-per-exhibit-request">
+            Number of visitors: <input type="number" name="num-visitors-per-exhibit" min="1" max="9999" required>
+            <input type="submit" value="Calculate" name="submit-find-profit-per-exhibit"></p>
         </form>
 
         <?php
@@ -65,6 +75,8 @@
                     handleCountArticlesOnDisplayRequest();
                 } else if  (array_key_exists('submit-add-article-to-exhibit', $request_method)) {
                     handleAddArticleToExhibitRequest();
+                } else if  (array_key_exists('submit-find-profit-per-exhibit', $request_method)) {
+                    handleFindProfitPerExhibitRequest();
                 }
                 disconnectFromDB(); 
             }
@@ -82,7 +94,7 @@
 
             echo '<br/><br/>';
             echo '<p>The following exhibits match ' . $search_term . ':</p>';
-            printResults($result);
+            printResults($result, "auto");
         }
 
         function handleFindArticlesOnDisplayRequest() {
@@ -102,7 +114,7 @@
 
             echo '<br/><br/>';
             echo '<p>The following articles are currently on display:</p>';
-            printResults($result);
+            printResults($result, "auto");
         }
 
         function handleCountArticlesOnDisplayRequest() {
@@ -116,7 +128,7 @@
 
             echo '<br/><br/>';
             echo '<p>The number of articles currently on display in each exhibit is:</p>';
-            printResults($result);
+            printResults($result, ["Exhibit ID", "Number of Articles On Display"]);
         }
 
         function handleAddArticleToExhibitRequest() {
@@ -151,6 +163,34 @@
             oci_commit($db_conn);            
         }
 
+        function handleFindProfitPerExhibitRequest() {
+            global $db_conn;
+
+            $num_visitors = $_GET['num-visitors-per-exhibit'];
+
+            $result = executePlainSQL(
+                "SELECT e.exhibit_id, SUM(tp.price)
+                FROM ticket t, ticketprice tp, visitor v, admits a, exhibit e
+                WHERE
+                    t.ticket_type = tp.ticket_type AND
+                    t.visitor_id = v.visitor_id AND
+                    t.ticket_id = a.ticket_id AND
+                    a.exhibit_id = e.exhibit_id
+                GROUP BY e.exhibit_id
+                HAVING " . $num_visitors . " <= (
+                    SELECT COUNT(*)
+                    FROM ticket t1, visitor v1, admits a1, exhibit e1
+                    WHERE
+                        t1.visitor_id = v1.visitor_id AND
+                        t1.ticket_id = a1.ticket_id AND
+                        a1.exhibit_id = e1.exhibit_id AND
+                        e1.exhibit_id = e.exhibit_id)");
+
+            echo '<br/><br/>';
+            echo '<p>The total profit per exhibit where the number of visitors is at least ' . $num_visitors . ' is:</p>';
+            printResults($result, ["Exhibit ID", "Total Profit"]);
+        }
+
         function printArticleOnDisplay($article_id, $exhibit_id, $output_string) {
             $result = executePlainSQL(
                 "SELECT 
@@ -165,13 +205,14 @@
 
             echo '<br/><br/>';
             echo $output_string;
-            printResults($result);
+            printResults($result, "auto");
         }
 
         // process database requests
         if (isset($_POST['submit-add-article-to-exhibit'])) {
             handleDatabaseRequest($_POST);
-        } else if (isset($_GET['submit-search-exhibit']) || isset($_GET['submit-find-article-on-display']) || isset($_GET['submit-count-article-on-display'])) {
+        } else if (isset($_GET['submit-search-exhibit']) || isset($_GET['submit-find-article-on-display'])
+        || isset($_GET['submit-count-article-on-display']) || isset($_GET['submit-find-profit-per-exhibit'])) {
             handleDatabaseRequest($_GET);
         }
         ?>

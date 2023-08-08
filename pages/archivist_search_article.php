@@ -70,7 +70,7 @@
 
             echo '<br/><br/>';
             echo '<p>The following articles match ' . $search_term . ':</p>';
-            printResults($result);
+            printResults($result, "auto");
         }
 
         function handleSearchByIDRequest() {
@@ -98,7 +98,7 @@
                 WHERE article_id = " . $article_id . "");
 
             echo '<br/><br/>';
-            printResults($result);
+            printResults($result, "auto");
         }
 
         function getArticleStorageConditions($article_id) {
@@ -110,7 +110,7 @@
                 WHERE article_id = " . $article_id);
 
             echo '<br/><br/>';
-            printResults($result);
+            printResults($result, "auto");
         }
 
         function getArticleDetails($article_id) {
@@ -118,27 +118,27 @@
 
             $artwork_result = executePlainSQL(
                 "SELECT *
-                FROM articleartwork
+                FROM artworkarticle
                 WHERE article_id = " . $article_id);
 
             $text_result = executePlainSQL(
                 "SELECT *
-                FROM articletext
+                FROM textarticle
                 WHERE article_id = " . $article_id);
 
             $photo_result = executePlainSQL(
                 "SELECT *
-                FROM articlephoto
+                FROM photoarticle
                 WHERE article_id = " . $article_id);
             
             $artifact_result = executePlainSQL(
                 "SELECT *
-                FROM articleartifact
+                FROM artifactarticle
                 WHERE article_id = " . $article_id);
             
             $naturalspecimen_result = executePlainSQL(
                 "SELECT *
-                FROM articlenaturalspecimen
+                FROM naturalspecimenarticle
                 WHERE article_id = " . $article_id);
 
             printArticleDetails($artwork_result, $text_result, $photo_result, $artifact_result, $naturalspecimen_result);
