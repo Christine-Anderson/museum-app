@@ -20,7 +20,7 @@
             header("Location: archivist_search_article.php");
             exit;
         } else if ($input_value == "frontdesk") {
-            header("Location: frontdesk_customer.php");
+            header("Location: frontdesk_customers.php");
             exit;
         } else {
             invalidUserError();
