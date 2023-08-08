@@ -64,7 +64,7 @@
             $search_term = $_GET['search-term'];
 
             $result = executePlainSQL(
-                "SELECT article_id, article_name
+                "SELECT article_id, article_name, date_aquired, article_condition
                 FROM article
                 WHERE UPPER(article_name) LIKE '%' || UPPER('" . $search_term . "') || '%'");
 
