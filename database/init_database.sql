@@ -208,7 +208,8 @@ CREATE TABLE contains (
     article_id INT,
     collection_id INT,
     PRIMARY KEY (article_id, collection_id),
-    FOREIGN KEY(article_id) REFERENCES article(article_id),
+    FOREIGN KEY(article_id) REFERENCES article(article_id)
+        ON DELETE CASCADE,
     FOREIGN KEY(collection_id) REFERENCES collection(collection_id)
 );
 
@@ -216,7 +217,8 @@ CREATE TABLE examines (
     article_id INT,
     sin INT,
     PRIMARY KEY (article_id, sin),
-    FOREIGN KEY(article_id) REFERENCES article(article_id),
+    FOREIGN KEY(article_id) REFERENCES article(article_id)
+        ON DELETE CASCADE,
     FOREIGN KEY(sin) REFERENCES archivist(sin)
 );
 
@@ -234,6 +236,7 @@ CREATE TABLE displays (
     PRIMARY KEY(exhibit_id, article_id),
     FOREIGN KEY(exhibit_id) REFERENCES exhibit(exhibit_id),
     FOREIGN KEY(article_id) REFERENCES article(article_id)
+        ON DELETE CASCADE
 );
 
 CREATE TABLE writes (
@@ -250,6 +253,7 @@ CREATE TABLE pertainsto (
     PRIMARY KEY(contract_id, article_id),
     FOREIGN KEY(contract_id) REFERENCES contract(contract_id),
     FOREIGN KEY(article_id) REFERENCES article(article_id)
+        ON DELETE CASCADE
 );
 
 -- create views
