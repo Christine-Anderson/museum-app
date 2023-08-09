@@ -12,8 +12,7 @@ function printResults($result, $columnNames){
             autogenerateTable($rows);
         } else {
             customTable($rows, $columnNames);
-        }
-        
+        }   
     } else {
         echo "No results found";
     }

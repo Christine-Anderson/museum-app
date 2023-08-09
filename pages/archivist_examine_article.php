@@ -1,6 +1,6 @@
 <!--
     Archivist view examine article page
-    Archivist can update, insert, and delete article examination records
+    Archivist can update, insert, and delete article examination records, update article condition, and delete articles
 -->
 
 <!DOCTYPE html>
@@ -31,6 +31,14 @@
 			</select>
             <input type="submit" value="Select" name="submit-examine-article-update"></p>
             <br/>
+        </form>
+
+        <h3>Delete Article</h3>
+        <form method="GET" id="article-delete-request">
+            <input type="hidden" id="article-delete-request" name="article-delete-request">
+            article ID: <input type="number" name="article-id" min="10000" max="99999" required>
+            <input type="submit" value="Delete" name="submit-article-delete"></p>
+            <br/><br/>
         </form>
 
         <h3>Delete Article Examination Records</h3>
@@ -67,8 +75,10 @@
                     handleUpdateArtifactRequest();
                 } else if (array_key_exists('submit-natural-specimen-update', $request_method)) {
                     handleUpdateNaturalSpecimenRequest();
+                } else if (array_key_exists('submit-article-delete', $request_method)) {
+                    handleDeleteArticleRequest();
                 } else if (array_key_exists('submit-examine-article-delete', $request_method)) {
-                    handleDeleteRequest();
+                    handleDeleteExamineArticleRequest();
                 } else if (array_key_exists('confirm-delete-request', $request_method)) {
                     confirmDeleteRequest();
                 } else if (array_key_exists('reject-delete-request', $request_method)) {
@@ -297,19 +307,28 @@
                     " . $insert_stmt);
         }
 
-        function handleDeleteRequest() {
+        function handleDeleteArticleRequest() {
+            global $db_conn;
+            handleDeleteArticleByTableRequest("article", "article");
+        }
+
+        function handleDeleteExamineArticleRequest() {
             global $db_conn;
 
-            $article_id = $_GET['article-id'];
             $table = $_GET['article-delete-option'];
-
             $table = str_replace('-', '', $table);
             $table = str_replace('delete', '', $table);
+
+            handleDeleteArticleByTableRequest($table, "record");
+        }
+
+        function handleDeleteArticleByTableRequest($table, $item_to_delete) {
+            global $db_conn;
 
             $article_id = $_GET['article-id'];
 
             echo '<br/><br/>';
-            echo '<p>Are you sure you want to delete the following record?</p>';
+            echo '<p>Are you sure you want to delete the following ' . $item_to_delete . '?</p>';
             printGivenArticle($article_id, $table);
 
             $delete_stmt =
@@ -454,7 +473,7 @@
             || isset($_POST['submit-photo-update']) || isset($_POST['submit-artifact-update']) || isset($_POST['submit-natural-specimen-update'])
             || isset($_POST['confirm-delete-request']) || isset($_POST['reject-delete-request'])) {
             handleDatabaseRequest($_POST);
-        } else if (isset($_GET['submit-examine-article-delete'])) {
+        } else if (isset($_GET['submit-examine-article-delete']) || isset($_GET['submit-article-delete'])) {
             handleDatabaseRequest($_GET);
         }
         ?>

@@ -1,6 +1,7 @@
 <!--
     Archivist display article page
-    Archivist can search exhibits, find articles currently on display in an exhibit, and put articles on display
+    Archivist can search exhibits, find articles currently on display in an exhibit, count articles
+    currently on display in each exhibit, put articles on display, and calculate the profit per exhibit
 -->
 
 <!DOCTYPE html>
