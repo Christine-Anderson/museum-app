@@ -67,6 +67,9 @@
                     target.NAME = '" . $name . "'
             WHERE TICKET.ticket_id = ". $ticketID);
 
+        echo '<br/><br/>';
+        echo 'Ticket updated';
+
         oci_commit($db_conn);
     }
 
@@ -75,9 +78,13 @@
 
         $name = $_POST['name'];
         $email = $_POST['author'];
-        $ticketType = $_POST['ticketType'];
+        $visitorID = $_POST['visitor-id'];
+        $name = executePlainSQL("SELECT MAX(VISITOR_ID) FROM VISITOR");
 
-        executePlainSQL( "INSERT INTO visitor (name, email) VALUES ('" . $name . "', '" . $email . "')");
+        executePlainSQL( "INSERT INTO visitor (visitor_id,name, email) VALUES (" . $visitorID . ", '" . $name . "', '" . $email . "')");
+
+        echo '<br/><br/>';
+        echo 'Ticket added';
 
         oci_commit($db_conn);
     }
@@ -97,6 +104,7 @@
         echo '<p>Please enter visitor and ticket information:</p>';
         echo '<form method="POST" id="frontdesk-add-ticket">';
         echo '<input type="hidden" id="register-visitor-request" name="register-visitor-request">';
+        echo 'Visiror ID: <input type="number" name="visitor-id" required> <br/><br/>';
         echo 'Name: <input type="text" name="name" required> <br/><br/>';
         echo 'Email: <input type="text" name="author" required> <br/><br/>';
     

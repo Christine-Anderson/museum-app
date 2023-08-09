@@ -30,13 +30,16 @@
 
     function handleDatabaseRequest() {
         global $db_conn;
-
+        
         $count = $_POST['visitor-count'];
 
-        executePlainSQL( "SELECT e.exhibit_id, e.exhibit_name
+        $result = executePlainSQL( "SELECT e.exhibit_id, e.exhibit_name
         FROM Exhibit e
-        WHERE (SELECT AVG(COUNT(*)) FROM attends GROUP BY exhibit_id) < " . $count);
-
+        WHERE (SELECT AVG(COUNT(*)) FROM attends GROUP BY exhibit_id)  " . $count);
+        
+        echo '<br/><br/>';
+        echo 'Most viewed exhibits:';
+        printResults($result, "auto");
         oci_commit($db_conn);
     }
 
