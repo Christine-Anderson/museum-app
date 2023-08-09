@@ -142,7 +142,7 @@
 
             
             $result = executePlainSQL(
-            "SELECT e.exhibit_id, e.exhibit_name, e.sin, COUNT(*) AS Article_number
+            "SELECT e.exhibit_id, e.exhibit_name, e.sin, COUNT(*) AS Number_of_articles
             FROM exhibit e, displays d, article a
             WHERE e.exhibit_id = d.exhibit_id AND d.article_id = a.article_id
             GROUP BY e.exhibit_id, e.exhibit_name, e.sin
