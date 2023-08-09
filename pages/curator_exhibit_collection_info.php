@@ -46,7 +46,7 @@
             <input type="submit" value="Find Exhibits" name="submit-article-count"></p>
         </form>
         <hr />
-        <h2>List All Vistitors with Total Access</h2>
+        <h2>List Visitors that Visited Every Exhibit</h2>
         <form method="GET" id="visitors-admitted-to-exhibits" action="curator_exhibit_collection_info.php">
             <input type="submit" value="Display Visitors" name="submit-visitor-admittance"></p>
         </form>
@@ -142,7 +142,7 @@
 
             
             $result = executePlainSQL(
-            "SELECT e.exhibit_id, e.exhibit_name, e.sin, COUNT(*) AS Article_number
+            "SELECT e.exhibit_id, e.exhibit_name, e.sin, COUNT(*) AS Number_of_articles
             FROM exhibit e, displays d, article a
             WHERE e.exhibit_id = d.exhibit_id AND d.article_id = a.article_id
             GROUP BY e.exhibit_id, e.exhibit_name, e.sin
@@ -158,7 +158,7 @@
             global $db_conn;
 
             $result = executePlainSQL(
-            "SELECT v.visitor_id, v.name, t.ticket_id
+            "SELECT v.visitor_id, v.name
             FROM visitor v, ticket t
             WHERE v.visitor_id=t.visitor_id AND
             NOT EXISTS(
@@ -169,7 +169,7 @@
                     WHERE a.ticket_id = t.ticket_id))");
 
             echo '<br/><br/>';
-            echo 'The following visitors are admitted to all exhibits:';
+            echo 'The following visitors were admitted to all exhibits:';
             printResults($result, "auto");
         }
 
