@@ -467,7 +467,7 @@ INSERT ALL
     INTO article(article_id, article_name, date_aquired, article_condition, storage_location, uv_protection, temp_control, humidity_control)
     VALUES (11129, 'The Vancouver Court House under construction', TO_TIMESTAMP('2018-08-17 14:12:32', 'YYYY-MM-DD HH24:MI:SS'), 'Good', 'on display', 'Y', 'Y', 'Y')
     INTO article(article_id, article_name, date_aquired, article_condition, storage_location, uv_protection, temp_control, humidity_control)
-    VALUES (11130, 'The terminus of the Canadian Pacific Railway', TO_TIMESTAMP('2018-08-17 14:12:32', 'YYYY-MM-DD HH24:MI:SS'), 'Good', 'on display', 'Storage room 1', 'Y', 'Y', 'Y')
+    VALUES (11130, 'The terminus of the Canadian Pacific Railway', TO_TIMESTAMP('2018-08-17 14:12:32', 'YYYY-MM-DD HH24:MI:SS'), 'Good', 'on display', 'Y', 'Y', 'Y')
     INTO article(article_id, article_name, date_aquired, article_condition, storage_location, uv_protection, temp_control, humidity_control)
     VALUES (11131, 'A picnic in newly opened Stanley Park', TO_TIMESTAMP('2018-08-17 14:12:32', 'YYYY-MM-DD HH24:MI:SS'), 'Fair', 'Fair', 'Y', 'Y', 'Y')
     INTO article(article_id, article_name, date_aquired, article_condition, storage_location, uv_protection, temp_control, humidity_control)
