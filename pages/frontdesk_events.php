@@ -19,11 +19,11 @@
     <div class="content">
         <h2>Count Visitors</h2>
 
-        <h3>Filter Exhibits with Above-Average Attendance</h3>
-        <p>Please enter number of total visitors that have seen exhibits</p>
+        <h3>Filter Exhibits with Above-Average Attendance in their activities</h3>
+        <p>Please enter number of minimum visitors that have attended activities in exhibits</p>
         <form method="POST" id="frontdesk-add-ticket">
         <input type="hidden" id="register-visitor-request" name="register-visitor-request">
-        Visitor Count: <input type="number" name="visitor-count" required>
+        Minimum number of visitors: <input type="number" name="visitor-count" required>
         <input type="submit" value="Count Visitor" name="submit-visitor-count">
         </form>
     <?php
@@ -35,7 +35,12 @@
 
         $result = executePlainSQL( "SELECT e.exhibit_id, e.exhibit_name
         FROM Exhibit e
-        WHERE (SELECT AVG(COUNT(*)) FROM attends GROUP BY exhibit_id)  " . $count);
+        WHERE e.exhibit_id IN (
+            SELECT exhibit_id
+            FROM attends
+            GROUP BY exhibit_id
+            HAVING COUNT(*) >
+        " . $count . ")");
         
         echo '<br/><br/>';
         echo 'Most viewed exhibits:';
