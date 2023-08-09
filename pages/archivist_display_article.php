@@ -184,8 +184,8 @@
                         a1.exhibit_id = e1.exhibit_id AND
                         e1.exhibit_id = e.exhibit_id)");
 
-            echo '<p>The total profit per exhibit where the number of visitors is at least ' . $num_visitors . ' is:</p>';
-            printResults($result, ["Exhibit ID", "Total Profit"]);
+            echo '<p>The total revenue per exhibit with at least ' . $num_visitors . ' visitors is:</p>';
+            printResults($result, ["Exhibit ID", "Total Revenue"]);
         }
 
         function printArticleOnDisplay($article_id, $exhibit_id, $output_string) {
