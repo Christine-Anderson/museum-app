@@ -40,6 +40,7 @@
 				</select>
 			<br/><br/>
             <input type="submit" value="Search" name="submit-article-search-by-id"></p>
+            <br/><br/>
         </form>
             
         <?php
@@ -68,7 +69,6 @@
                 FROM article
                 WHERE UPPER(article_name) LIKE '%' || UPPER('" . $search_term . "') || '%'");
 
-            echo '<br/><br/>';
             echo '<p>The following articles match ' . $search_term . ':</p>';
             printResults($result, "auto");
         }
@@ -97,7 +97,7 @@
                 FROM article
                 WHERE article_id = " . $article_id . "");
 
-            echo '<br/><br/>';
+            echo '<p>Article ID ' . $article_id . ' in stored in the following location:</p>';
             printResults($result, "auto");
         }
 
@@ -109,7 +109,7 @@
                 FROM article
                 WHERE article_id = " . $article_id);
 
-            echo '<br/><br/>';
+            echo '<p>Article ' . $article_id . ' needs to be stored under the following conditions:</p>';
             printResults($result, "auto");
         }
 
@@ -141,10 +141,10 @@
                 FROM naturalspecimenarticle
                 WHERE article_id = " . $article_id);
 
-            printArticleDetails($artwork_result, $text_result, $photo_result, $artifact_result, $naturalspecimen_result);
+            printArticleDetails($article_id, $artwork_result, $text_result, $photo_result, $artifact_result, $naturalspecimen_result);
         }
 
-        function printArticleDetails($artwork_result, $text_result, $photo_result, $artifact_result, $naturalspecimen_result){
+        function printArticleDetails($article_id, $artwork_result, $text_result, $photo_result, $artifact_result, $naturalspecimen_result){
             global $db_conn;
 
             oci_fetch_all($artwork_result, $artwork_rows, 0, -1, OCI_FETCHSTATEMENT_BY_ROW);
@@ -153,32 +153,28 @@
             oci_fetch_all($artifact_result, $artifact_rows, 0, -1, OCI_FETCHSTATEMENT_BY_ROW);
             oci_fetch_all($naturalspecimen_result, $naturalspecimen_rows, 0, -1, OCI_FETCHSTATEMENT_BY_ROW);
             
+            echo '<p>The following examination records exist for article ID ' . $article_id . ':</p>';
+
             if (!$artwork_rows && !$text_rows && !$photo_rows && !$artifact_rows && !$naturalspecimen_rows) {
-                echo '<br/><br/>';
                 echo "No results found";
             } else {
                 if ($artwork_rows) {
-                    echo '<br/><br/>';
                     autogenerateTable($artwork_rows);
                 }
 
                 if ($text_rows) {
-                    echo '<br/><br/>';
                     autogenerateTable($text_rows);
                 }
 
                 if ($photo_rows) {
-                    echo '<br/><br/>';
                     autogenerateTable($photo_rows);
                 }
 
                 if ($artifact_rows) {
-                    echo '<br/><br/>';
                     autogenerateTable($artifact_rows);
                 }
 
                 if ($naturalspecimen_rows) {
-                    echo '<br/><br/>';
                     autogenerateTable($naturalspecimen_rows);
                 }
             }
