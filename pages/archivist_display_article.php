@@ -1,6 +1,6 @@
 <!--
     Archivist display article page
-    Archivist can search exhibits, find articles currently on display in an exhibit, count articles
+    Archivist can search exhibits and activities, find articles currently on display in an exhibit, count articles
     currently on display in each exhibit, put articles on display, and calculate the profit per exhibit
 -->
 
@@ -20,11 +20,16 @@
     <div class="content">
         <h2>Articles on Display</h2>
 
-        <h3>Search Exhibits</h3>
+        <h3>Search Exhibits and Activities</h3>
         <form method="GET" id="archivist-search-exhibit-request" action="archivist_display_article.php">
             <input type="hidden" id="archivist-search-exhibit-request" name="archivist-search-exhibit-request">
-            <input type="text" name="search-term">
-            <input type="submit" value="Search Exhibits" name="submit-search-exhibit"></p>
+            <label for="search">Find:</label>
+				<select name="search-option" id="search">
+					<option value="exhibit-search">Exhibit</option>
+					<option value="activity-search">Activities</option>
+				</select>
+			<br/><br/>
+            <input type="submit" value="Search" name="submit-search-exhibit"></p>
             <br/>
         </form>
 
@@ -70,31 +75,104 @@
         function handleDatabaseRequest($request_method) {
             if (connectToDB()) {
             if (array_key_exists('submit-search-exhibit', $request_method)) {
-                    handleSearchExhibitsRequest();
-                } else if (array_key_exists('submit-find-article-on-display', $request_method)) {
-                    handleFindArticlesOnDisplayRequest();
-                } else if (array_key_exists('submit-count-article-on-display', $request_method)) {
-                    handleCountArticlesOnDisplayRequest();
-                } else if  (array_key_exists('submit-add-article-to-exhibit', $request_method)) {
-                    handleAddArticleToExhibitRequest();
-                } else if  (array_key_exists('submit-find-revenue-per-exhibit', $request_method)) {
-                    handleFindRevenuePerExhibitRequest();
-                }
-                disconnectFromDB(); 
+                handleSearchExhibitsRequest();
+            } else if  (array_key_exists('submit-exhibit-search-condition', $request_method)) {
+                handleSearchExhibitByConditionRequest();
+            } else if  (array_key_exists('submit-activity-search-condition', $request_method)) {
+                handleSearchActivityByConditionRequest();
+            }else if (array_key_exists('submit-find-article-on-display', $request_method)) {
+                handleFindArticlesOnDisplayRequest();
+            } else if (array_key_exists('submit-count-article-on-display', $request_method)) {
+                handleCountArticlesOnDisplayRequest();
+            } else if  (array_key_exists('submit-add-article-to-exhibit', $request_method)) {
+                handleAddArticleToExhibitRequest();
+            } else if  (array_key_exists('submit-find-revenue-per-exhibit', $request_method)) {
+                handleFindRevenuePerExhibitRequest();
+            }
+            disconnectFromDB(); 
             }
         }
 
         function handleSearchExhibitsRequest() {
             global $db_conn;
+            $dropdown_value = $_GET['search-option'];
 
-            $search_term = $_GET['search-term'];
+            if ($dropdown_value == 'exhibit-search') {
+                renderExhibitSearchForm();
+            } else if ($dropdown_value == 'activity-search') {
+                renderActivitySearchForm();
+            } else {
+                echo "Please select a search option.";
+            }
+        }
 
+        function handleSearchExhibitByConditionRequest() {
+            global $db_conn;
+
+            $table = "exhibit";
+            $columns = "exhibit_id, exhibit_name, start_date, end_date";
+            $exhibit_name = $_GET['exhibit-name'];
+            $start_date = $_GET['start-date'];
+            $end_date = $_GET['end-date'];
+
+            $values = [$exhibit_name, $start_date, $end_date];
+            $conditions = [];
+
+            if (!empty($exhibit_name)) {
+                $conditions[] = "UPPER(exhibit_name) LIKE '%' || UPPER('" . $exhibit_name . "') || '%'";
+            }
+
+            if (!empty($start_date)) {
+                $conditions[] = "start_date > TO_DATE('" . $start_date . "', 'YYYY-MM-DD')";
+            }
+
+            if (!empty($end_date)) {
+                $conditions[] = "end_date < TO_DATE('" . $end_date . "', 'YYYY-MM-DD')";
+            }
+
+            if (!empty($conditions)) {
+                $query = implode(' AND ', $conditions);
+                searchTableGivenQuery($columns, $table, $query);
+            } else {
+                echo 'Please enter a search condition.';
+            }
+        }
+
+        function handleSearchActivityByConditionRequest() {
+            global $db_conn;
+
+            $table = "exhibit e, activities a";
+            $columns = "e.exhibit_id, e.exhibit_name, a.name, a.schedule";
+            $activity_name = $_GET['activity-name'];
+            $day_of_the_week = $_GET['day-of-the-week'];
+
+            $values = [$activity_name, $day_of_the_week];
+            $conditions = [];
+
+            if (!empty($activity_name)) {
+                $conditions[] = "UPPER(a.name) LIKE '%' || UPPER('" . $activity_name . "') || '%'";
+            }
+
+            if (!empty($day_of_the_week)) {
+                $conditions[] = "UPPER(a.schedule) LIKE '%' || UPPER('" . $day_of_the_week . "') || '%'";
+            }
+
+            if (!empty($conditions)) {
+                $conditions[] = "e.exhibit_id = a.exhibit_id";
+                $query = implode(' AND ', $conditions);
+                searchTableGivenQuery($columns, $table, $query);
+            } else {
+                echo 'Please enter a search condition.';
+            }
+        }
+
+        function searchTableGivenQuery($columns, $table, $query) {
             $result = executePlainSQL(
-                "SELECT exhibit_id, exhibit_name, start_date, end_date
-                FROM exhibit
-                WHERE UPPER(exhibit_name) LIKE '%' || UPPER('" . $search_term . "') || '%'");
-
-            echo '<p>The following exhibits match ' . $search_term . ':</p>';
+                "SELECT ". $columns ."
+                FROM " . $table . "
+                WHERE " . $query);
+    
+            echo '<p>The following exhibits match the given conditions:</p>';
             printResults($result, "auto");
         }
 
@@ -188,6 +266,28 @@
             printResults($result, ["Exhibit ID", "Total Revenue"]);
         }
 
+        function renderExhibitSearchForm() {
+            echo '<p>Please enter the the search conditions:</p>';
+            echo '<p>Enter dates in the format YYYY-MM-DD</p>';
+            echo '<form method="GET" id="archivist-search-exhibit-condition">';
+            echo '<input type="hidden" id="archivist-search-exhibit-request" name="archivist-search-exhibit-request">';
+            echo 'Name <input type="text" name="exhibit-name">  <br/><br/>';
+            echo 'Starts After <input type="text" name="start-date">  <br/><br/>';
+            echo 'Ends Before <input type="text" name="end-date"> <br/><br/>';
+            echo '<input type="submit" value="Search" name="submit-exhibit-search-condition"></p>';
+            echo '</form>';
+        }
+
+        function renderActivitySearchForm() {
+            echo '<p>Please enter the the search conditions:</p>';
+            echo '<form method="GET" id="archivist-search-activity-condition">';
+            echo '<input type="hidden" id="archivist-search-activity-request" name="archivist-search-activity-request">';
+            echo 'Name <input type="text" name="activity-name">  <br/><br/>';
+            echo 'Day of the week <input type="text" name="day-of-the-week">  <br/><br/>';
+            echo '<input type="submit" value="Search" name="submit-activity-search-condition"></p>';
+            echo '</form>';
+        }
+
         function printArticleOnDisplay($article_id, $exhibit_id, $output_string) {
             $result = executePlainSQL(
                 "SELECT 
@@ -207,8 +307,8 @@
         // process database requests
         if (isset($_POST['submit-add-article-to-exhibit'])) {
             handleDatabaseRequest($_POST);
-        } else if (isset($_GET['submit-search-exhibit']) || isset($_GET['submit-find-article-on-display'])
-        || isset($_GET['submit-count-article-on-display']) || isset($_GET['submit-find-revenue-per-exhibit'])) {
+        } else if (isset($_GET['submit-search-exhibit']) || isset($_GET['submit-exhibit-search-condition']) || isset($_GET['submit-activity-search-condition']) 
+        || isset($_GET['submit-find-article-on-display']) || isset($_GET['submit-count-article-on-display']) || isset($_GET['submit-find-revenue-per-exhibit'])) {
             handleDatabaseRequest($_GET);
         }
         ?>
