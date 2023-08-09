@@ -38,7 +38,7 @@
             <input type="hidden" id="article-delete-request" name="article-delete-request">
             article ID: <input type="number" name="article-id" min="10000" max="99999" required>
             <input type="submit" value="Delete" name="submit-article-delete"></p>
-            <br/><br/>
+            <br/>
         </form>
 
         <h3>Delete Article Examination Records</h3>

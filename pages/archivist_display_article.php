@@ -55,7 +55,7 @@
             article ID: <input type="number" name="article-id" min="10000" max="99999" required>
             <br/><br/>
             <input type="submit" value="Add Article" name="submit-add-article-to-exhibit"></p>
-            <br/><br/>
+            <br/>
         </form>
     
         <h3>Revenue From Exhibits</h3>
