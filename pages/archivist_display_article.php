@@ -25,7 +25,7 @@
             <input type="hidden" id="archivist-search-exhibit-request" name="archivist-search-exhibit-request">
             <label for="search">Find:</label>
 				<select name="search-option" id="search">
-					<option value="exhibit-search">Exhibit</option>
+					<option value="exhibit-search">Exhibits</option>
 					<option value="activity-search">Activities</option>
 				</select>
 			<br/><br/>
@@ -109,6 +109,7 @@
         function handleSearchExhibitByConditionRequest() {
             global $db_conn;
 
+            $search_option = "exhibits";
             $table = "exhibit";
             $columns = "exhibit_id, exhibit_name, start_date, end_date";
             $exhibit_name = $_GET['exhibit-name'];
@@ -132,7 +133,7 @@
 
             if (!empty($conditions)) {
                 $query = implode(' AND ', $conditions);
-                searchTableGivenQuery($columns, $table, $query);
+                searchTableGivenQuery($search_option, $columns, $table, $query);
             } else {
                 echo 'Please enter a search condition.';
             }
@@ -141,6 +142,7 @@
         function handleSearchActivityByConditionRequest() {
             global $db_conn;
 
+            $search_option = "activities";
             $table = "exhibit e, activities a";
             $columns = "e.exhibit_id, e.exhibit_name, a.name, a.schedule";
             $activity_name = $_GET['activity-name'];
@@ -160,19 +162,19 @@
             if (!empty($conditions)) {
                 $conditions[] = "e.exhibit_id = a.exhibit_id";
                 $query = implode(' AND ', $conditions);
-                searchTableGivenQuery($columns, $table, $query);
+                searchTableGivenQuery($search_option, $columns, $table, $query);
             } else {
                 echo 'Please enter a search condition.';
             }
         }
 
-        function searchTableGivenQuery($columns, $table, $query) {
+        function searchTableGivenQuery($search_option, $columns, $table, $query) {
             $result = executePlainSQL(
                 "SELECT ". $columns ."
                 FROM " . $table . "
                 WHERE " . $query);
     
-            echo '<p>The following exhibits match the given conditions:</p>';
+            echo '<p>The following ' . $search_option . ' match the given conditions:</p>';
             printResults($result, "auto");
         }
 
