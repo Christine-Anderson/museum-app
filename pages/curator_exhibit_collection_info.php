@@ -1,6 +1,6 @@
 <!--
     Curator Exhibit and Collection page
-    Can view exhibits and collections based on curator ID.
+    Can view exhibits and collections based on curator ID (division) and exhibit start and end dates (projection).
 -->
 
 <!DOCTYPE html>
@@ -27,20 +27,38 @@
             <input type="submit" value="All Collections" name="submit-collection-info"></p>
         </form>
         <hr />
-        <h2> Connected Works by Curator</h2>
+        <h2>Curated Works</h2>
         <form method="GET" id="curator-work-request" action="curator_exhibit_collection_info.php">
             <input type="hidden" id="curator-work-request" name="curator-work-request">
             curator SIN: <input type="number" name="curator-sin" min="100000000" max="999999999" required>
-            <input type="submit" value="Find Connected Works" name="submit-curator-work"></p>
+            <label for="type">Type:</label>
+				<select name="type-option" id="find">
+					<option value="exhibit">Exhibit</option>
+					<option value="collection">Collection</option>
+				</select>
+            <input type="submit" value="Find Curated Works" name="submit-curator-work"></p>
         </form>
         <hr />
+        <h2>Exhibits by Number of Articles</h2>
+        <form method="GET" id="exhibit-article-count" action="curator_exhibit_collection_info.php">
+            <input type="hidden" id="exhibit-article-count" name="exhibit-article-count">
+            Exhibits with at least: <input type="number" name="article-no" min="0" max="99" required>
+            <input type="submit" value="Find Exhibits" name="submit-article-count"></p>
+        </form>
+        <hr />
+        <h2>Display Status of Articles</h2>
+        <form method="GET" id="articles-on-display" action="curator_exhibit_collection_info.php">
+            <input type="hidden" id="articles-on-display" name="articles-on-display">
+            curator SIN: <input type="number" name="curator-sin" min="100000000" max="999999999" required>
+            <input type="submit" value="Articles on Display" name="submit-articles-on-display"></p>
+        </form>
+        <hr/>
         
         
         <?php
 
         include '../shared_functions/database_functions.php';
         include '../shared_functions/print_functions.php';
-        
 
         function handleDatabaseRequest($request_method) {
             if (connectToDB()) {
@@ -50,6 +68,10 @@
                     handleCollectionInfoRequest();
                 } else if (array_key_exists('submit-curator-work', $request_method)) {
                     handleCuratorWorkRequest();
+                } else if (array_key_exists('submit-article-count', $request_method)) {
+                    handleArticleCountRequest();
+                } else if (array_key_exists('submit-articles-on-display', $request_method)) {
+                    handleArticlesOnDisplayRequest();
                 }
                 disconnectFromDB();
             }
@@ -59,14 +81,14 @@
             global $db_conn;
 
             $result = executePlainSQL(
-            "SELECT e.exhibit_id, e.exhibit_name, a.article_id, a. article_name ,e.start_date, e.end_date, e.sin
+            "SELECT e.exhibit_id, e.exhibit_name, a.article_id, a. article_name, a.article_condition,e.start_date, e.end_date, e.sin
             FROM exhibit e, article a, displays d
             WHERE e.exhibit_id = d.exhibit_id AND a.article_id = d.article_id
             ORDER BY e.exhibit_id");
 
             echo '<br/><br/>';
             echo 'All Exhibits:';
-            printResults($result);
+            printResults($result, "auto");
         }
 
         function handleCollectionInfoRequest() {
@@ -81,30 +103,84 @@
 
             echo '<br/><br/>';
             echo 'All Collections:';
-            printResults($result);
+            printResults($result, "auto");
         }
 
         function handleCuratorWorkRequest() {
             global $db_conn;
 
             $curator_sin = $_GET['curator-sin'];
+            $dropdown_value = $_GET['type-option'];
 
+            if ($dropdown_value == 'exhibit') {
+                $result = executePlainSQL(
+                "SELECT DISTINCT e.exhibit_id, e.exhibit_name, a.article_id, a.article_name, a.article_condition, e.start_date, e.end_date, e.sin
+                FROM exhibit e, article a, displays d
+                WHERE e.sin = " . $curator_sin . " AND
+                e.exhibit_id = d.exhibit_id AND
+                a.article_id = d.article_id");
+
+                echo '<br/><br/>';
+                echo 'All Exhibits by Curator ' . $curator_sin . ':';
+                printResults($result, "auto");
+            } else if ($dropdown_value == 'collection') {
+                $result = executePlainSQL(
+                    "SELECT DISTINCT c.collection_id, c.name, a.article_name, c.sin
+                    FROM collection c, article a, contains cont
+                    WHERE c.sin = " . $curator_sin . " AND 
+                    c.collection_id = cont.collection_id AND
+                    a.article_id = cont.article_id");
+        
+                    echo '<br/><br/>';
+                    echo 'All Collections by Curator ' . $curator_sin . ':';
+                    printResults($result, "auto");
+            }
+        }
+
+        function handleArticleCountRequest() {
+            global $db_conn;
+
+            $article_no = $_GET['article-no'];
+
+            
             $result = executePlainSQL(
-            "SELECT DISTINCT c.collection_id, c.name, e.exhibit_id, e.exhibit_name, a.article_name, c.sin
-            FROM collection c, exhibit e, article a, displays d, contains cont
-            WHERE c.sin = " . $curator_sin . " AND 
-            a.article_id = d.article_id AND
-            a.article_id = cont.article_id");
+            "SELECT e.exhibit_id, e.exhibit_name, e.sin, COUNT(*) AS Article_number
+            FROM exhibit e, displays d, article a
+            WHERE e.exhibit_id = d.exhibit_id AND d.article_id = a.article_id
+            GROUP BY e.exhibit_id, e.exhibit_name, e.sin
+            HAVING COUNT(*)>=" . $article_no . " 
+            ORDER BY e.exhibit_id");
 
             echo '<br/><br/>';
-            echo 'All Exhibits and Collections by ' . $curator_sin . ':';
-            printResults($result);
+            echo 'All Exhibits with at least ' . $article_no . ' articles:';
+            printResults($result, "auto");
         }
 
-        if (isset($_GET['submit-exhibit-info']) || isset($_GET['submit-collection-info']) || isset($_GET['submit-curator-work'])) {
+        function handleArticlesOnDisplayRequest() {
+            global $db_conn;
+
+            $curator_sin = $_GET['curator-sin'];
+
+            $result = executePlainSQL(
+            "SELECT a.article_id, a.article_name
+            FROM article a
+            WHERE NOT EXISTS(
+                (SELECT e.exhibit_id
+                FROM exhibit e
+                WHERE e.sin = " . $curator_sin . ")
+                MINUS (SELECT d.exhibit_id
+                    FROM displays d
+                    WHERE d.article_id = a.article_id))");
+
+            echo '<br/><br/>';
+            echo 'All Articles on Display:';
+            printResults($result, "auto");
+        }
+
+        if (isset($_GET['submit-exhibit-info']) || isset($_GET['submit-collection-info']) || isset($_GET['submit-curator-work']) 
+            || isset($_GET['submit-article-count']) || isset($_GET['submit-articles-on-display'])) {
             handleDatabaseRequest($_GET);
         }
-
 
         ?>
     </div> 

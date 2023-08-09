@@ -9,8 +9,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Exhibit Planning</title>
-    <link rel="stylesheet" type="text/css" href="../css/style.css">
-    
+    <link rel="stylesheet" type="text/css" href="./css/style.css">
+    <!-- TODO: put ../ back in front of include statements -->
 </head>
 <body>
     <?php
@@ -44,8 +44,9 @@
     
         <?php
 
-        include '../shared_functions/database_functions.php';
-        include '../shared_functions/print_functions.php';  
+        include './shared_functions/database_functions.php';
+        include './shared_functions/print_functions.php';
+        //TODO: put ../ back in front of include statements  
 
         function handleDatabaseRequest($request_method) {
             if (connectToDB()) {
@@ -77,10 +78,14 @@
             VALUES (:exhibit_id, :article_id)", $tuple);
             
             // update article location to on display
-            executePlainSQL(
-            "UPDATE article
-            SET storage_location = 'on display'
-            WHERE article_id = " . $article_id);
+            if($success){
+                // update location of article
+                $update_qry = "UPDATE article
+                SET storage_location = 'on display'
+                WHERE article_id = " . $article_id;
+    
+                executePlainSQL($update_qry);
+            }
 
             oci_commit($db_conn);
 
@@ -97,11 +102,12 @@
 
             echo '<br/><br/>';
             echo 'The following has been displayed:';
-            printResults($result);
+            printResults($result, "auto");
         }
 
         function handleRemoveArticleRequest() {
-            global $db_conn; 
+            global $db_conn;
+            global $success; 
 
             $exhibit_id = $_POST['exhibit-id'];
             $article_id = $_POST['article-id'];
@@ -114,12 +120,14 @@
 
             executePlainSQL($delete_qry);
 
+            if($success){
             // update location of article
             $update_qry = "UPDATE article
             SET storage_location = 'main storage room'
             WHERE article_id = " . $article_id;
 
             executePlainSQL($update_qry);
+            }
 
             oci_commit($db_conn);
             
@@ -131,7 +139,7 @@
 
             echo '<br/><br/>';
             echo 'The following article has been placed back into storage:';
-            printResults($removed);
+            printResults($removed, "auto");
             
         }
 
