@@ -17,14 +17,14 @@
     ?>
 
     <div class="content">
-        <h2>Exhibit and Collection Info</h2>
+    <h2>Exhibit and Collection Info</h2>
         <form method="GET" id="curator-exhibit-info-request" action="curator_exhibit_collection_info.php">
             <input type="hidden" id="curator-exhibit-info-request" name="curator-exhibit-info-request">
-            <input type="submit" value="All Exhibits" name="submit-exhibit-info"></p>
+            <input type="submit" value="Populated Exhibits" name="submit-exhibit-info"></p>
         </form>
         <form method="GET" id="curator-collection-info-request" action="curator_exhibit_collection_info.php">
             <input type="hidden" id="curator-collection-info-request" name="curator-collection-info-request">
-            <input type="submit" value="All Collections" name="submit-collection-info"></p>
+            <input type="submit" value="Populated Collections" name="submit-collection-info"></p>
         </form>
         <hr />
         <h2>Curated Works</h2>
@@ -42,7 +42,7 @@
         <h2>Exhibits by Number of Articles</h2>
         <form method="GET" id="exhibit-article-count" action="curator_exhibit_collection_info.php">
             <input type="hidden" id="exhibit-article-count" name="exhibit-article-count">
-            Exhibits with at least: <input type="number" name="article-no" min="0" max="99" required>
+            Exhibits with at least <input type="number" name="article-no" min="0" max="99" required> articles
             <input type="submit" value="Find Exhibits" name="submit-article-count"></p>
         </form>
         <hr />
