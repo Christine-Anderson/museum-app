@@ -46,11 +46,9 @@
             <input type="submit" value="Find Exhibits" name="submit-article-count"></p>
         </form>
         <hr />
-        <h2>Display Status of Articles</h2>
-        <form method="GET" id="articles-on-display" action="curator_exhibit_collection_info.php">
-            <input type="hidden" id="articles-on-display" name="articles-on-display">
-            curator SIN: <input type="number" name="curator-sin" min="100000000" max="999999999" required>
-            <input type="submit" value="Articles on Display" name="submit-articles-on-display"></p>
+        <h2>List All Vistitors with Total Access</h2>
+        <form method="GET" id="visitors-admitted-to-exhibits" action="curator_exhibit_collection_info.php">
+            <input type="submit" value="Display Visitors" name="submit-visitor-admittance"></p>
         </form>
         <hr/>
         
@@ -70,8 +68,8 @@
                     handleCuratorWorkRequest();
                 } else if (array_key_exists('submit-article-count', $request_method)) {
                     handleArticleCountRequest();
-                } else if (array_key_exists('submit-articles-on-display', $request_method)) {
-                    handleArticlesOnDisplayRequest();
+                } else if (array_key_exists('submit-visitor-admittance', $request_method)) {
+                    handleVisitorDisplayRequest();
                 }
                 disconnectFromDB();
             }
@@ -156,29 +154,27 @@
             printResults($result, "auto");
         }
 
-        function handleArticlesOnDisplayRequest() {
+        function handleVisitorDisplayRequest() {
             global $db_conn;
 
-            $curator_sin = $_GET['curator-sin'];
-
             $result = executePlainSQL(
-            "SELECT a.article_id, a.article_name
-            FROM article a
-            WHERE NOT EXISTS(
+            "SELECT v.visitor_id, v.name, t.ticket_id
+            FROM visitor v, ticket t
+            WHERE v.visitor_id=t.visitor_id AND
+            NOT EXISTS(
                 (SELECT e.exhibit_id
-                FROM exhibit e
-                WHERE e.sin = " . $curator_sin . ")
-                MINUS (SELECT d.exhibit_id
-                    FROM displays d
-                    WHERE d.article_id = a.article_id))");
+                FROM exhibit e)
+                MINUS (SELECT a.exhibit_id
+                    FROM admits a
+                    WHERE a.ticket_id = t.ticket_id))");
 
             echo '<br/><br/>';
-            echo 'All Articles on Display:';
+            echo 'The following visitors are admitted to all exhibits:';
             printResults($result, "auto");
         }
 
         if (isset($_GET['submit-exhibit-info']) || isset($_GET['submit-collection-info']) || isset($_GET['submit-curator-work']) 
-            || isset($_GET['submit-article-count']) || isset($_GET['submit-articles-on-display'])) {
+            || isset($_GET['submit-article-count']) || isset($_GET['submit-visitor-admittance'])) {
             handleDatabaseRequest($_GET);
         }
 
