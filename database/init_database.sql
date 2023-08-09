@@ -593,16 +593,30 @@ INSERT ALL
 SELECT 1 FROM DUAL;
 
 INSERT ALL
-    INTO admits(ticket_id, exhibit_id) VALUES (2001, 1502)
     INTO admits(ticket_id, exhibit_id) VALUES (2002, 1504)
     INTO admits(ticket_id, exhibit_id) VALUES (2003, 1500)
-    INTO admits(ticket_id, exhibit_id) VALUES (2004, 1500)
     INTO admits(ticket_id, exhibit_id) VALUES (2005, 1500)
     INTO admits(ticket_id, exhibit_id) VALUES (2006, 1502)
     INTO admits(ticket_id, exhibit_id) VALUES (2007, 1500)
     INTO admits(ticket_id, exhibit_id) VALUES (2008, 1500)
     INTO admits(ticket_id, exhibit_id) VALUES (2009, 1507)
     INTO admits(ticket_id, exhibit_id) VALUES (2010, 1507)
+    INTO admits(ticket_id, exhibit_id) VALUES (2001, 1500)
+    INTO admits(ticket_id, exhibit_id) VALUES (2001, 1501)
+    INTO admits(ticket_id, exhibit_id) VALUES (2001, 1502)
+    INTO admits(ticket_id, exhibit_id) VALUES (2001, 1503)
+    INTO admits(ticket_id, exhibit_id) VALUES (2001, 1504)
+    INTO admits(ticket_id, exhibit_id) VALUES (2001, 1505)
+    INTO admits(ticket_id, exhibit_id) VALUES (2001, 1506)
+    INTO admits(ticket_id, exhibit_id) VALUES (2001, 1507)
+    INTO admits(ticket_id, exhibit_id) VALUES (2004, 1500)
+    INTO admits(ticket_id, exhibit_id) VALUES (2004, 1501)
+    INTO admits(ticket_id, exhibit_id) VALUES (2004, 1502)
+    INTO admits(ticket_id, exhibit_id) VALUES (2004, 1503)
+    INTO admits(ticket_id, exhibit_id) VALUES (2004, 1504)
+    INTO admits(ticket_id, exhibit_id) VALUES (2004, 1505)
+    INTO admits(ticket_id, exhibit_id) VALUES (2004, 1506)
+    INTO admits(ticket_id, exhibit_id) VALUES (2004, 1507)
 SELECT 1 FROM DUAL;
 
 INSERT ALL
