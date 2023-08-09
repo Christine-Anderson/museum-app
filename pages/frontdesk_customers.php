@@ -20,11 +20,10 @@
     <div class="content">
         <h2>Customer Dashboard</h2>
 
-        <h3>Buy, refund or update ticket</h3>
+        <h3>Buy, Refund or Update ticket</h3>
         <form method="GET" id="frontdesk_customers" action="frontdesk_customers.php">
             <select name="ticket-buy-option" id="ticket-buy-option">  
                 <option value="ticket-add">Buy</option>
-                <option value="ticket-delete">Refund</option>
                 <option value="ticket-update">Update info</option>
             </select>
             <input type="submit" value="Select" name="frontdesk-choice"></p>
@@ -39,8 +38,6 @@
         if (connectToDB()) {
             if (array_key_exists('submit-update-ticket', $request_method)) {
                 handleUpdateTicketRequest();
-            } else if (array_key_exists('submit-delete-ticket', $request_method)) {
-                handleDeleteTicketRequest();
             } else if (array_key_exists('submit-add-ticket', $request_method)) {
                 handleAddTickettRequest();
             } 
@@ -56,34 +53,33 @@
         $ticketType = $_POST['ticketType'];
         $ticketID = $_POST['ticket-id'];
 
-        executePlainSQL( "MERGE INTO ticket target
+        executePlainSQL("MERGE INTO ticket target
             USING visitor
             ON (target.visitor_id = visitor.visitor_id)
             WHEN MATCHED THEN
             UPDATE SET target.ticket_type = '" . $ticketType . "'
-            WHERE target.ticket_id = ". $ticketID);
+            WHERE target.ticket_id = " . $ticketID);
+        executePlainSQL("MERGE INTO VISITOR target
+            USING TICKET
+            ON (TICKET.visitor_id = target.visitor_id)
+            WHEN MATCHED THEN
+            UPDATE SET target.EMAIL = '" . $email . "',
+                    target.NAME = '" . $name . "'
+            WHERE TICKET.ticket_id = ". $ticketID);
 
         oci_commit($db_conn);
     }
 
-    function handleDeleteTicketRequest() {
+    function handleAddTickettRequest() {
         global $db_conn;
 
-        $ticket_id = $_GET['ticket-id'];
-        $table = 'ticket';
+        $name = $_POST['name'];
+        $email = $_POST['author'];
+        $ticketType = $_POST['ticketType'];
 
-        $delete_stmt =
-            "DELETE 
-            FROM " . $table . "
-            WHERE ticket_id = " . $ticket_id;
-
-        executePlainSQL($delete_stmt);
+        executePlainSQL( "INSERT INTO visitor (name, email) VALUES ('" . $name . "', '" . $email . "')");
 
         oci_commit($db_conn);
-        echo '<br/><br/> <p>Record deleted successfully.</p>';
-    }
-    function handleAddTickettRequest() {
-        
     }
 
     
@@ -91,8 +87,6 @@
         $choice = $_GET['ticket-buy-option'];
         if ($choice == "ticket-add") {
             renderRegisterForm();
-        } else if ($choice == "ticket-delete") {
-            renderDeleteForm();
         } else if ($choice == "ticket-update") {
             renderUpdateForm();
         }
@@ -118,17 +112,6 @@
         echo '<br/><br/>';
     
         echo '<input type="submit" value="Add ticket" name="submit-add-ticket">';
-        echo '</form>';
-    }
-    
-    function renderDeleteForm() {
-        echo '<br/><br/>';
-        echo '<p>Please enter ticket ID:</p>';
-        echo '<form method="POST" id="frontdesk-register-visitor">';
-        echo '<input type="hidden" id="delete-ticket-request" name="delete-ticket-request">';
-        echo 'ticket ID: <input type="number" name="ticket-id" required>';
-        echo '<br/><br/>';
-        echo '<input type="submit" value="Delete Ticket" name="submit-delete-ticket">';
         echo '</form>';
     }
 
@@ -164,7 +147,7 @@
     }
 
     // process database requests
-    if (isset($_POST['submit-update-ticket']) || isset($_POST['submit-delete-ticket']) || isset($_POST['submit-add-ticket'])) {
+    if (isset($_POST['submit-update-ticket']) || isset($_POST['submit-add-ticket'])) {
             handleDatabaseRequest($_POST);
     }
 
