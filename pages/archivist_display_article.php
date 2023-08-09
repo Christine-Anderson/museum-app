@@ -53,12 +53,13 @@
             <br/><br/>
         </form>
     
-        <h3>Profit Per Exhibit</h3>
-        <p>Given the number of visitors</p>
-        <form method="GET" id="find-profit-per-exhibit-request" action="archivist_display_article.php">
-            <input type="hidden" id="find-profit-per-exhibit-request" name="find-profit-per-exhibit-request">
-            Number of visitors: <input type="number" name="num-visitors-per-exhibit" min="1" max="9999" required>
-            <input type="submit" value="Calculate" name="submit-find-profit-per-exhibit"></p>
+        <h3>Revenue From Exhibits</h3>
+        <form method="GET" id="find-revenue-per-exhibit-request" action="archivist_display_article.php">
+            <input type="hidden" id="find-revenue-per-exhibit-request" name="find-revenue-per-exhibit-request">
+            With at least <input type="number" name="num-visitors-per-exhibit" min="1" max="9999" required> visitor(s)
+            <br/><br/>
+            <input type="submit" value="Calculate" name="submit-find-revenue-per-exhibit"></p>
+            <br/><br/>
         </form>
 
         <?php
@@ -76,8 +77,8 @@
                     handleCountArticlesOnDisplayRequest();
                 } else if  (array_key_exists('submit-add-article-to-exhibit', $request_method)) {
                     handleAddArticleToExhibitRequest();
-                } else if  (array_key_exists('submit-find-profit-per-exhibit', $request_method)) {
-                    handleFindProfitPerExhibitRequest();
+                } else if  (array_key_exists('submit-find-revenue-per-exhibit', $request_method)) {
+                    handleFindRevenuePerExhibitRequest();
                 }
                 disconnectFromDB(); 
             }
@@ -93,7 +94,6 @@
                 FROM exhibit
                 WHERE UPPER(exhibit_name) LIKE '%' || UPPER('" . $search_term . "') || '%'");
 
-            echo '<br/><br/>';
             echo '<p>The following exhibits match ' . $search_term . ':</p>';
             printResults($result, "auto");
         }
@@ -113,7 +113,6 @@
                     e.exhibit_id = d.exhibit_id AND
                     d.article_id = a.article_id");
 
-            echo '<br/><br/>';
             echo '<p>The following articles are currently on display:</p>';
             printResults($result, "auto");
         }
@@ -127,7 +126,6 @@
                 WHERE e.exhibit_id = d.exhibit_id AND d.article_id = a.article_id
                 GROUP BY e.exhibit_id");
 
-            echo '<br/><br/>';
             echo '<p>The number of articles currently on display in each exhibit is:</p>';
             printResults($result, ["Exhibit ID", "Number of Articles On Display"]);
         }
@@ -157,14 +155,13 @@
                 
                 printArticleOnDisplay($article_id, $exhibit_id, '<p>The following article has been put on display:</p>');
             } else {
-                echo '<br/><br/>';
                 echo '<p>Article ' . $article_id . ' is already on display in exhibit ' . $exhibit_id . '.</p>';
             }
 
             oci_commit($db_conn);            
         }
 
-        function handleFindProfitPerExhibitRequest() {
+        function handleFindRevenuePerExhibitRequest() {
             global $db_conn;
 
             $num_visitors = $_GET['num-visitors-per-exhibit'];
@@ -187,7 +184,6 @@
                         a1.exhibit_id = e1.exhibit_id AND
                         e1.exhibit_id = e.exhibit_id)");
 
-            echo '<br/><br/>';
             echo '<p>The total profit per exhibit where the number of visitors is at least ' . $num_visitors . ' is:</p>';
             printResults($result, ["Exhibit ID", "Total Profit"]);
         }
@@ -204,7 +200,6 @@
                     d.exhibit_id = e.exhibit_id AND
                     e.exhibit_id = " . $exhibit_id);
 
-            echo '<br/><br/>';
             echo $output_string;
             printResults($result, "auto");
         }
@@ -213,7 +208,7 @@
         if (isset($_POST['submit-add-article-to-exhibit'])) {
             handleDatabaseRequest($_POST);
         } else if (isset($_GET['submit-search-exhibit']) || isset($_GET['submit-find-article-on-display'])
-        || isset($_GET['submit-count-article-on-display']) || isset($_GET['submit-find-profit-per-exhibit'])) {
+        || isset($_GET['submit-count-article-on-display']) || isset($_GET['submit-find-revenue-per-exhibit'])) {
             handleDatabaseRequest($_GET);
         }
         ?>
