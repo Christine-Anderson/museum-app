@@ -38,11 +38,13 @@
             <input type="hidden" id="find-article-on-display-request" name="find-article-on-display-request">
             exhibit ID: <input type="number" name="exhibit-id-find-article" min="1000" max="9999" required>
             <input type="submit" value="Find Articles" name="submit-find-article-on-display"></p>
+</br>
         </form>
 
+        <h3>Visitors Per Exhibit</h3>
         <form method="GET" id="count-article-on-display-request" action="archivist_display_article.php">
             <input type="hidden" id="count-article-on-display-request" name="count-article-on-display-request">
-            Number of articles per exhibit
+            Number of visitors per exhibit
             <input type="submit" value="Count" name="submit-count-article-on-display"></p>
             <br/>
         </form>
@@ -202,12 +204,13 @@
 
             $result = executePlainSQL(
                 "SELECT e.exhibit_id, COUNT(*)
-                FROM exhibit e, displays d, article a
-                WHERE e.exhibit_id = d.exhibit_id AND d.article_id = a.article_id
-                GROUP BY e.exhibit_id");
+                FROM exhibit e, admits a, ticket t
+                WHERE e.exhibit_id = a.exhibit_id AND a.ticket_id = t.ticket_id
+                GROUP BY e.exhibit_id
+                ORDER BY e.exhibit_id");
 
-            echo '<p>The number of articles currently on display in each exhibit is:</p>';
-            printResults($result, ["Exhibit ID", "Number of Articles On Display"]);
+            echo '<p>The number of visitors who have visited each exhibit is:</p>';
+            printResults($result, ["Exhibit ID", "Number of Visitors"]);
         }
 
         function handleAddArticleToExhibitRequest() {
