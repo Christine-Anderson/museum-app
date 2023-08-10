@@ -21,14 +21,14 @@
 
         <h3>Update Article Examination Records</h3>
         <form method="GET" id="examine-article-update-request" action="archivist_examine_article.php">
-			<select name="article-update-option" id="article-type-update">  
-				<option value="article-condition-update">Article Condition</option>
-				<option value="artwork-update">Artwork</option>
-				<option value="text-update">Text</option>
+            <select name="article-update-option" id="article-type-update">  
+                <option value="article-condition-update">Article Condition</option>
+                <option value="artwork-update">Artwork</option>
+                <option value="text-update">Text</option>
                 <option value="photo-update">Photo</option>
-				<option value="artifact-update">Artifact</option>
-				<option value="natural-specimen-update">Natural Specimen</option>
-			</select>
+                <option value="artifact-update">Artifact</option>
+                <option value="natural-specimen-update">Natural Specimen</option>
+            </select>
             <input type="submit" value="Select" name="submit-examine-article-update"></p>
             <br/>
         </form>
@@ -46,12 +46,12 @@
             <input type="hidden" id="examine-article-delete-request" name="examine-article-delete-request">
             article ID: <input type="number" name="article-id" min="10000" max="99999" required>
             <br/><br/>
-			<select name="article-delete-option" id="article-type-delete">
-				<option value="artwork-delete">Artwork</option>
-				<option value="text-delete">Text</option>
+            <select name="article-delete-option" id="article-type-delete">
+                <option value="artwork-delete">Artwork</option>
+                <option value="text-delete">Text</option>
                 <option value="photo-delete">Photo</option>
-				<option value="artifact-delete">Artifact</option>
-				<option value="natural-specimen-delete">Natural Specimen</option>
+                <option value="artifact-delete">Artifact</option>
+                <option value="natural-specimen-delete">Natural Specimen</option>
             </select>
             <input type="submit" value="Select" name="submit-examine-article-delete"></p>
         </form>
