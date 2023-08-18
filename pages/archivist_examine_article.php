@@ -458,7 +458,7 @@
                 FROM " . $table_name . "
                 WHERE article_id = " . $article_id);
 
-            printResults($result, "auto");
+            printResults($result);
         }
 
         // process render form requests

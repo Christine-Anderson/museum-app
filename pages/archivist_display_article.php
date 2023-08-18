@@ -177,7 +177,7 @@
                 WHERE " . $query);
     
             echo '<p>The following ' . $search_option . ' match the given conditions:</p>';
-            printResults($result, "auto");
+            printResults($result);
         }
 
         function handleFindArticlesOnDisplayRequest() {
@@ -196,21 +196,21 @@
                     d.article_id = a.article_id");
 
             echo '<p>The following articles are currently on display:</p>';
-            printResults($result, "auto");
+            printResults($result);
         }
 
         function handleCountArticlesOnDisplayRequest() {
             global $db_conn;
 
             $result = executePlainSQL(
-                "SELECT e.exhibit_id, COUNT(*)
+                "SELECT e.exhibit_id, COUNT(*) AS number_of_visitors
                 FROM exhibit e, admits a, ticket t
                 WHERE e.exhibit_id = a.exhibit_id AND a.ticket_id = t.ticket_id
                 GROUP BY e.exhibit_id
                 ORDER BY e.exhibit_id");
 
             echo '<p>The number of visitors who have visited each exhibit is:</p>';
-            printResults($result, ["Exhibit ID", "Number of Visitors"]);
+            printResults($result);
         }
 
         function handleAddArticleToExhibitRequest() {
@@ -250,7 +250,7 @@
             $num_visitors = $_GET['num-visitors-per-exhibit'];
 
             $result = executePlainSQL(
-                "SELECT e.exhibit_id, SUM(tp.price)
+                "SELECT e.exhibit_id, SUM(tp.price) AS total_revenue
                 FROM ticket t, ticketprice tp, visitor v, admits a, exhibit e
                 WHERE
                     t.ticket_type = tp.ticket_type AND
@@ -306,7 +306,7 @@
                     e.exhibit_id = " . $exhibit_id);
 
             echo $output_string;
-            printResults($result, "auto");
+            printResults($result);
         }
 
         // process database requests

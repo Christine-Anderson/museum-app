@@ -86,7 +86,7 @@
 
             echo '<br/><br/>';
             echo 'All Exhibits:';
-            printResults($result, "auto");
+            printResults($result);
         }
 
         function handleCollectionInfoRequest() {
@@ -101,7 +101,7 @@
 
             echo '<br/><br/>';
             echo 'All Collections:';
-            printResults($result, "auto");
+            printResults($result);
         }
 
         function handleCuratorWorkRequest() {
@@ -120,7 +120,7 @@
 
                 echo '<br/><br/>';
                 echo 'All Exhibits by Curator ' . $curator_sin . ':';
-                printResults($result, "auto");
+                printResults($result);
             } else if ($dropdown_value == 'collection') {
                 $result = executePlainSQL(
                     "SELECT DISTINCT c.collection_id, c.name, a.article_name, c.sin
@@ -131,7 +131,7 @@
         
                     echo '<br/><br/>';
                     echo 'All Collections by Curator ' . $curator_sin . ':';
-                    printResults($result, "auto");
+                    printResults($result);
             }
         }
 
@@ -151,7 +151,7 @@
 
             echo '<br/><br/>';
             echo 'All Exhibits with at least ' . $article_no . ' articles:';
-            printResults($result, "auto");
+            printResults($result);
         }
 
         function handleVisitorDisplayRequest() {
@@ -170,7 +170,7 @@
 
             echo '<br/><br/>';
             echo 'The following visitors were admitted to all exhibits:';
-            printResults($result, "auto");
+            printResults($result);
         }
 
         if (isset($_GET['submit-exhibit-info']) || isset($_GET['submit-collection-info']) || isset($_GET['submit-curator-work']) 

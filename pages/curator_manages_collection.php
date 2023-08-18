@@ -89,7 +89,7 @@
 
             echo '<br/><br/>';
             echo 'The following collection has been altered:';
-            printResults($result, "auto");
+            printResults($result);
         }
 
         function handleRemoveArticleRequest() {
@@ -116,7 +116,7 @@
 
             echo '<br/><br/>';
             echo 'The following article has been removed from a collection:';
-            printResults($removed, "auto");
+            printResults($removed);
             
         }
 

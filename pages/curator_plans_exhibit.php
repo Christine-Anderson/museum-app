@@ -102,7 +102,7 @@
 
             echo '<br/><br/>';
             echo 'The following has been displayed:';
-            printResults($result, "auto");
+            printResults($result);
         }
 
         function handleRemoveArticleRequest() {
@@ -139,7 +139,7 @@
 
             echo '<br/><br/>';
             echo 'The following article has been placed back into storage:';
-            printResults($removed, "auto");
+            printResults($removed);
             
         }
 

@@ -4,15 +4,11 @@
 
 <?php
 
-function printResults($result, $columnNames){
+function printResults($result){
     oci_fetch_all($result, $rows, 0, -1, OCI_FETCHSTATEMENT_BY_ROW);
     
     if ($rows) {
-        if ($columnNames === "auto") {
-            autogenerateTable($rows);
-        } else {
-            customTable($rows, $columnNames);
-        }   
+        autogenerateTable($rows);
     } else {
         echo "No results found";
     }
@@ -26,27 +22,6 @@ function autogenerateTable($rows){
     
     foreach ($rows[0] as $columnName => $value) {
         echo "<th>" . convertToTitleCase($columnName) . "</th>";
-    }
-
-    echo "</tr>";
-
-    foreach ($rows as $row) {
-        echo "<tr>";
-        foreach ($row as $value) {
-            echo "<td>" . $value . "</td>";
-        } 
-        echo "</tr>";
-    }
-
-    echo "</table>";
-}
-
-function customTable($rows, $columnNames){ 
-    echo "<table>";
-    echo "<tr>";
-        
-    foreach ($columnNames as $columnName) {
-        echo "<th>" . $columnName . "</th>";
     }
 
     echo "</tr>";

@@ -1,7 +1,5 @@
 # !/bin/bash
 
-# DOESNT WORK
-
 # Change permissions for files of interest
 # Make the script executable
 #   chmod +x change_permissions.sh
