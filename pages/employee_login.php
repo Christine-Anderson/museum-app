@@ -12,7 +12,7 @@
 	<title>Employee Login</title>
 </head>
 <body>
-<h1> Museum App </h1>
+<h1>Accession</h1>
 		<p>Please select your employee type to login:</p>
 		<form id="employee-login-form" method="POST" action="employee_redirect.php">
 			<label for="employee-type">User type:</label>

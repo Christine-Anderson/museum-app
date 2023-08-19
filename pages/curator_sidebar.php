@@ -11,9 +11,9 @@
 </head>
 <body>
     <div class="sidebar">
-        <a class="main" href="curator_exhibit_collection_info.php">Exhibit and Collection Information</a>
+        <a class="main" href="curator_search_article_exhibit_collection.php">Search Articles, Exhibits, and Collections</a>
         <a href="curator_exhibit_planning.php">Exhibit Planning</a>
-        <a href="curator_manages_collection.php">Collection Management</a>
+        <a href="curator_collection_management.php">Collection Management</a>
     </div>
 </body>
 </html>

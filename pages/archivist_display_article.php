@@ -236,7 +236,7 @@
                     SET storage_location = 'on display'
                     WHERE article_id = " . $article_id);
                 
-                printArticleOnDisplay($article_id, $exhibit_id, '<p>The following article has been put on display:</p>');
+                printArticleOnDisplay($exhibit_id, $article_id);
             } else {
                 echo '<p>Article ' . $article_id . ' is already on display in exhibit ' . $exhibit_id . '.</p>';
             }
@@ -293,7 +293,7 @@
             echo '</form>';
         }
 
-        function printArticleOnDisplay($article_id, $exhibit_id, $output_string) {
+        function printArticleOnDisplay($exhibit_id, $article_id) {
             $result = executePlainSQL(
                 "SELECT 
                     e.exhibit_id, e.exhibit_name,
@@ -305,7 +305,7 @@
                     d.exhibit_id = e.exhibit_id AND
                     e.exhibit_id = " . $exhibit_id);
 
-            echo $output_string;
+            echo '<p>The following article has been put on display:</p>';
             printResults($result);
         }
 

@@ -1,6 +1,6 @@
 <!--
-    Curator Exhibit and Collection page 
-    Curator can view exhibits, associated activites, and collections
+    Curator Search Articles, Exhibits, and Collections page 
+    Curator can view articles, exhibits and associated activites, and collections
 -->
 
 <!DOCTYPE html>
@@ -17,10 +17,10 @@
     ?>
 
     <div class="content">
-    <h2>Exhibit and Collection Info</h2>
+    <h2>Search Articles, Exhibits, and Collections</h2>
 
     <h3>Search Exhibits and Activities</h3>
-        <form method="GET" id="curator-search-exhibit-or-activity-request" action="curator_exhibit_collection_info.php">
+        <form method="GET" id="curator-search-exhibit-or-activity-request" action="curator_search_article_exhibit_collection.php">
             <input type="hidden" id="curator-search-exhibit-or-activity-request" name="curator-search-exhibit-or-activity-request">
             <label for="search">Find:</label>
 				<select name="search-option" id="search">
@@ -33,9 +33,19 @@
             <input type="submit" value="View All" name="submit-view-all-exhibit-or-activity"></p>
             <br/>
         </form>
+
+        <h3>Search Articles</h3>
+        <form method="GET" id="article-search-by-name-request" action="curator_search_article_exhibit_collection.php">
+            <input type="hidden" id="article-search-by-name-request" name="article-search-by-name-request">
+            <input type="text" name="search-term">
+            <input type="submit" value="Search Articles" name="submit-article-search-by-name">
+            &nbsp;
+            <input type="submit" value="View All" name="submit-view-all-articles"></p>
+            <br/>
+        </form>
     
         <h3>Find Articles on Display</h3>
-        <form method="GET" id="find-article-on-display-request" action="curator_exhibit_collection_info.php">
+        <form method="GET" id="find-article-on-display-request" action="curator_search_article_exhibit_collection.php">
             <input type="hidden" id="find-article-on-display-request" name="find-article-on-display-request">
             exhibit ID: <input type="number" name="exhibit-id-find-article" min="1000" max="9999" required>
             <input type="submit" value="Find Articles" name="submit-find-article-on-display"></p>
@@ -43,7 +53,7 @@
         </form>
 
         <h3>Search Collections</h3>
-        <form method="GET" id="collection-search-by-name-request" action="curator_exhibit_collection_info.php">
+        <form method="GET" id="collection-search-by-name-request" action="curator_search_article_exhibit_collection.php">
             <input type="hidden" id="collection-search-by-name-request" name="collection-search-by-name-request">
             <input type="text" name="search-term">
             <input type="submit" value="Search Collections" name="submit-collection-search-by-name">
@@ -56,6 +66,7 @@
 
         include '../shared_functions/database_functions.php';
         include '../shared_functions/print_functions.php';
+        include '../shared_functions/search_article_functions.php';
 
         function handleDatabaseRequest($request_method) {
             if (connectToDB()) {
@@ -67,7 +78,11 @@
                     handleSearchExhibitRequest();
                 } else if (array_key_exists('submit-activity-search', $request_method)) {
                     handleSearchActivityRequest();
-                }else if (array_key_exists('submit-find-article-on-display', $request_method)) {
+                } else if (array_key_exists('submit-article-search-by-name', $request_method)) {
+                    handleSearchArticleByNameRequest();
+                } else if (array_key_exists('submit-view-all-articles', $request_method)) {
+                    handleViewAllArticlesRequest();
+                } else if (array_key_exists('submit-find-article-on-display', $request_method)) {
                     handleFindArticlesOnDisplayRequest();
                 } else if (array_key_exists('submit-collection-search-by-name', $request_method)) {
                     handleSearchCollectionByNameRequest();
@@ -286,7 +301,8 @@
         }
 
         if (isset($_GET['submit-search-exhibit-or-activity']) || isset($_GET['submit-view-all-exhibit-or-activity']) || isset($_GET['submit-exhibit-search'])
-            || isset($_GET['submit-activity-search']) || isset($_GET['submit-find-article-on-display']) || isset($_GET['collection-search-by-name-request'])) {
+            || isset($_GET['submit-activity-search']) || isset($_GET['article-search-by-name-request']) || isset($_GET['submit-find-article-on-display'])
+            || isset($_GET['collection-search-by-name-request'])) {
             handleDatabaseRequest($_GET);
         }
 

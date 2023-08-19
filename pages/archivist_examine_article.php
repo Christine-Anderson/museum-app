@@ -488,17 +488,6 @@
             echo '</form>';
         }    
 
-        function printGivenArticle($article_id, $table_name) {
-            global $db_conn;
-
-            $result = executePlainSQL(
-                "SELECT *
-                FROM " . $table_name . "
-                WHERE article_id = " . $article_id);
-
-            printResults($result);
-        }
-
         // process render form requests
         if(isset($_GET['submit-examine-article-update'])) {
             if (array_key_exists('submit-examine-article-update', $_GET)) {

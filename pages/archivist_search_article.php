@@ -49,6 +49,7 @@
 
         include '../shared_functions/database_functions.php';
         include '../shared_functions/print_functions.php';
+        include '../shared_functions/search_article_functions.php';
 
         function handleRequest($request_method) {
             if (connectToDB()) {
@@ -61,31 +62,6 @@
                 }
                 disconnectFromDB();
             }
-        }
-
-        function handleSearchArticleByNameRequest() {
-            global $db_conn;
-
-            $search_term = $_GET['search-term'];
-
-            $result = executePlainSQL(
-                "SELECT article_id, article_name, date_aquired, article_condition
-                FROM article
-                WHERE UPPER(article_name) LIKE '%' || UPPER('" . $search_term . "') || '%'");
-
-            echo '<p>The following articles match ' . $search_term . ':</p>';
-            printResults($result);
-        }
-
-        function handleViewAllArticlesRequest() {
-            global $db_conn;
-
-            $result = executePlainSQL(
-                "SELECT article_id, article_name, date_aquired, article_condition
-                FROM article");
-
-            echo '<p>The following articles are currently located in the museum:</p>';
-            printResults($result);
         }
 
         function handleSearchByIDRequest() {
@@ -157,42 +133,6 @@
                 WHERE article_id = " . $article_id);
 
             printArticleDetails($article_id, $artwork_result, $text_result, $photo_result, $artifact_result, $naturalspecimen_result);
-        }
-
-        function printArticleDetails($article_id, $artwork_result, $text_result, $photo_result, $artifact_result, $naturalspecimen_result){
-            global $db_conn;
-
-            oci_fetch_all($artwork_result, $artwork_rows, 0, -1, OCI_FETCHSTATEMENT_BY_ROW);
-            oci_fetch_all($text_result, $text_rows, 0, -1, OCI_FETCHSTATEMENT_BY_ROW);
-            oci_fetch_all($photo_result, $photo_rows, 0, -1, OCI_FETCHSTATEMENT_BY_ROW);
-            oci_fetch_all($artifact_result, $artifact_rows, 0, -1, OCI_FETCHSTATEMENT_BY_ROW);
-            oci_fetch_all($naturalspecimen_result, $naturalspecimen_rows, 0, -1, OCI_FETCHSTATEMENT_BY_ROW);
-            
-            echo '<p>The following examination records exist for article ID ' . $article_id . ':</p>';
-
-            if (!$artwork_rows && !$text_rows && !$photo_rows && !$artifact_rows && !$naturalspecimen_rows) {
-                echo "No results found";
-            } else {
-                if ($artwork_rows) {
-                    autogenerateTable($artwork_rows);
-                }
-
-                if ($text_rows) {
-                    autogenerateTable($text_rows);
-                }
-
-                if ($photo_rows) {
-                    autogenerateTable($photo_rows);
-                }
-
-                if ($artifact_rows) {
-                    autogenerateTable($artifact_rows);
-                }
-
-                if ($naturalspecimen_rows) {
-                    autogenerateTable($naturalspecimen_rows);
-                }
-            }
         }
 
         if (isset($_GET['article-search-by-name-request']) || isset($_GET['article-search-by-id-request'])) {

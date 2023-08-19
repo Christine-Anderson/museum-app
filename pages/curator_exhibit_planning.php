@@ -202,7 +202,7 @@
 
         function confirmDeleteForm($delete_stmt, $update_stmt) {
             echo '<br/><br/>';
-            echo '<form method="POST" id="archivist-update-artwork">';
+            echo '<form method="POST" id="remove-article-request">';
             echo '<input type="hidden" name="delete-stmt" value="' . $delete_stmt . '">';
             echo '<input type="hidden" name="update-stmt" value="' . $update_stmt . '">';
             echo '<input type="submit" value="Yes" name="confirm-delete-request">';
@@ -210,21 +210,6 @@
             echo '<input type="submit" value="No" name="reject-delete-request"></p>';
             echo '</form>';
         } 
-
-        function printArticleOnDisplay($article_id, $exhibit_id) {
-            $result = executePlainSQL(
-                "SELECT 
-                    e.exhibit_id, e.exhibit_name,
-                    a.article_id, a.article_name, a.storage_location
-                FROM article a, displays d, exhibit e
-                WHERE 
-                    a.article_id = " . $article_id . " AND
-                    a.article_id = d.article_id AND
-                    d.exhibit_id = e.exhibit_id AND
-                    e.exhibit_id = " . $exhibit_id);
-
-            printResults($result);
-        }
 
         // process database requests
         if (isset($_POST['submit-add-article-to-exhibit']) || isset($_POST['confirm-delete-request']) || isset($_POST['reject-delete-request'])) {
@@ -236,22 +221,3 @@
     </div>
 </body>
 </html>
-    
-        <?php
-        //     // removal statement 
-        //     $removed = executePlainSQL(
-        //     "SELECT article_id, article_name, storage_location
-        //     FROM article
-        //     WHERE article_id = " . $article_id);
-
-        //     echo '<br/><br/>';
-        //     echo 'The following article has been placed back into storage:';
-        //     printResults($removed);
-            
-        // }
-
-        // // process database requests
-        // if (isset($_POST['submit-display-article']) || isset($_POST['submit-remove-article'])) {
-        //     handleDatabaseRequest($_POST);
-        // } 
-        ?>
