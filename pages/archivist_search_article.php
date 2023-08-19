@@ -23,7 +23,9 @@
         <form method="GET" id="article-search-by-name-request" action="archivist_search_article.php">
             <input type="hidden" id="article-search-by-name-request" name="article-search-by-name-request">
             <input type="text" name="search-term">
-            <input type="submit" value="Search Articles" name="submit-article-search-by-name"></p>
+            <input type="submit" value="Search Articles" name="submit-article-search-by-name">
+            &nbsp;
+            <input type="submit" value="View All" name="submit-view-all-articles"></p>
             <br/>
         </form>
 
@@ -50,16 +52,18 @@
 
         function handleRequest($request_method) {
             if (connectToDB()) {
-                if (array_key_exists('submit-article-search-by-id', $request_method)) {
+                if (array_key_exists('submit-article-search-by-name', $request_method)) {
+                    handleSearchArticleByNameRequest();
+                } else if (array_key_exists('submit-view-all-articles', $request_method)) {
+                    handleViewAllArticlesRequest();
+                } else if (array_key_exists('submit-article-search-by-id', $request_method)) {
                     handleSearchByIDRequest();
-                } else if (array_key_exists('submit-article-search-by-name', $request_method)) {
-                    handleSearchByNameRequest();
                 }
                 disconnectFromDB();
             }
         }
 
-        function handleSearchByNameRequest() {
+        function handleSearchArticleByNameRequest() {
             global $db_conn;
 
             $search_term = $_GET['search-term'];
@@ -70,6 +74,17 @@
                 WHERE UPPER(article_name) LIKE '%' || UPPER('" . $search_term . "') || '%'");
 
             echo '<p>The following articles match ' . $search_term . ':</p>';
+            printResults($result);
+        }
+
+        function handleViewAllArticlesRequest() {
+            global $db_conn;
+
+            $result = executePlainSQL(
+                "SELECT article_id, article_name, date_aquired, article_condition
+                FROM article");
+
+            echo '<p>The following articles are currently located in the museum:</p>';
             printResults($result);
         }
 
@@ -180,7 +195,7 @@
             }
         }
 
-        if (isset($_GET['article-search-by-id-request']) || isset($_GET['article-search-by-name-request'])) {
+        if (isset($_GET['article-search-by-name-request']) || isset($_GET['article-search-by-id-request'])) {
             handleRequest($_GET);
         }
         ?>  

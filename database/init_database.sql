@@ -632,17 +632,17 @@ SELECT 1 FROM DUAL;
 INSERT ALL
     INTO collection (collection_id, name, sin) VALUES (1, 'Ancient Artifacts', 111111111)
     INTO collection (collection_id, name, sin) VALUES (2, 'Natural History', 111111111)
-    INTO collection (collection_id, name, sin) VALUES (3, 'Modern Art Gallery', 222222222)
+    INTO collection (collection_id, name, sin) VALUES (3, 'Art', 222222222)
     INTO collection (collection_id, name, sin) VALUES (4, 'Historical Documents', 222222222)
     INTO collection (collection_id, name, sin) VALUES (5, 'Sculpture and Statue', 333333333)
 SELECT 1 FROM DUAL;
 
 INSERT ALL
-    INTO contains (article_id, collection_id) VALUES (11116, 1)
+    INTO contains (article_id, collection_id) VALUES (11116, 2)
     INTO contains (article_id, collection_id) VALUES (11115, 2)
-    INTO contains (article_id, collection_id) VALUES (11112, 3)
+    INTO contains (article_id, collection_id) VALUES (11112, 4)
     INTO contains (article_id, collection_id) VALUES (11111, 3)
-    INTO contains (article_id, collection_id) VALUES (11119, 3)
+    INTO contains (article_id, collection_id) VALUES (11119, 1)
 SELECT 1 FROM DUAL;
 
 INSERT ALL

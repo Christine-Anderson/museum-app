@@ -76,22 +76,22 @@
 
         function handleDatabaseRequest($request_method) {
             if (connectToDB()) {
-            if (array_key_exists('submit-search-exhibit', $request_method)) {
-                handleSearchExhibitsRequest();
-            } else if  (array_key_exists('submit-exhibit-search-condition', $request_method)) {
-                handleSearchExhibitByConditionRequest();
-            } else if  (array_key_exists('submit-activity-search-condition', $request_method)) {
-                handleSearchActivityByConditionRequest();
-            }else if (array_key_exists('submit-find-article-on-display', $request_method)) {
-                handleFindArticlesOnDisplayRequest();
-            } else if (array_key_exists('submit-count-visitors-per-exhibit', $request_method)) {
-                handleCountVisitorsPerExhibitRequest();
-            } else if  (array_key_exists('submit-add-article-to-exhibit', $request_method)) {
-                handleAddArticleToExhibitRequest();
-            } else if  (array_key_exists('submit-find-revenue-per-exhibit', $request_method)) {
-                handleFindRevenuePerExhibitRequest();
-            }
-            disconnectFromDB(); 
+                if (array_key_exists('submit-search-exhibit', $request_method)) {
+                    handleSearchExhibitsRequest();
+                } else if  (array_key_exists('submit-exhibit-search-condition', $request_method)) {
+                    handleSearchExhibitByConditionRequest();
+                } else if  (array_key_exists('submit-activity-search-condition', $request_method)) {
+                    handleSearchActivityByConditionRequest();
+                }else if (array_key_exists('submit-find-article-on-display', $request_method)) {
+                    handleFindArticlesOnDisplayRequest();
+                } else if (array_key_exists('submit-count-visitors-per-exhibit', $request_method)) {
+                    handleCountVisitorsPerExhibitRequest();
+                } else if  (array_key_exists('submit-add-article-to-exhibit', $request_method)) {
+                    handleAddArticleToExhibitRequest();
+                } else if  (array_key_exists('submit-find-revenue-per-exhibit', $request_method)) {
+                    handleFindRevenuePerExhibitRequest();
+                }
+                disconnectFromDB(); 
             }
         }
 

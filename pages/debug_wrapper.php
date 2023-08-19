@@ -7,8 +7,9 @@
 <?php
 	error_reporting(-1);
 	ini_set('display_errors',1);
-	include("archivist_display_article.php");
+	// include("archivist_display_article.php");
     // include("archivist_examine_article.php");
+	include("curator_exhibit_collection_info.php");
 	// include("archivist_search_article.php");
 	// include("employee_login.php");
 	// include("employee_redirect.php");

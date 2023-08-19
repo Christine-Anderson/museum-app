@@ -1,5 +1,5 @@
 <!--
-    html sidebar for curator pages
+    Curator pages sidebar html for page navigation
 -->
 
 <!DOCTYPE html>
