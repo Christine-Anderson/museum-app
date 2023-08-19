@@ -19,7 +19,6 @@
 				<select name="employee-type" id="employee-type">
 					<option value="curator">Curator</option>
 					<option value="archivist">Archivist</option>
-					<option value="frontdesk">FrontDesk</option>
 				</select>
 				<br></br>
 				<input type="submit" name="login-button" id="login-button" value="Login"/> 
