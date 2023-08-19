@@ -120,26 +120,19 @@
             global $db_conn;
 
             $article_id = $_POST['article-id'];
-            $article_condition = $_POST['article-condition-option'];
+            $article_condition = ucfirst($_POST['article-condition-option']);
 
-            switch ($article_condition) {
-                case 'excellent':
-                    $article_condition = "Excellent";
-                    break;
-                case 'fair':
-                    $article_condition = "Fair";
-                    break;
-                case 'poor':
-                    $article_condition = "Poor";
-                    break;
-                default:
-                    $article_condition = "Good";
-            }
+            $tuple_values = array (
+                ":article_id" => $article_id,
+                ":article_condition" => $article_condition
+            );
 
-            executePlainSQL(
+            $tuple = array ($tuple_values);
+
+            executeBoundSQL(
                 "UPDATE article 
-                SET article_condition = '" . $article_condition . "' 
-                WHERE article_id = " . $article_id);
+                SET article_condition = :article_condition 
+                WHERE article_id = :article_id", $tuple);
 
             oci_commit($db_conn);
 
@@ -155,17 +148,26 @@
             $year_made = $_POST['year-made'];
             $medium = $_POST['medium'];
 
+            $tuple_values = array (
+                ":article_id" => $article_id,
+                ":artist" => $artist,
+                ":year_made" => $year_made,
+                ":medium" => $medium,
+            );
+
+            $tuple = array ($tuple_values);
+
             $update_stmt = 
             "UPDATE SET
-                artist = '" . $artist . "',
-                year_made = " . $year_made . ",
-                medium = '" . $medium . "'";
+                artist = :artist,
+                year_made = :year_made,
+                medium = :medium";
 
             $insert_stmt = 
                 "INSERT (article_id, artist, year_made, medium)
-                VALUES (source.aoi, '" . $artist . "', " . $year_made . ", '" . $medium . "')";
+                VALUES (source.aoi, :artist, :year_made, :medium)";
 
-            updateOrInsertIntoArticle($table_name, $article_id, $update_stmt, $insert_stmt);
+            updateOrInsertIntoArticle($table_name, $update_stmt, $insert_stmt, $tuple);
 
             oci_commit($db_conn);
 
@@ -182,16 +184,25 @@
             $author = $_POST['author'];
             $year_published = $_POST['year-published'];
 
+            $tuple_values = array (
+                ":article_id" => $article_id,
+                ":author" => $author,
+                ":year_made" => $year_made,
+                ":year_published" => $year_published,
+            );
+
+            $tuple = array ($tuple_values);
+
             $update_stmt = 
                 "UPDATE SET
-                    author = '" . $author . "',
-                    year_published = " . $year_published;
+                    author = :author,
+                    year_published = :year_published";
 
             $insert_stmt = 
                 "INSERT (article_id, author, year_published)
-                VALUES (source.aoi, '" . $author . "', " . $year_published . ")";
+                VALUES (source.aoi, :author, :year_published)";
 
-            updateOrInsertIntoArticle($table_name, $article_id, $update_stmt, $insert_stmt);
+            updateOrInsertIntoArticle($table_name, $update_stmt, $insert_stmt, $tuple);
 
             oci_commit($db_conn);
 
@@ -208,17 +219,25 @@
             $year_taken = $_POST['year-taken'];
             $location_taken = $_POST['location-taken'];
 
+            $tuple_values = array (
+                ":article_id" => $article_id,
+                ":year_taken" => $year_taken,
+                ":location_taken" => $location_taken,
+            );
+
+            $tuple = array ($tuple_values);
+
             $update_stmt = 
                 "UPDATE SET
-                    year_taken = " . $year_taken . ",
-                    location_taken = '" . $location_taken . "'";
+                    year_taken = :year_taken,
+                    location_taken = :location_taken";
 
 
             $insert_stmt = 
                 "INSERT (article_id, year_taken, location_taken)
-                VALUES (source.aoi, " . $year_taken . ", '" . $location_taken . "')";
+                VALUES (source.aoi, :year_taken, :location_taken)";
 
-            updateOrInsertIntoArticle($table_name, $article_id, $update_stmt, $insert_stmt);
+            updateOrInsertIntoArticle($table_name, $update_stmt, $insert_stmt, $tuple);
 
             oci_commit($db_conn);
 
@@ -236,17 +255,26 @@
             $region_of_origin = $_POST['region-of-origin'];
             $material = $_POST['material'];
 
+            $tuple_values = array (
+                ":article_id" => $article_id,
+                ":estimated_year" => $estimated_year,
+                ":region_of_origin" => $region_of_origin,
+                ":material" => $material,
+            );
+
+            $tuple = array ($tuple_values);
+
             $update_stmt = 
                 "UPDATE SET
-                    estimated_year = '" . $estimated_year . "',
-                    region_of_origin = '" . $region_of_origin . "',
-                    material = '" . $material . "'";
+                    estimated_year = :estimated_year,
+                    region_of_origin = :region_of_origin,
+                    material = :material";
 
             $insert_stmt = 
                 "INSERT (article_id, estimated_year, region_of_origin, material)
-                VALUES (source.aoi, '" . $estimated_year . "', '" . $region_of_origin . "', '" . $material . "')";
+                VALUES (source.aoi, :estimated_year, :region_of_origin, :material)";
 
-            updateOrInsertIntoArticle($table_name, $article_id, $update_stmt, $insert_stmt);
+            updateOrInsertIntoArticle($table_name, $update_stmt, $insert_stmt, $tuple);
 
             oci_commit($db_conn);
 
@@ -258,34 +286,44 @@
         function handleUpdateNaturalSpecimenRequest() {
             global $db_conn; 
 
+            $table_name = "naturalspecimen";
             $article_id = $_POST['article-id'];
             $species_name = $_POST['species-name'];
             $native_to = $_POST['native-to'];
             $time_period = $_POST['time-period'];
 
+            $tuple_values = array (
+                ":article_id" => $article_id,
+                ":species_name" => $species_name,
+                ":native_to" => $native_to,
+                ":time_period" => $time_period,
+            );
+
+            $tuple = array ($tuple_values);
+
             // update or insert into species
-            executePlainSQL(
+            executeBoundSQL(
                 "MERGE INTO species target
-                USING (SELECT '" . $species_name . "' AS soi FROM dual) source
+                USING (SELECT :species_name AS soi FROM dual) source
                 ON (target.species_name = source.soi)
                 WHEN MATCHED THEN
-                    UPDATE SET target.native_to = '" . $native_to . "'
+                    UPDATE SET target.native_to = :native_to
                     WHERE target.species_name = source.soi
                 WHEN NOT MATCHED THEN
                     INSERT (species_name, native_to)
-                    VALUES (source.soi, '" . $native_to . "')");
+                    VALUES (source.soi, :native_to)", $tuple);
 
             // update or insert into natural specimen
             $update_stmt = 
                 "UPDATE SET 
-                    species_name = '" . $species_name . "',
-                    time_period = '" . $time_period . "'";
+                    species_name = :species_name,
+                    time_period = :time_period";
 
             $insert_stmt = 
                 "INSERT (article_id, species_name, time_period)
-                VALUES (source.aoi, '" . $species_name . "', '" . $time_period . "')";
+                VALUES (source.aoi, :species_name, :time_period)";
 
-            updateOrInsertIntoArticle("naturalspecimen", $article_id, $update_stmt, $insert_stmt);
+            updateOrInsertIntoArticle($table_name, $update_stmt, $insert_stmt, $tuple);
 
             oci_commit($db_conn);
 
@@ -295,16 +333,16 @@
             printGivenArticle($article_id, "naturalspecimenspecies");
         }
 
-        function updateOrInsertIntoArticle($table_name, $article_id, $update_stmt, $insert_stmt) {
-            executePlainSQL(
+        function updateOrInsertIntoArticle($table_name, $update_stmt, $insert_stmt, $tuple) {
+            executeBoundSQL(
                 "MERGE INTO " . $table_name . " target
-                USING (SELECT '" . $article_id . "' AS aoi FROM dual) source
+                USING (SELECT :article_id AS aoi FROM dual) source
                 ON (target.article_id = source.aoi)
                 WHEN MATCHED THEN
                     " . $update_stmt . "
                     WHERE target.article_id = source.aoi
                 WHEN NOT MATCHED THEN
-                    " . $insert_stmt);
+                    " . $insert_stmt, $tuple);
         }
 
         function handleDeleteArticleRequest() {

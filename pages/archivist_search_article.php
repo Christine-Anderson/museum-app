@@ -70,7 +70,7 @@
                 WHERE UPPER(article_name) LIKE '%' || UPPER('" . $search_term . "') || '%'");
 
             echo '<p>The following articles match ' . $search_term . ':</p>';
-            printResults($result, "auto");
+            printResults($result);
         }
 
         function handleSearchByIDRequest() {
@@ -98,7 +98,7 @@
                 WHERE article_id = " . $article_id . "");
 
             echo '<p>Article ID ' . $article_id . ' in stored in the following location:</p>';
-            printResults($result, "auto");
+            printResults($result);
         }
 
         function getArticleStorageConditions($article_id) {
@@ -110,7 +110,7 @@
                 WHERE article_id = " . $article_id);
 
             echo '<p>Article ' . $article_id . ' needs to be stored under the following conditions:</p>';
-            printResults($result, "auto");
+            printResults($result);
         }
 
         function getArticleDetails($article_id) {

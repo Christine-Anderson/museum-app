@@ -38,14 +38,14 @@
             <input type="hidden" id="find-article-on-display-request" name="find-article-on-display-request">
             exhibit ID: <input type="number" name="exhibit-id-find-article" min="1000" max="9999" required>
             <input type="submit" value="Find Articles" name="submit-find-article-on-display"></p>
-</br>
+            </br>
         </form>
 
         <h3>Visitors Per Exhibit</h3>
-        <form method="GET" id="count-article-on-display-request" action="archivist_display_article.php">
-            <input type="hidden" id="count-article-on-display-request" name="count-article-on-display-request">
+        <form method="GET" id="count-visitors-per-exhibit-request" action="archivist_display_article.php">
+            <input type="hidden" id="count-visitors-per-exhibit-request" name="count-visitors-per-exhibit-request">
             Number of visitors per exhibit
-            <input type="submit" value="Count" name="submit-count-article-on-display"></p>
+            <input type="submit" value="Count" name="submit-count-visitors-per-exhibit"></p>
             <br/>
         </form>
 
@@ -84,8 +84,8 @@
                 handleSearchActivityByConditionRequest();
             }else if (array_key_exists('submit-find-article-on-display', $request_method)) {
                 handleFindArticlesOnDisplayRequest();
-            } else if (array_key_exists('submit-count-article-on-display', $request_method)) {
-                handleCountArticlesOnDisplayRequest();
+            } else if (array_key_exists('submit-count-visitors-per-exhibit', $request_method)) {
+                handleCountVisitorsPerExhibitRequest();
             } else if  (array_key_exists('submit-add-article-to-exhibit', $request_method)) {
                 handleAddArticleToExhibitRequest();
             } else if  (array_key_exists('submit-find-revenue-per-exhibit', $request_method)) {
@@ -199,7 +199,7 @@
             printResults($result);
         }
 
-        function handleCountArticlesOnDisplayRequest() {
+        function handleCountVisitorsPerExhibitRequest() {
             global $db_conn;
 
             $result = executePlainSQL(
@@ -313,7 +313,7 @@
         if (isset($_POST['submit-add-article-to-exhibit'])) {
             handleDatabaseRequest($_POST);
         } else if (isset($_GET['submit-search-exhibit']) || isset($_GET['submit-exhibit-search-condition']) || isset($_GET['submit-activity-search-condition']) 
-        || isset($_GET['submit-find-article-on-display']) || isset($_GET['submit-count-article-on-display']) || isset($_GET['submit-find-revenue-per-exhibit'])) {
+        || isset($_GET['submit-find-article-on-display']) || isset($_GET['submit-count-visitors-per-exhibit']) || isset($_GET['submit-find-revenue-per-exhibit'])) {
             handleDatabaseRequest($_GET);
         }
         ?>
