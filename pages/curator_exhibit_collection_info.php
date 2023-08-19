@@ -1,8 +1,6 @@
 <!--
     Curator Exhibit and Collection page 
-    Can view exhibits and collections based on curator ID (division) and exhibit start and end dates (projection).
-
-    TODO
+    Curator can view exhibits, associated activites, and collections
 -->
 
 <!DOCTYPE html>
@@ -191,6 +189,16 @@
             }
         }
 
+        function searchTableGivenQuery($search_option, $columns, $table, $query) {
+            $result = executePlainSQL(
+                "SELECT ". $columns ."
+                FROM " . $table . "
+                WHERE " . $query);
+    
+            echo '<p>The following ' . $search_option . ' match the given conditions:</p>';
+            printResults($result);
+        }
+
         function handleFindArticlesOnDisplayRequest() {
             global $db_conn;
 
@@ -198,7 +206,7 @@
 
             $result = executePlainSQL(
                 "SELECT 
-                    e.exhibit_id, e.exhibit_name, e.start_date, e.end_date,
+                    e.exhibit_id, e.exhibit_name,
                     a.article_id, a.article_name, a.storage_location
                 FROM exhibit e, displays d, article a
                 WHERE
