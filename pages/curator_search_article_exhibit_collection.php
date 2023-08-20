@@ -273,7 +273,8 @@
                 FROM collection col, contains ctn, article a  
                 WHERE 
                     col.collection_id = ctn.collection_id AND
-                    ctn.article_id = a.article_id");
+                    ctn.article_id = a.article_id
+                ORDER BY col.collection_id, col.name");
 
             echo '<p>All collections:</p>';
             printResults($result);

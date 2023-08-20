@@ -1,6 +1,6 @@
 <!--
     Archivist view examine article page
-    Archivist can update, insert, and delete article examination records, update article condition, and delete articles
+    Archivist can update, insert, and delete article examination details, update article condition, and delete articles
 -->
 
 <!DOCTYPE html>
@@ -19,7 +19,7 @@
     <div class="content">
         <h2>Examine Article</h2>
 
-        <h3>Update Article Examination Records</h3>
+        <h3>Record Article Examination Details</h3>
         <form method="GET" id="examine-article-update-request" action="archivist_examine_article.php">
             <select name="article-update-option" id="article-type-update">  
                 <option value="article-condition-update">Article Condition</option>
@@ -41,7 +41,7 @@
             <br/>
         </form>
 
-        <h3>Delete Article Examination Records</h3>
+        <h3>Delete Article Examination Details</h3>
         <form method="GET" id="examine-article-delete-request">
             <input type="hidden" id="examine-article-delete-request" name="examine-article-delete-request">
             article ID: <input type="number" name="article-id" min="10000" max="99999" required>
