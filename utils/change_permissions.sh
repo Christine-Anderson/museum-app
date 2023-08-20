@@ -7,8 +7,8 @@
 #   ./change_permissions.sh
 
 # Define the directories
-pages_dir=~/public_html/museum_app/pages
-css_dir=~/public_html/museum_app/css
+pages_dir=../pages
+css_dir=../css
 
 # Change folder permissions to 711
 chmod 711 "$pages_dir"
