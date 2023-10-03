@@ -9,8 +9,10 @@
 
 ### Museum Application Demo
 
+#### Archivist Demo
 ![Archivist Demo](images/archivist_demo.gif)
 
+#### Curator Demo
 ![Curator Demo](images/curator_demo.gif)
 
 ### ER Diagram
